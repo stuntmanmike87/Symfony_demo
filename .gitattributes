@@ -1,0 +1,9 @@
+###############################
+# Git Line Endings            #
+###############################
+
+# Set default behaviour to automatically normalize line endings.
+# * text=auto
+# "the files checked out using msysgit are using CR+LF and I want to force msysgit to get them with LF"
+# *.txt text eol=lf
+*.* text eol=lf
