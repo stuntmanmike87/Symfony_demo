@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -29,7 +31,9 @@ class PostVoter extends Voter
     // Defining these constants is overkill for this simple application, but for real
     // applications, it's a recommended practice to avoid relying on "magic strings"
     public const DELETE = 'delete';
+
     public const EDIT = 'edit';
+
     public const SHOW = 'show';
 
     /**

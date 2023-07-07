@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -22,7 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'symfony_demo_tag')]
-class Tag implements \JsonSerializable
+class Tag implements \JsonSerializable, \Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -61,6 +63,6 @@ class Tag implements \JsonSerializable
 
     public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 }

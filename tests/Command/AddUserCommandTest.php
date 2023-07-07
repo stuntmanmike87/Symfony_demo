@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -16,7 +18,7 @@ use App\Repository\UserRepository;
 
 class AddUserCommandTest extends AbstractCommandTest
 {
-    private $userData = [
+    private array $userData = [
         'username' => 'chuck_norris',
         'password' => 'foobar',
         'email' => 'chuck@norris.com',
@@ -42,6 +44,7 @@ class AddUserCommandTest extends AbstractCommandTest
         if ($isAdmin) {
             $input['--admin'] = 1;
         }
+
         $this->executeCommand($input);
 
         $this->assertUserCreated($isAdmin);

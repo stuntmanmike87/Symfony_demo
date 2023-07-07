@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -41,7 +43,7 @@ class SourceCodeExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('show_source_code', [$this, 'showSourceCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('show_source_code', $this->showSourceCode(...), ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
 
@@ -134,15 +136,11 @@ class SourceCodeExtension extends AbstractExtension
     {
         $codeLines = u($code)->split("\n");
 
-        $indentedOrBlankLines = array_filter($codeLines, static function ($lineOfCode) {
-            return u($lineOfCode)->isEmpty() || u($lineOfCode)->startsWith('    ');
-        });
+        $indentedOrBlankLines = array_filter($codeLines, static fn($lineOfCode) => u($lineOfCode)->isEmpty() || u($lineOfCode)->startsWith('    '));
 
-        $codeIsIndented = \count($indentedOrBlankLines) === \count($codeLines);
+        $codeIsIndented = \count((array) $indentedOrBlankLines) === (is_countable($codeLines) ? \count($codeLines) : 0);
         if ($codeIsIndented) {
-            $unindentedLines = array_map(static function ($lineOfCode) {
-                return u($lineOfCode)->after('    ');
-            }, $codeLines);
+            $unindentedLines = array_map(static fn($lineOfCode) => u($lineOfCode)->after('    '), $codeLines);
             $code = u("\n")->join($unindentedLines)->toString();
         }
 

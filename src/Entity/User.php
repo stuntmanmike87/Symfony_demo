@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -113,7 +115,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $roles = $this->roles;
 
         // guarantees that a user always has at least one role for security
-        if (empty($roles)) {
+        if ($roles === []) {
             $roles[] = 'ROLE_USER';
         }
 

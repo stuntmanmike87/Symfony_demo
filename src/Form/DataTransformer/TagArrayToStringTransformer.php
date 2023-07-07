@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -28,7 +30,7 @@ use function Symfony\Component\String\u;
 class TagArrayToStringTransformer implements DataTransformerInterface
 {
     public function __construct(
-        private TagRepository $tags
+        private readonly TagRepository $tags
     ) {
     }
 

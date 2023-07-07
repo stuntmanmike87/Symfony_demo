@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -48,10 +50,10 @@ class DeleteUserCommand extends Command
     private SymfonyStyle $io;
 
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        private Validator $validator,
-        private UserRepository $users,
-        private LoggerInterface $logger
+        private readonly EntityManagerInterface $entityManager,
+        private readonly Validator $validator,
+        private readonly UserRepository $users,
+        private readonly LoggerInterface $logger
     ) {
         parent::__construct();
     }
@@ -97,11 +99,11 @@ class DeleteUserCommand extends Command
             '',
             ' $ php bin/console app:delete-user username',
             '',
-            'Now we\'ll ask you for the value of all the missing command arguments.',
+            "Now we'll ask you for the value of all the missing command arguments.",
             '',
         ]);
 
-        $username = $this->io->ask('Username', null, [$this->validator, 'validateUsername']);
+        $username = $this->io->ask('Username', null, fn(?string $username): string => $this->validator->validateUsername($username));
         $input->setArgument('username', $username);
     }
 
@@ -112,7 +114,7 @@ class DeleteUserCommand extends Command
         /** @var User|null $user */
         $user = $this->users->findOneByUsername($username);
 
-        if (null === $user) {
+        if (!$user instanceof \App\Entity\User) {
             throw new RuntimeException(sprintf('User with username "%s" not found.', $username));
         }
 

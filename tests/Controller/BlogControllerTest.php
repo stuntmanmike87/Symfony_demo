@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -88,7 +90,7 @@ class BlogControllerTest extends WebTestCase
         $client = static::createClient();
         $client->xmlHttpRequest('GET', '/en/blog/search', ['q' => 'lorem']);
 
-        $results = json_decode($client->getResponse()->getContent(), true);
+        $results = json_decode($client->getResponse()->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         $this->assertResponseHeaderSame('Content-Type', 'application/json');
         $this->assertCount(1, $results);

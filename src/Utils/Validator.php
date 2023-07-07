@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -25,7 +27,7 @@ class Validator
 {
     public function validateUsername(?string $username): string
     {
-        if (empty($username)) {
+        if ($username === null || $username === '') {
             throw new InvalidArgumentException('The username can not be empty.');
         }
 
@@ -38,7 +40,7 @@ class Validator
 
     public function validatePassword(?string $plainPassword): string
     {
-        if (empty($plainPassword)) {
+        if ($plainPassword === null || $plainPassword === '') {
             throw new InvalidArgumentException('The password can not be empty.');
         }
 
@@ -51,7 +53,7 @@ class Validator
 
     public function validateEmail(?string $email): string
     {
-        if (empty($email)) {
+        if ($email === null || $email === '') {
             throw new InvalidArgumentException('The email can not be empty.');
         }
 
@@ -64,7 +66,7 @@ class Validator
 
     public function validateFullName(?string $fullName): string
     {
-        if (empty($fullName)) {
+        if ($fullName === null || $fullName === '') {
             throw new InvalidArgumentException('The full name can not be empty.');
         }
 

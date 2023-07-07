@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -24,8 +26,8 @@ use function Symfony\Component\String\u;
 class AppFixtures extends Fixture
 {
     public function __construct(
-        private UserPasswordHasherInterface $passwordHasher,
-        private SluggerInterface $slugger
+        private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly SluggerInterface $slugger
     ) {
     }
 
@@ -76,7 +78,7 @@ class AppFixtures extends Fixture
             $post->setContent($content);
             $post->setPublishedAt($publishedAt);
             $post->setAuthor($author);
-            $post->addTag(...$tags);
+            $post->addTag($tags);
 
             foreach (range(1, 5) as $i) {
                 $comment = new Comment();
@@ -233,6 +235,6 @@ class AppFixtures extends Fixture
         shuffle($tagNames);
         $selectedTags = \array_slice($tagNames, 0, random_int(2, 4));
 
-        return array_map(function ($tagName) { return $this->getReference('tag-'.$tagName); }, $selectedTags);
+        return array_map(fn($tagName) => $this->getReference('tag-'.$tagName), $selectedTags);
     }
 }

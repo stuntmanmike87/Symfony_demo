@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -29,12 +31,14 @@ class Paginator
     public const PAGE_SIZE = 10;
 
     private int $currentPage;
+
     private \Traversable $results;
+
     private int $numResults;
 
     public function __construct(
-        private DoctrineQueryBuilder $queryBuilder,
-        private int $pageSize = self::PAGE_SIZE
+        private readonly DoctrineQueryBuilder $queryBuilder,
+        private readonly int $pageSize = self::PAGE_SIZE
     ) {
     }
 
@@ -48,13 +52,13 @@ class Paginator
             ->setMaxResults($this->pageSize)
             ->getQuery();
 
-        if (0 === \count($this->queryBuilder->getDQLPart('join'))) {
+        if (0 === (is_countable($this->queryBuilder->getDQLPart('join')) ? \count($this->queryBuilder->getDQLPart('join')) : 0)) {
             $query->setHint(CountWalker::HINT_DISTINCT, false);
         }
 
         $paginator = new DoctrinePaginator($query, true);
 
-        $useOutputWalkers = \count($this->queryBuilder->getDQLPart('having') ?: []) > 0;
+        $useOutputWalkers = (is_countable($this->queryBuilder->getDQLPart('having') ?: []) ? \count($this->queryBuilder->getDQLPart('having') ?: []) : 0) > 0;
         $paginator->setUseOutputWalkers($useOutputWalkers);
 
         $this->results = $paginator->getIterator();

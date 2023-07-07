@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -78,7 +80,7 @@ class BlogControllerTest extends WebTestCase
      */
     public function testAdminNewPost(): void
     {
-        $postTitle = 'Blog Post Title '.mt_rand();
+        $postTitle = 'Blog Post Title '.random_int(0, mt_getrandmax());
         $postSummary = $this->generateRandomString(255);
         $postContent = $this->generateRandomString(1024);
 
@@ -104,7 +106,7 @@ class BlogControllerTest extends WebTestCase
 
     public function testAdminNewDuplicatedPost(): void
     {
-        $postTitle = 'Blog Post Title '.mt_rand();
+        $postTitle = 'Blog Post Title '.random_int(0, mt_getrandmax());
         $postSummary = $this->generateRandomString(255);
         $postContent = $this->generateRandomString(1024);
 
@@ -146,7 +148,7 @@ class BlogControllerTest extends WebTestCase
      */
     public function testAdminEditPost(): void
     {
-        $newBlogPostTitle = 'Blog Post Title '.mt_rand();
+        $newBlogPostTitle = 'Blog Post Title '.random_int(0, mt_getrandmax());
 
         $client = static::createClient([], [
             'PHP_AUTH_USER' => 'jane_admin',

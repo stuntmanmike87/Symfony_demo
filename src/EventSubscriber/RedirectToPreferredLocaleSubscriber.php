@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -29,15 +31,16 @@ use function Symfony\Component\String\u;
 class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
 {
     private array $locales;
-    private string $defaultLocale;
+
+    private readonly string $defaultLocale;
 
     public function __construct(
-        private UrlGeneratorInterface $urlGenerator,
+        private readonly UrlGeneratorInterface $urlGenerator,
         string $locales,
         ?string $defaultLocale = null
     ) {
         $this->locales = explode('|', trim($locales));
-        if (empty($this->locales)) {
+        if ($this->locales === []) {
             throw new \UnexpectedValueException('The list of supported locales must not be empty.');
         }
 
@@ -69,6 +72,7 @@ class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
         if (!$event->isMainRequest() || '/' !== $request->getPathInfo()) {
             return;
         }
+
         // Ignore requests from referrers with the same HTTP host in order to prevent
         // changing language for users who possibly already selected it for this application.
         $referrer = $request->headers->get('referer');

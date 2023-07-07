@@ -56,7 +56,7 @@ parameters:
         # ormRepositoryClass: app\Repository\UserRepository
         ormRepositoryClass: app\Doctrine\ServiceEntityRepository
         odmRepositoryClass: app\Doctrine\ServiceEntityRepository
-        # objectManagerLoader: tests/object-manager.php
+        objectManagerLoader: tests/object-manager.php
         # objectManagerLoader: build/phpstan/doctrine-orm-bootstrap.php
     treatPhpDocTypesAsCertain: false
     checkGenericClassInNonGenericObjectType: false

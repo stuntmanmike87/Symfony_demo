@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -170,7 +172,7 @@ class Post
         $this->summary = $summary;
     }
 
-    public function addTag(Tag ...$tags): void
+    public function addTag(array $tags = []): void
     {
         foreach ($tags as $tag) {
             if (!$this->tags->contains($tag)) {

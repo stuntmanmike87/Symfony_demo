@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -26,10 +28,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class CommentNotificationSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private MailerInterface $mailer,
-        private UrlGeneratorInterface $urlGenerator,
-        private TranslatorInterface $translator,
-        private string $sender
+        private readonly MailerInterface $mailer,
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly TranslatorInterface $translator,
+        private readonly string $sender
     ) {
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -24,7 +26,8 @@ use Twig\TwigFunction;
  */
 class AppExtension extends AbstractExtension
 {
-    private array $localeCodes;
+    private readonly array $localeCodes;
+
     private ?array $locales = null;
 
     // The $locales argument is injected thanks to the service container.
@@ -39,7 +42,7 @@ class AppExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('locales', [$this, 'getLocales']),
+            new TwigFunction('locales', $this->getLocales(...)),
         ];
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -33,7 +35,7 @@ class SecurityController extends AbstractController
     public function login(Request $request, AuthenticationUtils $helper): Response
     {
         // if user is already logged in, don't display the login page again
-        if ($this->getUser()) {
+        if ($this->getUser() instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             return $this->redirectToRoute('blog_index');
         }
 
@@ -58,7 +60,7 @@ class SecurityController extends AbstractController
      * and handle the logout automatically. See logout in config/packages/security.yaml
      */
     #[Route('/logout', name: 'security_logout')]
-    public function logout(): void
+    public function logout(): never
     {
         throw new \Exception('This should never be reached!');
     }
