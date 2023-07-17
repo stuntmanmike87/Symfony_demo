@@ -11,6 +11,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ],
         'orm' => [
             'auto_generate_proxy_classes' => true,
+            'enable_lazy_ghost_objects' => true,
             'naming_strategy' => 'doctrine.orm.naming_strategy.underscore_number_aware',
             'auto_mapping' => true,
             'mappings' => [
@@ -24,10 +25,18 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ],
     ]);
+    if ($containerConfigurator->env() === 'test') {
+        $containerConfigurator->extension('doctrine', [
+            'dbal' => [
+                'dbname_suffix' => '_test%env(default::TEST_TOKEN)%',
+            ],
+        ]);
+    }
     if ($containerConfigurator->env() === 'prod') {
         $containerConfigurator->extension('doctrine', [
             'orm' => [
                 'auto_generate_proxy_classes' => false,
+                'proxy_dir' => '%kernel.build_dir%/doctrine/orm/Proxies',
                 'query_cache_driver' => [
                     'type' => 'pool',
                     'pool' => 'doctrine.system_cache_pool',
@@ -48,13 +57,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                         'adapter' => 'cache.system',
                     ],
                 ],
-            ],
-        ]);
-    }
-    if ($containerConfigurator->env() === 'test') {
-        $containerConfigurator->extension('doctrine', [
-            'dbal' => [
-                'dbname_suffix' => '_test%env(default::TEST_TOKEN)%',
             ],
         ]);
     }

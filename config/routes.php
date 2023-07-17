@@ -14,4 +14,16 @@ return static function (RoutingConfigurator $routingConfigurator): void {
         ->requirements([
         '_locale' => '%app_locales%',
     ]);
+
+    $routingConfigurator->import([
+        'path' => '../src/Controller/',
+        'namespace' => 'App\Controller',
+    ], 'attribute')
+        ->prefix('/{_locale}')
+        ->defaults([
+        '_locale' => '%locale%',
+    ])
+        ->requirements([
+        '_locale' => '%app_locales%',
+    ]);
 };

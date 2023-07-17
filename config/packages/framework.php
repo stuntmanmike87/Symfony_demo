@@ -9,6 +9,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'secret' => '%env(APP_SECRET)%',
         'csrf_protection' => true,
         'http_method_override' => false,
+        'handle_all_throwables' => true,
         'session' => [
             'handler_id' => null,
             'cookie_secure' => 'auto',

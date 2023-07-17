@@ -11,4 +11,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'defer' => true,
         ],
     ]);
+    if ($containerConfigurator->env() === 'prod') {
+        $containerConfigurator->extension('webpack_encore', [
+            'cache' => true,
+        ]);
+    }
 };

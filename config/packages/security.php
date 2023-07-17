@@ -8,7 +8,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('security', [
-        'enable_authenticator_manager' => true,
         'password_hashers' => [
             PasswordAuthenticatedUserInterface::class => 'auto',
         ],
@@ -34,11 +33,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     'enable_csrf' => true,
                     'default_target_path' => 'blog_index',
                 ],
+                'remember_me' => [
+                    'secret' => '%kernel.secret%',
+                    'lifetime' => 604800,
+                ],
                 'logout' => [
                     'path' => 'security_logout',
                     'target' => 'homepage',
-                    'csrf_parameter' => 'logout',
-                    'csrf_token_generator' => 'security.csrf.token_manager',
+                    'enable_csrf' => true,
                 ],
                 'entry_point' => 'form_login',
             ],
@@ -55,6 +57,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ]);
     if ($containerConfigurator->env() === 'test') {
         $containerConfigurator->extension('security', [
+            'password_hashers' => [
+                PasswordAuthenticatedUserInterface::class => [
+                    'algorithm' => 'auto',
+                    'cost' => 4,
+                    'time_cost' => 3,
+                    'memory_cost' => 10,
+                ],
+            ],
             'firewalls' => [
                 'main' => [
                     'http_basic' => null,
