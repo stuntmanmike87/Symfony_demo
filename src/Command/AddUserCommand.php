@@ -53,7 +53,7 @@ use function Symfony\Component\String\u;
     name: 'app:add-user',
     description: 'Creates users and stores them in the database'
 )]
-class AddUserCommand extends Command
+final class AddUserCommand extends Command
 {
     private SymfonyStyle $io;
 
@@ -66,9 +66,6 @@ class AddUserCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this
@@ -106,7 +103,7 @@ class AddUserCommand extends Command
      * users, this method is a nice way to fall back and prevent errors.
      */
     protected function interact(InputInterface $input, OutputInterface $output): void
-    {
+    {//Cognitive complexity for "App\Command\AddUserCommand::interact()" is 12, keep it under 8
         if (null !== $input->getArgument('username') && null !== $input->getArgument('password') && null !== $input->getArgument('email') && null !== $input->getArgument('full-name')) {
             return;
         }
@@ -131,7 +128,9 @@ class AddUserCommand extends Command
         }
 
         // Ask for the password if it's not defined
+        /** @var string|null $password */
         $password = $input->getArgument('password');
+
         if (null !== $password) {
             $this->io->text(' > <info>Password</info>: '.u('*')->repeat(u($password)->length()));
         } else {
@@ -167,10 +166,19 @@ class AddUserCommand extends Command
         $stopwatch = new Stopwatch();
         $stopwatch->start('add-user-command');
 
+        /** @var string $username */
         $username = $input->getArgument('username');
+
+        /** @var string $plainPassword */
         $plainPassword = $input->getArgument('password');
+
+        /** @var string $email */
         $email = $input->getArgument('email');
+
+        /** @var string $fullName */
         $fullName = $input->getArgument('full-name');
+        
+        /** @var bool $isAdmin */
         $isAdmin = $input->getOption('admin');
 
         // make sure to validate the user data is correct
@@ -200,7 +208,7 @@ class AddUserCommand extends Command
         return Command::SUCCESS;
     }
 
-    private function validateUserData($username, $plainPassword, $email, $fullName): void
+    private function validateUserData(string $username, string $plainPassword, string $email, string $fullName): void
     {
         // first check if a user with the same username already exists.
         $existingUser = $this->users->findOneBy(['username' => $username]);

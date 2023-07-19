@@ -23,11 +23,11 @@ use function Symfony\Component\String\u;
  *
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class Validator
+final class Validator
 {
     public function validateUsername(?string $username): string
     {
-        if ($username === null || $username === '') {
+        if ($username === null) {
             throw new InvalidArgumentException('The username can not be empty.');
         }
 
@@ -40,7 +40,7 @@ class Validator
 
     public function validatePassword(?string $plainPassword): string
     {
-        if ($plainPassword === null || $plainPassword === '') {
+        if ($plainPassword === null) {
             throw new InvalidArgumentException('The password can not be empty.');
         }
 
@@ -53,7 +53,7 @@ class Validator
 
     public function validateEmail(?string $email): string
     {
-        if ($email === null || $email === '') {
+        if ($email === null) {
             throw new InvalidArgumentException('The email can not be empty.');
         }
 
@@ -66,7 +66,7 @@ class Validator
 
     public function validateFullName(?string $fullName): string
     {
-        if ($fullName === null || $fullName === '') {
+        if ($fullName === null) {
             throw new InvalidArgumentException('The full name can not be empty.');
         }
 

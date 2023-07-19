@@ -14,16 +14,19 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Security\PostVoter;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Controller used to manage blog contents in the backend.
@@ -37,8 +40,8 @@ use Symfony\Component\Routing\Annotation\Route;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
 #[Route('/admin/post')]
-#[IsGranted('ROLE_ADMIN')]
-class BlogController extends AbstractController
+#[IsGranted("ROLE_ADMIN")]//#[IsGranted(User::class)]//#[IsGranted(User::ROLE_ADMIN)]
+final class BlogController extends AbstractController
 {
     /**
      * Lists all Post entities.
@@ -51,11 +54,13 @@ class BlogController extends AbstractController
      *     could move this annotation to any other controller while maintaining
      *     the route name and therefore, without breaking any existing link.
      */
-    #[Route('/', methods: ['GET'], name: 'admin_index')]
-    #[Route('/', methods: ['GET'], name: 'admin_post_index')]
-    public function index(PostRepository $posts): Response
-    {
-        $authorPosts = $posts->findBy(['author' => $this->getUser()], ['publishedAt' => 'DESC']);
+    #[Route('/', name: 'admin_index', methods: ['GET'])]
+    #[Route('/', name: 'admin_post_index', methods: ['GET'])]
+    public function index(
+        #[CurrentUser] User $user,
+        PostRepository $posts,
+    ): Response {
+        $authorPosts = $posts->findBy(['author' => $user], ['publishedAt' => 'DESC']);
 
         return $this->render('admin/blog/index.html.twig', ['posts' => $authorPosts]);
     }
@@ -67,15 +72,19 @@ class BlogController extends AbstractController
      * to constraint the HTTP methods each controller responds to (by default
      * it responds to all methods).
      */
-    #[Route('/new', methods: ['GET', 'POST'], name: 'admin_post_new')]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    #[Route('/new', name: 'admin_post_new', methods: ['GET', 'POST'])]
+    public function new(
+        #[CurrentUser] User $user,
+        Request $request,
+        EntityManagerInterface $entityManager,
+    ): Response {
         $post = new Post();
-        $post->setAuthor($this->getUser());
+        $post->setAuthor($user);
 
         // See https://symfony.com/doc/current/form/multiple_buttons.html
         $form = $this->createForm(PostType::class, $post)
-            ->add('saveAndCreateNew', SubmitType::class);
+            ->add('saveAndCreateNew', SubmitType::class)
+        ;
 
         $form->handleRequest($request);
 
@@ -93,7 +102,10 @@ class BlogController extends AbstractController
             // See https://symfony.com/doc/current/controller.html#flash-messages
             $this->addFlash('success', 'post.created_successfully');
 
-            if ($form->get('saveAndCreateNew')->isClicked()) {
+            /** @var SubmitButton $submit */
+            $submit = $form->get('saveAndCreateNew');
+
+            if ($submit->isClicked()) {
                 return $this->redirectToRoute('admin_post_new');
             }
 
@@ -102,14 +114,14 @@ class BlogController extends AbstractController
 
         return $this->render('admin/blog/new.html.twig', [
             'post' => $post,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
     /**
      * Finds and displays a Post entity.
      */
-    #[Route('/{id<\d+>}', methods: ['GET'], name: 'admin_post_show')]
+    #[Route('/{id<\d+>}', name: 'admin_post_show', methods: ['GET'])]
     public function show(Post $post): Response
     {
         // This security check can also be performed
@@ -124,7 +136,7 @@ class BlogController extends AbstractController
     /**
      * Displays a form to edit an existing Post entity.
      */
-    #[Route('/{id<\d+>}/edit', methods: ['GET', 'POST'], name: 'admin_post_edit')]
+    #[Route('/{id<\d+>}/edit', name: 'admin_post_edit', methods: ['GET', 'POST'])]
     #[IsGranted('edit', subject: 'post', message: 'Posts can only be edited by their authors.')]
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
@@ -140,18 +152,21 @@ class BlogController extends AbstractController
 
         return $this->render('admin/blog/edit.html.twig', [
             'post' => $post,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
     /**
      * Deletes a Post entity.
      */
-    #[Route('/{id}/delete', methods: ['POST'], name: 'admin_post_delete')]
+    #[Route('/{id}/delete', name: 'admin_post_delete', methods: ['POST'])]
     #[IsGranted('delete', subject: 'post')]
     public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
-        if (!$this->isCsrfTokenValid('delete', $request->request->get('token'))) {
+        /** @var string|null $token */
+        $token = $request->request->get('token');
+
+        if (!$this->isCsrfTokenValid('delete', $token)) {
             return $this->redirectToRoute('admin_post_index');
         }
 

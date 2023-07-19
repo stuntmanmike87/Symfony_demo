@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -23,11 +25,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Romain Monteil <monteil.romain@gmail.com>
  */
-class UserType extends AbstractType
+final class UserType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         // For the full reference of options defined by each form field type
@@ -53,9 +52,6 @@ class UserType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

@@ -30,6 +30,7 @@ use function Symfony\Component\String\u;
  */
 class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
 {
+    /** @var string[] $locales *////** @var array<string> $locales */
     private array $locales;
 
     private readonly string $defaultLocale;
@@ -37,15 +38,15 @@ class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
     public function __construct(
         private readonly UrlGeneratorInterface $urlGenerator,
         string $locales,
-        ?string $defaultLocale = null
+        string $defaultLocale = null
     ) {
         $this->locales = explode('|', trim($locales));
         if ($this->locales === []) {
             throw new \UnexpectedValueException('The list of supported locales must not be empty.');
         }
-
-        $this->defaultLocale = $defaultLocale ?: $this->locales[0];
-
+        //Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.
+        $this->defaultLocale = $defaultLocale ? $defaultLocale : $this->locales[0];//$this->defaultLocale = $defaultLocale ?: $this->locales[0];
+        //Only booleans are allowed in a ternary operator condition, string|null given.
         if (!\in_array($this->defaultLocale, $this->locales, true)) {
             throw new \UnexpectedValueException(sprintf('The default locale ("%s") must be one of "%s".', $this->defaultLocale, $locales));
         }

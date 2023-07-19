@@ -16,6 +16,7 @@ namespace App\Entity;
 use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -39,42 +40,42 @@ class Post
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank]
-    private ?string $title = null;
+    private string $title;//private ?string $title = null;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $slug = null;
+    #[ORM\Column(type: Types::STRING)]
+    private string $slug;//private ?string $slug = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank(message: 'post.blank_summary')]
     #[Assert\Length(max: 255)]
-    private ?string $summary = null;
+    private string $summary;//private ?string $summary = null;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'post.blank_content')]
     #[Assert\Length(min: 10, minMessage: 'post.too_short_content')]
-    private ?string $content = null;
+    private string $content;//private ?string $content = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTime $publishedAt;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $author = null;
+    private User $author;//private ?User $author = null;
 
     /**
-     * @var Comment[]|Collection
+     * @var Collection<int, Comment>
      */
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', orphanRemoval: true, cascade: ['persist'])]
     #[ORM\OrderBy(['publishedAt' => 'DESC'])]
     private Collection $comments;
 
     /**
-     * @var Tag[]|Collection
+     * @var Collection<int, Tag>
      */
     #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
     #[ORM\JoinTable(name: 'symfony_demo_post_tag')]
@@ -99,7 +100,7 @@ class Post
         return $this->title;
     }
 
-    public function setTitle(?string $title): void
+    public function setTitle(/* ? */string $title): void
     {
         $this->title = $title;
     }
@@ -119,7 +120,7 @@ class Post
         return $this->content;
     }
 
-    public function setContent(?string $content): void
+    public function setContent(/* ? */string $content): void
     {
         $this->content = $content;
     }
@@ -144,6 +145,9 @@ class Post
         $this->author = $author;
     }
 
+    /**
+     * @return Collection<int, Comment>
+     */
     public function getComments(): Collection
     {
         return $this->comments;
@@ -167,12 +171,12 @@ class Post
         return $this->summary;
     }
 
-    public function setSummary(?string $summary): void
+    public function setSummary(/* ? */string $summary): void
     {
         $this->summary = $summary;
     }
 
-    public function addTag(array $tags = []): void
+    public function addTag(Tag ...$tags): void
     {
         foreach ($tags as $tag) {
             if (!$this->tags->contains($tag)) {
@@ -186,6 +190,9 @@ class Post
         $this->tags->removeElement($tag);
     }
 
+    /**
+     * @return Collection<int, Tag>
+     */
     public function getTags(): Collection
     {
         return $this->tags;

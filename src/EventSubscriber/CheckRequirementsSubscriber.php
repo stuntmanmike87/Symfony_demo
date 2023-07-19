@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\EventSubscriber;
 
 use Doctrine\DBAL\Exception\DriverException;
+use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleErrorEvent;
@@ -30,7 +31,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  *
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class CheckRequirementsSubscriber implements EventSubscriberInterface
+final class CheckRequirementsSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager
@@ -60,10 +61,12 @@ class CheckRequirementsSubscriber implements EventSubscriberInterface
     public function handleConsoleError(ConsoleErrorEvent $event): void
     {
         $commandNames = ['doctrine:fixtures:load', 'doctrine:database:create', 'doctrine:schema:create', 'doctrine:database:drop'];
-
-        if ($event->getCommand() && \in_array($event->getCommand()->getName(), $commandNames, true) && ($this->isSQLitePlatform() && !\extension_loaded('sqlite3'))) {
-            $io = new SymfonyStyle($event->getInput(), $event->getOutput());
-            $io->error('This command requires to have the "sqlite3" PHP extension enabled because, by default, the Symfony Demo application uses SQLite to store its information.');
+        //Only booleans are allowed in &&, Symfony\Component\Console\Command\Command|null given on the left side.
+        if ($event->getCommand() && \in_array($event->getCommand()->getName(), $commandNames, true)) {
+            if ($this->isSQLitePlatform() && !\extension_loaded('sqlite3')) {
+                $io = new SymfonyStyle($event->getInput(), $event->getOutput());
+                $io->error('This command requires to have the "sqlite3" PHP extension enabled because, by default, the Symfony Demo application uses SQLite to store its information.');
+            }
         }
     }
 
@@ -94,6 +97,6 @@ class CheckRequirementsSubscriber implements EventSubscriberInterface
     {
         $databasePlatform = $this->entityManager->getConnection()->getDatabasePlatform();
 
-        return $databasePlatform ? 'sqlite' === $databasePlatform->getName() : false;
+        return $databasePlatform instanceof SqlitePlatform;
     }
 }

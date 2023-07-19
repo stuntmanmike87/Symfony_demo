@@ -26,47 +26,50 @@ use function Symfony\Component\String\u;
  *
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  * @author Jonathan Boyer <contact@grafikart.fr>
+ *
+ * @template-implements DataTransformerInterface<Tag[], string>
  */
-class TagArrayToStringTransformer implements DataTransformerInterface
+final class TagArrayToStringTransformer implements DataTransformerInterface
 {
     public function __construct(
         private readonly TagRepository $tags
     ) {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function transform($tags): string
     {
         // The value received is an array of Tag objects generated with
         // Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer::transform()
         // The value returned is a string that concatenates the string representation of those objects
 
-        /* @var Tag[] $tags */
         return implode(',', $tags);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function reverseTransform($string): array
+    // /**
+    //  * @phpstan-param string|null $string
+    //  *
+    //  * @phpstan-return array<int, Tag>
+    //  */
+    public function reverseTransform($string): mixed//array
     {
         if (null === $string || u($string)->isEmpty()) {
             return [];
         }
-
-        $names = array_filter(array_unique(array_map('trim', u($string)->split(','))));
+        /** @var string|null $string */
+        $ustring = u($string);
+        $strings = $ustring->split(',');
+        /** @var string[] $strings */
+        $names = array_filter(array_unique($this->trim($strings)));
+        //$names = array_filter(array_unique($this->trim(u($string)->split(','))));
 
         // Get the current tags and find the new ones that should be created.
+        /** @var Tag[] $tags */
         $tags = $this->tags->findBy([
             'name' => $names,
         ]);
         $newNames = array_diff($names, $tags);
         foreach ($newNames as $name) {
-            $tag = new Tag();
-            $tag->setName($name);
-            $tags[] = $tag;
+            $tags[] = new Tag($name);
 
             // There's no need to persist these new tags because Doctrine does that automatically
             // thanks to the cascade={"persist"} option in the App\Entity\Post::$tags property.
@@ -75,5 +78,21 @@ class TagArrayToStringTransformer implements DataTransformerInterface
         // Return an array of tags to transform them back into a Doctrine Collection.
         // See Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer::reverseTransform()
         return $tags;
+    }
+
+    /**
+     * @param string[] $strings
+     *
+     * @return string[]
+     */
+    private function trim(array $strings): array
+    {
+        $result = [];
+
+        foreach ($strings as $string) {
+            $result[] = trim($string);
+        }
+
+        return $result;
     }
 }

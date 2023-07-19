@@ -15,19 +15,21 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Post;
+use App\Entity\User;
 use App\Event\CommentCreatedEvent;
 use App\Form\CommentType;
 use App\Repository\PostRepository;
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Controller used to manage blog contents in the public part of the site.
@@ -36,7 +38,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
 #[Route('/blog')]
-class BlogController extends AbstractController
+final class BlogController extends AbstractController
 {
     /**
      * NOTE: For standard formats, Symfony will also automatically choose the best
@@ -54,7 +56,6 @@ class BlogController extends AbstractController
         if ($request->query->has('tag')) {
             $tag = $tags->findOneBy(['name' => $request->query->get('tag')]);
         }
-
         $latestPosts = $posts->findLatest($page, $tag);
 
         // Every template name also has two extensions that specify the format and
@@ -100,13 +101,18 @@ class BlogController extends AbstractController
      * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html#doctrine-converter
      */
     #[Route('/comment/{postSlug}/new', methods: ['POST'], name: 'comment_new')]
-    #[IsGranted('IS_AUTHENTICATED_FULLY')]
-    #[ParamConverter('post', options: ['mapping' => ['postSlug' => 'slug']])]
-    public function commentNew(Request $request, Post $post, EventDispatcherInterface $eventDispatcher, EntityManagerInterface $entityManager): Response
-    {
+    #[IsGranted('IS_AUTHENTICATED')]
+    public function commentNew(
+        #[CurrentUser] User $user,
+        Request $request,
+        #[MapEntity(mapping: ['postSlug' => 'slug'])] Post $post,
+        EventDispatcherInterface $eventDispatcher,
+        EntityManagerInterface $entityManager,
+    ): Response {
         $comment = new Comment();
-        $comment->setAuthor($this->getUser());
-
+        /** @var User $author */
+        $author = $this->getUser();
+        $comment->setAuthor($author);//$comment->setAuthor($this->getUser());
         $post->addComment($comment);
 
         $form = $this->createForm(CommentType::class, $comment);
@@ -146,33 +152,13 @@ class BlogController extends AbstractController
 
         return $this->render('blog/_comment_form.html.twig', [
             'post' => $post,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
-    #[Route('/search', methods: ['GET'], name: 'blog_search')]
-    public function search(Request $request, PostRepository $posts): Response
+    #[Route('/search', name: 'blog_search', methods: ['GET'])]
+    public function search(Request $request): Response
     {
-        $query = $request->query->get('q', '');
-        $limit = $request->query->get('l', 10);
-
-        if (!$request->isXmlHttpRequest()) {
-            return $this->render('blog/search.html.twig', ['query' => $query]);
-        }
-
-        $foundPosts = $posts->findBySearchQuery($query, $limit);
-
-        $results = [];
-        foreach ($foundPosts as $post) {
-            $results[] = [
-                'title' => htmlspecialchars($post->getTitle(), \ENT_COMPAT | \ENT_HTML5),
-                'date' => $post->getPublishedAt()->format('M d, Y'),
-                'author' => htmlspecialchars($post->getAuthor()->getFullName(), \ENT_COMPAT | \ENT_HTML5),
-                'summary' => htmlspecialchars($post->getSummary(), \ENT_COMPAT | \ENT_HTML5),
-                'url' => $this->generateUrl('blog_post', ['slug' => $post->getSlug()]),
-            ];
-        }
-
-        return $this->json($results);
+        return $this->render('blog/search.html.twig', ['query' => (string) $request->query->get('q', '')]);
     }
 }

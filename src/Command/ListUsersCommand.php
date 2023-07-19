@@ -45,7 +45,7 @@ use Symfony\Component\Mime\Email;
     description: 'Lists all the existing users',
     aliases: ['app:users']
 )]
-class ListUsersCommand extends Command
+final class ListUsersCommand extends Command
 {
     public function __construct(
         private readonly MailerInterface $mailer,
@@ -55,9 +55,6 @@ class ListUsersCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this
@@ -90,18 +87,24 @@ class ListUsersCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        /** @var int|null $maxResults */
         $maxResults = $input->getOption('max-results');
+
         // Use ->findBy() instead of ->findAll() to allow result sorting and limiting
         $allUsers = $this->users->findBy([], ['id' => 'DESC'], $maxResults);
 
+        $createUserArray = static function (User $user) {
+            return [
+                $user->getId(),
+                $user->getFullName(),
+                $user->getUsername(),
+                $user->getEmail(),
+                implode(', ', $user->getRoles()),
+            ];
+        };
+
         // Doctrine query returns an array of objects and we need an array of plain arrays
-        $usersAsPlainArrays = array_map(static fn(User $user) => [
-            $user->getId(),
-            $user->getFullName(),
-            $user->getUsername(),
-            $user->getEmail(),
-            implode(', ', $user->getRoles()),
-        ], $allUsers);
+        $usersAsPlainArrays = array_map($createUserArray, $allUsers);
 
         // In your console commands you should always use the regular output type,
         // which outputs contents directly in the console window. However, this
@@ -119,7 +122,10 @@ class ListUsersCommand extends Command
         $usersAsATable = $bufferedOutput->fetch();
         $output->write($usersAsATable);
 
-        if (null !== $email = $input->getOption('send-to')) {
+        /** @var string|null $email */
+        $email = $input->getOption('send-to');
+
+        if (null !== $email) {
             $this->sendReport($usersAsATable, $email);
         }
 

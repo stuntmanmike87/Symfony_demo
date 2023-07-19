@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -33,28 +34,37 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: 'symfony_demo_user')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    // We can use constants for roles to find usages all over the application rather
+    // than doing a full-text search on the "ROLE_" string.
+    // It also prevents from making typo errors.
+    final public const ROLE_USER = 'ROLE_USER';
+    final public const ROLE_ADMIN = 'ROLE_ADMIN';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank]
-    private ?string $fullName = null;
+    private string $fullName;//private ?string $fullName = null;
 
-    #[ORM\Column(type: 'string', unique: true)]
+    #[ORM\Column(type: Types::STRING, unique: true)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 50)]
-    private ?string $username = null;
+    private string $username;//private ?string $username = null;
 
-    #[ORM\Column(type: 'string', unique: true)]
+    #[ORM\Column(type: Types::STRING, unique: true)]
     #[Assert\Email]
-    private ?string $email = null;
+    private string $email;//private ?string $email = null;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $password = null;
+    #[ORM\Column(type: Types::STRING)]
+    private string $password;//private ?string $password = null;
 
-    #[ORM\Column(type: 'json')]
+    /**
+     * @var string[]
+     */
+    #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
 
     public function getId(): ?int
@@ -74,7 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
-        return $this->username;
+        return /* (string)  */$this->username;
     }
 
     public function getUsername(): string
@@ -115,13 +125,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $roles = $this->roles;
 
         // guarantees that a user always has at least one role for security
-        if ($roles === []) {
-            $roles[] = 'ROLE_USER';
+        if ($roles === []) {//if ($roles === ['']//if ($roles == null) {
+            $roles[] = self::ROLE_USER;
         }
 
         return array_unique($roles);
     }
 
+    /**
+     * @param string[] $roles
+     */
     public function setRoles(array $roles): void
     {
         $this->roles = $roles;
@@ -152,12 +165,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
+    /**
+     * @return array{int|null, string|null, string|null}
+     */
     public function __serialize(): array
     {
         // add $this->salt too if you don't use Bcrypt or Argon2i
         return [$this->id, $this->username, $this->password];
     }
 
+    /**
+     * @param array{int|null, string, string} $data
+     */
     public function __unserialize(array $data): void
     {
         // add $this->salt too if you don't use Bcrypt or Argon2i

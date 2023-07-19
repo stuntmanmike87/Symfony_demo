@@ -20,7 +20,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 /**
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class Paginator
+final class Paginator
 {
     /**
      * Use constants to define configuration options that rarely change instead
@@ -28,13 +28,15 @@ class Paginator
      *
      * See https://symfony.com/doc/current/best_practices.html#use-constants-to-define-options-that-rarely-change
      */
-    public const PAGE_SIZE = 10;
+    final public const PAGE_SIZE = 10;
 
     private int $currentPage;
-
-    private \Traversable $results;
-
     private int $numResults;
+
+    /**
+     * @var \Traversable<int, object>
+     */
+    private \Traversable $results;
 
     public function __construct(
         private readonly DoctrineQueryBuilder $queryBuilder,
@@ -52,13 +54,20 @@ class Paginator
             ->setMaxResults($this->pageSize)
             ->getQuery();
 
-        if (0 === (is_countable($this->queryBuilder->getDQLPart('join')) ? \count($this->queryBuilder->getDQLPart('join')) : 0)) {
+        /** @var array<string, mixed> $joinDqlParts */
+        $joinDqlParts = $this->queryBuilder->getDQLPart('join');
+
+        if (0 === \count($joinDqlParts)) {
             $query->setHint(CountWalker::HINT_DISTINCT, false);
         }
 
         $paginator = new DoctrinePaginator($query, true);
 
-        $useOutputWalkers = (is_countable($this->queryBuilder->getDQLPart('having') ?: []) ? \count($this->queryBuilder->getDQLPart('having') ?: []) : 0) > 0;
+        /** @var array<string, mixed> $havingDqlParts */
+        $havingDqlParts = $this->queryBuilder->getDQLPart('having');
+        //Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.
+        //Only booleans are allowed in a ternary operator condition, array<string, mixed> given.
+        $useOutputWalkers = \count($havingDqlParts ? $havingDqlParts : []) > 0;
         $paginator->setUseOutputWalkers($useOutputWalkers);
 
         $this->results = $paginator->getIterator();
@@ -112,6 +121,9 @@ class Paginator
         return $this->numResults;
     }
 
+    /**
+     * @return \Traversable<int, object>
+     */
     public function getResults(): \Traversable
     {
         return $this->results;
