@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\Entity\Post;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,7 +28,7 @@ use Symfony\Component\HttpFoundation\Response;
  *     $ cd your-symfony-project/
  *     $ ./vendor/bin/phpunit
  */
-class DefaultControllerTest extends WebTestCase
+final class DefaultControllerTest extends WebTestCase
 {
     /**
      * PHPUnit's data providers allow to execute the same tests repeated times
@@ -54,10 +55,15 @@ class DefaultControllerTest extends WebTestCase
     public function testPublicBlogPost(): void
     {
         $client = static::createClient();
-        // the service container is always available via the test client
-        $blogPost = $client->getContainer()->get('doctrine')->getRepository(Post::class)->find(1);
-        $client->request('GET', sprintf('/en/blog/posts/%s', $blogPost->getSlug()));
 
+        // the service container is always available via the test client
+        /** @var Registry $registry */
+        $registry = $client->getContainer()->get('doctrine');
+
+        /** @var Post $blogPost */
+        $blogPost = $registry->getRepository(Post::class)->find(1);
+
+        $client->request('GET', sprintf('/en/blog/posts/%s', $blogPost->getSlug()));
         $this->assertResponseIsSuccessful();
     }
 
@@ -80,14 +86,14 @@ class DefaultControllerTest extends WebTestCase
         );
     }
 
-    public function getPublicUrls(): ?\Generator
+    public function getPublicUrls(): \Generator
     {
         yield ['/'];
         yield ['/en/blog/'];
         yield ['/en/login'];
     }
 
-    public function getSecureUrls(): ?\Generator
+    public function getSecureUrls(): \Generator
     {
         yield ['/en/admin/post/'];
         yield ['/en/admin/post/new'];

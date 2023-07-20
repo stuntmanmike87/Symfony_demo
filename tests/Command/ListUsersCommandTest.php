@@ -15,7 +15,7 @@ namespace App\Tests\Command;
 
 use App\Command\ListUsersCommand;
 
-class ListUsersCommandTest extends AbstractCommandTest
+final class ListUsersCommandTest extends AbstractCommandTest
 {
     /**
      * @dataProvider maxResultsProvider
@@ -32,7 +32,7 @@ class ListUsersCommandTest extends AbstractCommandTest
         $this->assertSame($emptyDisplayLines + $maxResults, mb_substr_count($tester->getDisplay(), "\n"));
     }
 
-    public function maxResultsProvider(): ?\Generator
+    public function maxResultsProvider(): \Generator
     {
         yield [1];
         yield [2];

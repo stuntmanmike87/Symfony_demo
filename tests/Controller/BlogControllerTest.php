@@ -13,8 +13,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use App\Entity\Post;
+use App\Entity\User;
 use App\Pagination\Paginator;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -27,7 +28,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  *     $ cd your-symfony-project/
  *     $ ./vendor/bin/phpunit
  */
-class BlogControllerTest extends WebTestCase
+final class BlogControllerTest extends WebTestCase
 {
     public function testIndex(): void
     {
@@ -65,10 +66,16 @@ class BlogControllerTest extends WebTestCase
      */
     public function testNewComment(): void
     {
-        $client = static::createClient([], [
-            'PHP_AUTH_USER' => 'john_user',
-            'PHP_AUTH_PW' => 'kitten',
-        ]);
+        $client = static::createClient();
+
+        /** @var UserRepository $userRepository */
+        $userRepository = $client->getContainer()->get(UserRepository::class);
+
+        /** @var User $user */
+        $user = $userRepository->findOneByUsername('jane_admin');
+
+        $client->loginUser($user);
+
         $client->followRedirects();
 
         // Find first blog post
@@ -88,13 +95,10 @@ class BlogControllerTest extends WebTestCase
     public function testAjaxSearch(): void
     {
         $client = static::createClient();
-        $client->xmlHttpRequest('GET', '/en/blog/search', ['q' => 'lorem']);
+        $crawler = $client->request('GET', '/en/blog/search', ['q' => 'lorem']);
 
-        $results = json_decode($client->getResponse()->getContent(), true, 512, JSON_THROW_ON_ERROR);
-
-        $this->assertResponseHeaderSame('Content-Type', 'application/json');
-        $this->assertCount(1, $results);
-        $this->assertSame('Lorem ipsum dolor sit amet consectetur adipiscing elit', $results[0]['title']);
-        $this->assertSame('Jane Doe', $results[0]['author']);
+        $this->assertResponseIsSuccessful();
+        $this->assertCount(1, $crawler->filter('article.post'));
+        $this->assertSame('Lorem ipsum dolor sit amet consectetur adipiscing elit', $crawler->filter('article.post')->first()->filter('h2 > a')->text());
     }
 }

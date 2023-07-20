@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,7 @@ use Symfony\Component\HttpFoundation\Response;
  *     $ cd your-symfony-project/
  *     $ ./vendor/bin/phpunit
  */
-class UserControllerTest extends WebTestCase
+final class UserControllerTest extends WebTestCase
 {
     /**
      * @dataProvider getUrlsForAnonymousUsers
@@ -49,7 +50,7 @@ class UserControllerTest extends WebTestCase
         );
     }
 
-    public function getUrlsForAnonymousUsers(): ?\Generator
+    public function getUrlsForAnonymousUsers(): \Generator
     {
         yield ['GET', '/en/profile/edit'];
         yield ['GET', '/en/profile/change-password'];
@@ -57,12 +58,18 @@ class UserControllerTest extends WebTestCase
 
     public function testEditUser(): void
     {
+        $client = static::createClient();
+
+        /** @var UserRepository $userRepository */
+        $userRepository = $client->getContainer()->get(UserRepository::class);
+
+        /** @var User $user */
+        $user = $userRepository->findOneByUsername('jane_admin');
+
         $newUserEmail = 'admin_jane@symfony.com';
 
-        $client = static::createClient([], [
-            'PHP_AUTH_USER' => 'jane_admin',
-            'PHP_AUTH_PW' => 'kitten',
-        ]);
+        $client->loginUser($user);
+
         $client->request('GET', '/en/profile/edit');
         $client->submitForm('Save changes', [
             'user[email]' => $newUserEmail,
@@ -70,8 +77,8 @@ class UserControllerTest extends WebTestCase
 
         $this->assertResponseRedirects('/en/profile/edit', Response::HTTP_FOUND);
 
-        /** @var \App\Entity\User $user */
-        $user = static::getContainer()->get(UserRepository::class)->findOneByEmail($newUserEmail);
+        /** @var User $user */
+        $user = $userRepository->findOneByEmail($newUserEmail);
 
         $this->assertNotNull($user);
         $this->assertSame($newUserEmail, $user->getEmail());
@@ -79,12 +86,17 @@ class UserControllerTest extends WebTestCase
 
     public function testChangePassword(): void
     {
+        $client = static::createClient();
+
+        /** @var UserRepository $userRepository */
+        $userRepository = $client->getContainer()->get(UserRepository::class);
+
+        /** @var User $user */
+        $user = $userRepository->findOneByUsername('jane_admin');
+
         $newUserPassword = 'new-password';
 
-        $client = static::createClient([], [
-            'PHP_AUTH_USER' => 'jane_admin',
-            'PHP_AUTH_PW' => 'kitten',
-        ]);
+        $client->loginUser($user);
         $client->request('GET', '/en/profile/change-password');
         $client->submitForm('Save changes', [
             'change_password[currentPassword]' => 'kitten',
@@ -92,9 +104,10 @@ class UserControllerTest extends WebTestCase
             'change_password[newPassword][second]' => $newUserPassword,
         ]);
 
-        $this->assertResponseRedirects(
+        $this->assertResponseRedirects();
+        $this->assertStringStartsWith(
             '/en/logout',
-            Response::HTTP_FOUND,
+            $client->getResponse()->headers->get('Location') ?? '',
             'Changing password logout the user.'
         );
     }
