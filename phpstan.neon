@@ -55,7 +55,7 @@ parameters:
                 # - tests/Form/*
                 # - tests/Utils/*
                 - tests/Command/AddUserCommandTest.php
-                - tests/Command/ListsUsersCommandTest.php
+                - tests/Command/ListUsersCommandTest.php
                 - tests/Controller/Admin/BlogControllerTest.php
                 - tests/Controller/BlogControllerTest.php
                 - tests/Controller/UserControllerTest.php
@@ -69,11 +69,14 @@ parameters:
                 # - tests/Command/*
                 # - tests/Controller/*
                 - tests/Command/AddUserCommandTest.php
-                - tests/Command/ListsUsersCommandTest.php
+                - tests/Command/ListUsersCommandTest.php
                 - tests/Controller/Admin/BlogControllerTest.php
                 - tests/Controller/BlogControllerTest.php
                 - tests/Controller/DefaultControllerTest.php
                 - tests/Controller/UserControllerTest.php
+        -
+            message: '#Call to an undefined method App\\Repository\\TagRepository\:\:expects\(\).#'
+            path: tests/Form/DataTransformer/TagArrayToStringTransformerTest.php
         # -
         #     message: '#Function "compact\(\)" cannot be used/left in the code:#'
             # path: src
