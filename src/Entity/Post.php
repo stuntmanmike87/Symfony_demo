@@ -176,7 +176,7 @@ class Post
         $this->summary = $summary;
     }
 
-    public function addTag(Tag ...$tags): void
+    public function addTag(array $tags = []): void
     {
         foreach ($tags as $tag) {
             if (!$this->tags->contains($tag)) {

@@ -48,6 +48,7 @@ final class AddUserCommandTest extends AbstractCommandTest
         if ($isAdmin) {
             $input['--admin'] = 1;
         }
+
         $this->executeCommand($input);
 
         $this->assertUserCreated($isAdmin);

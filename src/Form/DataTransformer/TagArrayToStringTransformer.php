@@ -29,10 +29,10 @@ use function Symfony\Component\String\u;
  *
  * @template-implements DataTransformerInterface<Tag[], string>
  */
-final class TagArrayToStringTransformer implements DataTransformerInterface
+final readonly class TagArrayToStringTransformer implements DataTransformerInterface
 {
     public function __construct(
-        private readonly TagRepository $tags
+        private TagRepository $tags
     ) {
     }
 
@@ -55,6 +55,7 @@ final class TagArrayToStringTransformer implements DataTransformerInterface
         if (null === $string || u($string)->isEmpty()) {
             return [];
         }
+
         /** @var string|null $string */
         $ustring = u($string);
         $strings = $ustring->split(',');

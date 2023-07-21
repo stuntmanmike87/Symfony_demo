@@ -44,7 +44,7 @@ final class SecurityController extends AbstractController
         AuthenticationUtils $helper,
     ): Response {
         // if user is already logged in, don't display the login page again
-        if ($user !== null) {
+        if ($user instanceof \App\Entity\User) {
             return $this->redirectToRoute('blog_index');
         }
 
@@ -69,7 +69,7 @@ final class SecurityController extends AbstractController
      * and handle the logout automatically. See logout in config/packages/security.yaml
      */
     #[Route('/logout', name: 'security_logout')]
-    public function logout(): void
+    public function logout(): never
     {
         throw new \Exception('This should never be reached!');
     }

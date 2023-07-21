@@ -38,6 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     // than doing a full-text search on the "ROLE_" string.
     // It also prevents from making typo errors.
     final public const ROLE_USER = 'ROLE_USER';
+
     final public const ROLE_ADMIN = 'ROLE_ADMIN';
 
     #[ORM\Id]

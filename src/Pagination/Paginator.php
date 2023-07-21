@@ -28,9 +28,10 @@ final class Paginator
      *
      * See https://symfony.com/doc/current/best_practices.html#use-constants-to-define-options-that-rarely-change
      */
-    final public const PAGE_SIZE = 10;
+    public const PAGE_SIZE = 10;
 
     private int $currentPage;
+
     private int $numResults;
 
     /**
@@ -57,7 +58,7 @@ final class Paginator
         /** @var array<string, mixed> $joinDqlParts */
         $joinDqlParts = $this->queryBuilder->getDQLPart('join');
 
-        if (0 === \count($joinDqlParts)) {
+        if ([] === $joinDqlParts) {
             $query->setHint(CountWalker::HINT_DISTINCT, false);
         }
 
@@ -67,7 +68,7 @@ final class Paginator
         $havingDqlParts = $this->queryBuilder->getDQLPart('having');
         //Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.
         //Only booleans are allowed in a ternary operator condition, array<string, mixed> given.
-        $useOutputWalkers = \count($havingDqlParts ? $havingDqlParts : []) > 0;
+        $useOutputWalkers = $havingDqlParts !== [];
         $paginator->setUseOutputWalkers($useOutputWalkers);
 
         $this->results = $paginator->getIterator();

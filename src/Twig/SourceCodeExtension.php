@@ -43,7 +43,7 @@ final class SourceCodeExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('show_source_code', [$this, 'showSourceCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('show_source_code', $this->showSourceCode(...), ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
 
@@ -115,6 +115,7 @@ final class SourceCodeExtension extends AbstractExtension
 
             return $r->getMethod('__invoke');
         }
+
         /** @var \Closure|string $callable */
         return new \ReflectionFunction($callable);
     }
@@ -144,17 +145,18 @@ final class SourceCodeExtension extends AbstractExtension
     private function unindentCode(string $code): string
     {
         $codeLines = u($code)->split("\n");
-        $indentedOrBlankLines = array_filter($codeLines, static function ($lineOfCode) {
-            /** @var string|null $lineOfCode */
-            return u($lineOfCode)->isEmpty() || u($lineOfCode)->startsWith('    ');
-        });
 
-        $codeIsIndented = \count($indentedOrBlankLines) === \count($codeLines);
+        /** @param string|null $lineOfCode */
+        $indentedOrBlankLines = array_filter($codeLines, static fn($lineOfCode) =>
+            u($lineOfCode)->isEmpty() || u($lineOfCode)->startsWith('    '));
+
+            $codeIsIndented = \count((array) $indentedOrBlankLines) === (is_countable($codeLines) ? \count($codeLines) : 0);
+
         if ($codeIsIndented) {
-            $unindentedLines = array_map(static function ($lineOfCode) {
-                /** @var string|null $lineOfCode */
-                return u($lineOfCode)->after('    ');
-            }, $codeLines);
+            /** @param string|null $lineOfCode */
+            $unindentedLines = array_map(static fn($lineOfCode) =>
+                u($lineOfCode)->after('    '), $codeLines);
+
             $code = u("\n")->join($unindentedLines)->toString();
         }
 

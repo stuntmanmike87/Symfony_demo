@@ -93,15 +93,13 @@ final class ListUsersCommand extends Command
         // Use ->findBy() instead of ->findAll() to allow result sorting and limiting
         $allUsers = $this->users->findBy([], ['id' => 'DESC'], $maxResults);
 
-        $createUserArray = static function (User $user) {
-            return [
-                $user->getId(),
-                $user->getFullName(),
-                $user->getUsername(),
-                $user->getEmail(),
-                implode(', ', $user->getRoles()),
-            ];
-        };
+        $createUserArray = static fn(User $user) => [
+            $user->getId(),
+            $user->getFullName(),
+            $user->getUsername(),
+            $user->getEmail(),
+            implode(', ', $user->getRoles()),
+        ];
 
         // Doctrine query returns an array of objects and we need an array of plain arrays
         $usersAsPlainArrays = array_map($createUserArray, $allUsers);

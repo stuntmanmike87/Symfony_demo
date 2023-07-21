@@ -213,7 +213,7 @@ final class AddUserCommand extends Command
         // first check if a user with the same username already exists.
         $existingUser = $this->users->findOneBy(['username' => $username]);
 
-        if (null !== $existingUser) {
+        if ($existingUser instanceof \App\Entity\User) {
             throw new RuntimeException(sprintf('There is already a user registered with the "%s" username.', $username));
         }
 
@@ -225,7 +225,7 @@ final class AddUserCommand extends Command
         // check if a user with the same email already exists.
         $existingEmail = $this->users->findOneBy(['email' => $email]);
 
-        if (null !== $existingEmail) {
+        if ($existingEmail instanceof \App\Entity\User) {
             throw new RuntimeException(sprintf('There is already a user registered with the "%s" email.', $email));
         }
     }

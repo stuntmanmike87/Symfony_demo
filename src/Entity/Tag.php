@@ -25,19 +25,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'symfony_demo_tag')]
-class Tag implements \JsonSerializable
+class Tag implements \JsonSerializable, \Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::STRING, unique: true)]
-    private readonly string $name;
-
-    public function __construct(string $name)
+    public function __construct(#[ORM\Column(type: Types::STRING, unique: true)] private readonly string $name)
     {
-        $this->name = $name;
     }
 
     public function getId(): ?int

@@ -31,10 +31,10 @@ use Symfony\Component\HttpKernel\KernelEvents;
  *
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-final class CheckRequirementsSubscriber implements EventSubscriberInterface
+final readonly class CheckRequirementsSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager
     ) {
     }
 
@@ -62,11 +62,9 @@ final class CheckRequirementsSubscriber implements EventSubscriberInterface
     {
         $commandNames = ['doctrine:fixtures:load', 'doctrine:database:create', 'doctrine:schema:create', 'doctrine:database:drop'];
         //Only booleans are allowed in &&, Symfony\Component\Console\Command\Command|null given on the left side.
-        if ($event->getCommand() && \in_array($event->getCommand()->getName(), $commandNames, true)) {
-            if ($this->isSQLitePlatform() && !\extension_loaded('sqlite3')) {
+        if ($event->getCommand() && \in_array($event->getCommand()->getName(), $commandNames, true) && ($this->isSQLitePlatform() && !\extension_loaded('sqlite3'))) {
                 $io = new SymfonyStyle($event->getInput(), $event->getOutput());
                 $io->error('This command requires to have the "sqlite3" PHP extension enabled because, by default, the Symfony Demo application uses SQLite to store its information.');
-            }
         }
     }
 

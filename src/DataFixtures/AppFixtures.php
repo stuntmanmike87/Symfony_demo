@@ -81,7 +81,7 @@ final class AppFixtures extends Fixture
             /** @var \DateTime $publishedAt */$post->setPublishedAt($publishedAt);
             /** @var User $author */$post->setAuthor($author);
             /** @var \App\Entity\Tag[] $tags *////** @var Collection<int, Tag> $tags */
-            $post->addTag(...$tags);
+            $post->addTag($tags);
 
             foreach (range(1, 5) as $i) {
                 /** @var User $commentAuthor */
