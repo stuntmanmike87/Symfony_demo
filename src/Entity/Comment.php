@@ -39,19 +39,19 @@ class Comment
 
     #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private Post $post;//private ?Post $post = null;
+    private ?Post $post = null;//private Post $post;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'comment.blank')]
     #[Assert\Length(min: 5, minMessage: 'comment.too_short', max: 10000, maxMessage: 'comment.too_long')]
-    private string $content;//private ?string $content = null;
+    private ?string $content = null;//private string $content;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTime $publishedAt;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private User $author;//private ?User $author = null;
+    private ?User $author = null;//private User $author;
 
     public function __construct()
     {

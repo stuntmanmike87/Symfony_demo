@@ -45,27 +45,27 @@ class Post
 
     #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank]
-    private string $title;//private ?string $title = null;
+    private ?string $title = null;//private string $title;
 
     #[ORM\Column(type: Types::STRING)]
-    private string $slug;//private ?string $slug = null;
+    private ?string $slug = null;//private string $slug;
 
     #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank(message: 'post.blank_summary')]
     #[Assert\Length(max: 255)]
-    private string $summary;//private ?string $summary = null;
+    private ?string $summary = null;//private string $summary;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'post.blank_content')]
     #[Assert\Length(min: 10, minMessage: 'post.too_short_content')]
-    private string $content;//private ?string $content = null;
+    private ?string $content = null;//private string $content;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTime $publishedAt;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private User $author;//private ?User $author = null;
+    private ?User $author = null;//private User $author;
 
     /**
      * @var Collection<int, Comment>
@@ -100,7 +100,7 @@ class Post
         return $this->title;
     }
 
-    public function setTitle(/* ? */string $title): void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
@@ -120,7 +120,7 @@ class Post
         return $this->content;
     }
 
-    public function setContent(/* ? */string $content): void
+    public function setContent(?string $content): void
     {
         $this->content = $content;
     }
@@ -171,13 +171,15 @@ class Post
         return $this->summary;
     }
 
-    public function setSummary(/* ? */string $summary): void
+    public function setSummary(string $summary): void
     {
         $this->summary = $summary;
     }
 
+    /** @param array<string> $tags */
     public function addTag(array $tags = []): void
     {
+        /** @var string[] $tags *//** @var Tag $tag */
         foreach ($tags as $tag) {
             if (!$this->tags->contains($tag)) {
                 $this->tags->add($tag);

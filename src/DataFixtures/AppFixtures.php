@@ -80,7 +80,7 @@ final class AppFixtures extends Fixture
             /** @var string $content */$post->setContent($content);
             /** @var \DateTime $publishedAt */$post->setPublishedAt($publishedAt);
             /** @var User $author */$post->setAuthor($author);
-            /** @var \App\Entity\Tag[] $tags *////** @var Collection<int, Tag> $tags */
+            /** @var array<string> $tags *///** @var \App\Entity\Tag[] $tags */
             $post->addTag($tags);
 
             foreach (range(1, 5) as $i) {

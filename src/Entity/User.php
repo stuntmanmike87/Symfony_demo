@@ -48,19 +48,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank]
-    private string $fullName;//private ?string $fullName = null;
+    private ?string $fullName = null;//private string $fullName;
 
     #[ORM\Column(type: Types::STRING, unique: true)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 50)]
-    private string $username;//private ?string $username = null;
+    private ?string $username = null;//private string $username;
 
     #[ORM\Column(type: Types::STRING, unique: true)]
     #[Assert\Email]
-    private string $email;//private ?string $email = null;
+    private ?string $email = null;//private string $email;
 
     #[ORM\Column(type: Types::STRING)]
-    private string $password;//private ?string $password = null;
+    private ?string $password = null;//private string $password;
 
     /**
      * @var string[]
@@ -85,7 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
-        return /* (string)  */$this->username;
+        return (string) $this->username;
     }
 
     public function getUsername(): string

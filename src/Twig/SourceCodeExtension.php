@@ -144,12 +144,13 @@ final class SourceCodeExtension extends AbstractExtension
      */
     private function unindentCode(string $code): string
     {
+        /** @var string[] $codeLines */
         $codeLines = u($code)->split("\n");
 
         /** @param string|null $lineOfCode */
         $indentedOrBlankLines = array_filter($codeLines, static fn($lineOfCode) =>
             u($lineOfCode)->isEmpty() || u($lineOfCode)->startsWith('    '));
-
+            //Call to function is_countable() with array will always evaluate to true.
             $codeIsIndented = \count((array) $indentedOrBlankLines) === (is_countable($codeLines) ? \count($codeLines) : 0);
 
         if ($codeIsIndented) {
