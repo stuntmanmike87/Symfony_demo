@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\User;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +45,7 @@ final class SecurityController extends AbstractController
         AuthenticationUtils $helper,
     ): Response {
         // if user is already logged in, don't display the login page again
-        if ($user instanceof \App\Entity\User) {
+        if ($user instanceof User) {
             return $this->redirectToRoute('blog_index');
         }
 
@@ -71,6 +72,6 @@ final class SecurityController extends AbstractController
     #[Route('/logout', name: 'security_logout')]
     public function logout(): never
     {
-        throw new \Exception('This should never be reached!');
+        throw new Exception('This should never be reached!');
     }
 }

@@ -48,6 +48,7 @@ use function Symfony\Component\String\u;
  *
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
+ * @see \App\Tests\Command\AddUserCommandTest
  */
 #[AsCommand(
     name: 'app:add-user',
@@ -213,7 +214,7 @@ final class AddUserCommand extends Command
         // first check if a user with the same username already exists.
         $existingUser = $this->users->findOneBy(['username' => $username]);
 
-        if ($existingUser instanceof \App\Entity\User) {
+        if ($existingUser instanceof User) {
             throw new RuntimeException(sprintf('There is already a user registered with the "%s" username.', $username));
         }
 
@@ -225,7 +226,7 @@ final class AddUserCommand extends Command
         // check if a user with the same email already exists.
         $existingEmail = $this->users->findOneBy(['email' => $email]);
 
-        if ($existingEmail instanceof \App\Entity\User) {
+        if ($existingEmail instanceof User) {
             throw new RuntimeException(sprintf('There is already a user registered with the "%s" email.', $email));
         }
     }

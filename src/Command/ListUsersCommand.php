@@ -39,6 +39,7 @@ use Symfony\Component\Mime\Email;
  * See https://symfony.com/doc/current/console.html
  *
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @see \App\Tests\Command\ListUsersCommandTest
  */
 #[AsCommand(
     name: 'app:list-users',

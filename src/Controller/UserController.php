@@ -32,6 +32,7 @@ use Symfony\Component\Security\Http\Logout\LogoutUrlGenerator;
  * $this->getUser() method, which still works inside controllers.
  *
  * @author Romain Monteil <monteil.romain@gmail.com>
+ * @see \App\Tests\Controller\UserControllerTest
  */
 #[Route('/profile'), IsGranted('ROLE_USER')]//#[Route('/profile'), IsGranted(User::ROLE_USER)]
 final class UserController extends AbstractController

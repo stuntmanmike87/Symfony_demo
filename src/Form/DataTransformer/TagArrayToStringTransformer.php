@@ -28,12 +28,14 @@ use function Symfony\Component\String\u;
  * @author Jonathan Boyer <contact@grafikart.fr>
  *
  * @template-implements DataTransformerInterface<Tag[], string>
+ * @see \App\Tests\Form\DataTransformer\TagArrayToStringTransformerTest
  */
 final readonly class TagArrayToStringTransformer implements DataTransformerInterface
 {
     public function __construct(
         private TagRepository $tags
-    ) {
+    )
+    {
     }
 
     public function transform($tags): string

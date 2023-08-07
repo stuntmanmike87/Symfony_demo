@@ -19,6 +19,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use function Symfony\Component\String\u;
+use UnexpectedValueException;
 
 /**
  * When visiting the homepage, this listener redirects the user to the most
@@ -43,14 +44,14 @@ class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
         $this->locales = explode('|', trim($locales));
 
         if ($this->locales === []) {
-            throw new \UnexpectedValueException('The list of supported locales must not be empty.');
+            throw new UnexpectedValueException('The list of supported locales must not be empty.');
         }
 
         //Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.
         $this->defaultLocale = $defaultLocale ?: $this->locales[0];//$this->defaultLocale = $defaultLocale ?: $this->locales[0];
         //Only booleans are allowed in a ternary operator condition, string|null given.
         if (!\in_array($this->defaultLocale, $this->locales, true)) {
-            throw new \UnexpectedValueException(sprintf('The default locale ("%s") must be one of "%s".', $this->defaultLocale, $locales));
+            throw new UnexpectedValueException(sprintf('The default locale ("%s") must be one of "%s".', $this->defaultLocale, $locales));
         }
 
         // Add the default locale at the first position of the array,

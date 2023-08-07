@@ -6,6 +6,7 @@ includes:
     # - vendor/phpstan/phpstan-doctrine/rules.neon
     # - vendor/phpstan/phpstan-symfony/extension.neon
     # - vendor/phpstan/phpstan-symfony/rules.neon
+
 # services:
 #     -
 #         class: Symplify\PHPStanRules\Rules\ForbiddenNodeRule
@@ -15,6 +16,7 @@ includes:
 #                 - PhpParser\Node\Expr\Empty_
 #                 - PhpParser\Node\Stmt\Switch_
 #                 - PhpParser\Node\Expr\ErrorSuppress
+
 parameters:
     #customRulesetUsed: true
     #
@@ -28,7 +30,9 @@ parameters:
     #
     # autoload_files:
     #   - bin/.phpunit/phpunit-7.5-0/vendor/autoload.php
+
     reportUnmatchedIgnoredErrors: false
+
     ignoreErrors:
         -
             message: '#Cognitive complexity for "App\\Command\\AddUserCommand::interact\(\)" is 12, keep it under 8#'
@@ -90,6 +94,7 @@ parameters:
         # -
         #     message: '#Only booleans are allowed in a negated boolean, bool\|null given.#'
         #     path: src
+
     doctrine:
         # ormRepositoryClass: MyApp\Doctrine\BetterDocumentRepository
         # odmRepositoryClass: MyApp\Doctrine\BetterDocumentRepository
@@ -99,8 +104,11 @@ parameters:
         objectManagerLoader: tests/object-manager.php
         # objectManagerLoader: build/phpstan/doctrine-orm-bootstrap.php
         allowNullablePropertyForRequiredField: true
+
     treatPhpDocTypesAsCertain: false
+
     checkGenericClassInNonGenericObjectType: false
+
     cognitive_complexity:
         class: 50
         function: 8

@@ -15,10 +15,11 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use App\Entity\Tag;
-use App\Pagination\Paginator;
+use App\Pagination\Paginator;use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use function Symfony\Component\String\u;
+use Symfony\Component\String\UnicodeString;
 
 /**
  * This custom Doctrine repository contains some methods which are useful when
@@ -49,10 +50,10 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('p.tags', 't')
             ->where('p.publishedAt <= :now')
             ->orderBy('p.publishedAt', 'DESC')
-            ->setParameter('now', new \DateTime())
+            ->setParameter('now', new DateTime())
         ;
 
-        if ($tag instanceof \App\Entity\Tag) {
+        if ($tag instanceof Tag) {
             $qb->andWhere(':tag MEMBER OF p.tags')
                 ->setParameter('tag', $tag);
         }
@@ -94,8 +95,9 @@ class PostRepository extends ServiceEntityRepository
     /**
      * Transforms the search string into an array of search terms.
      *
-     * @return array<\Symfony\Component\String\UnicodeString>.
-     *///@return string[]
+     * @return array<UnicodeString> .
+     */
+    //@return string[]
     private function extractSearchTerms(string $searchQuery): array
     {
         $searchQuery = u($searchQuery)->replaceMatches('/[[:space:]]+/', ' ')->trim();

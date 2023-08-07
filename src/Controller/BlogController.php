@@ -36,6 +36,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  *
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @see \App\Tests\Controller\BlogControllerTest
  */
 #[Route('/blog')]
 final class BlogController extends AbstractController

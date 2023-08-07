@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use function Symfony\Component\String\u;
@@ -47,7 +48,7 @@ class Comment
     private ?string $content = null;//private string $content;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTime $publishedAt;
+    private DateTime $publishedAt;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -55,7 +56,7 @@ class Comment
 
     public function __construct()
     {
-        $this->publishedAt = new \DateTime();
+        $this->publishedAt = new DateTime();
     }
 
     #[Assert\IsTrue(message: 'comment.is_spam')]
@@ -81,12 +82,12 @@ class Comment
         $this->content = $content;
     }
 
-    public function getPublishedAt(): \DateTime
+    public function getPublishedAt(): DateTime
     {
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(\DateTime $publishedAt): void
+    public function setPublishedAt(DateTime $publishedAt): void
     {
         $this->publishedAt = $publishedAt;
     }

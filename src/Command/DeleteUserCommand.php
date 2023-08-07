@@ -113,7 +113,7 @@ final class DeleteUserCommand extends Command
         /** @var User|null $user */
         $user = $this->users->findOneByUsername($username);
 
-        if (!$user instanceof \App\Entity\User) {
+        if (!$user instanceof User) {
             throw new RuntimeException(sprintf('User with username "%s" not found.', $username));
         }
 

@@ -13,6 +13,12 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
+use LogicException;
+use ReflectionFunctionAbstract;
+use ReflectionMethod;
+use Closure;
+use ReflectionObject;
+use ReflectionFunction;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TemplateWrapper;
@@ -74,7 +80,7 @@ final class SourceCodeExtension extends AbstractExtension
         $fileName = $method->getFileName();
 
         if (false === $classCode = file($fileName)) {
-            throw new \LogicException(sprintf('There was an error while trying to read the contents of the "%s" file.', $fileName));
+            throw new LogicException(sprintf('There was an error while trying to read the contents of the "%s" file.', $fileName));
         }
 
         $startLine = (int) $method->getStartLine() - 1;
@@ -104,20 +110,20 @@ final class SourceCodeExtension extends AbstractExtension
      *
      * This logic is copied from Symfony\Component\HttpKernel\Controller\ControllerResolver::getArguments
      */
-    private function getCallableReflector(callable $callable): \ReflectionFunctionAbstract
+    private function getCallableReflector(callable $callable): ReflectionFunctionAbstract
     {
         if (\is_array($callable)) {
-            return new \ReflectionMethod($callable[0], $callable[1]);
+            return new ReflectionMethod($callable[0], $callable[1]);
         }
 
-        if (\is_object($callable) && !$callable instanceof \Closure) {
-            $r = new \ReflectionObject($callable);
+        if (\is_object($callable) && !$callable instanceof Closure) {
+            $r = new ReflectionObject($callable);
 
             return $r->getMethod('__invoke');
         }
 
-        /** @var \Closure|string $callable */
-        return new \ReflectionFunction($callable);
+        /** @var Closure|string $callable */
+        return new ReflectionFunction($callable);
     }
 
     /**

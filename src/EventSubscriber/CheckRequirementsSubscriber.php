@@ -16,6 +16,7 @@ namespace App\EventSubscriber;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleErrorEvent;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -35,7 +36,8 @@ final readonly class CheckRequirementsSubscriber implements EventSubscriberInter
 {
     public function __construct(
         private EntityManagerInterface $entityManager
-    ) {
+    )
+    {
     }
 
     // Event Subscribers must define this method to declare the events they
@@ -84,7 +86,7 @@ final readonly class CheckRequirementsSubscriber implements EventSubscriberInter
 
         // Check if SQLite is enabled
         if ($isDriverException && $this->isSQLitePlatform() && !\extension_loaded('sqlite3')) {
-            $event->setThrowable(new \Exception('PHP extension "sqlite3" must be enabled because, by default, the Symfony Demo application uses SQLite to store its information.'));
+            $event->setThrowable(new Exception('PHP extension "sqlite3" must be enabled because, by default, the Symfony Demo application uses SQLite to store its information.'));
         }
     }
 

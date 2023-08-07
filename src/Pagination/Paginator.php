@@ -16,6 +16,7 @@ namespace App\Pagination;
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 use Doctrine\ORM\Tools\Pagination\CountWalker;
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
+use Traversable;
 
 /**
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
@@ -35,14 +36,15 @@ final class Paginator
     private int $numResults;
 
     /**
-     * @var \Traversable<int, object>
+     * @var Traversable<int, object>
      */
-    private \Traversable $results;
+    private Traversable $results;
 
     public function __construct(
         private readonly DoctrineQueryBuilder $queryBuilder,
         private readonly int $pageSize = self::PAGE_SIZE
-    ) {
+    )
+    {
     }
 
     public function paginate(int $page = 1): self
@@ -123,9 +125,9 @@ final class Paginator
     }
 
     /**
-     * @return \Traversable<int, object>
+     * @return Traversable<int, object>
      */
-    public function getResults(): \Traversable
+    public function getResults(): Traversable
     {
         return $this->results;
     }

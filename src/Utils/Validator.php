@@ -22,6 +22,7 @@ use function Symfony\Component\String\u;
  * See https://symfony.com/doc/current/service_container.html#creating-configuring-services-in-the-container.
  *
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @see \App\Tests\Utils\ValidatorTest
  */
 final class Validator
 {
