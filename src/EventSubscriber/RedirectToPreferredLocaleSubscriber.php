@@ -29,10 +29,10 @@ use UnexpectedValueException;
  *
  * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
  */
-class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
+final class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
 {
-    /** @var string[] $locales *////** @var array<string> $locales */
-    private array $locales = [];
+    /** @var string[] $locales */
+    private array $locales;
 
     private readonly string $defaultLocale;
 

@@ -15,6 +15,7 @@ namespace App\Utils;
 
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use function Symfony\Component\String\u;
+use Nette\Utils\Strings;
 
 /**
  * This class is used to provide an example of integrating simple classes as
@@ -32,7 +33,7 @@ final class Validator
             throw new InvalidArgumentException('The username can not be empty.');
         }
 
-        if (1 !== preg_match('/^[a-z_]+$/', $username)) {
+        if (null/* 1 */ !== Strings::match('/^[a-z_]+$/', $username)) {
             throw new InvalidArgumentException('The username must contain only lowercase latin characters and underscores.');
         }
 
