@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
+//use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\Config\RectorConfig;
 //use Rector\Core\Configuration\Option;
 use Rector\Doctrine\Set\DoctrineSetList;
@@ -85,9 +85,9 @@ return static function (RectorConfig $rectorConfig): void {
             PHPUnitLevelSetList::UP_TO_PHPUNIT_100,
         ]);
 
-    $rectorConfig->skip([
+    /* $rectorConfig->skip([
         VarConstantCommentRector::class,
-    ]);
+    ]); */
 
     /* $rectorConfig->ruleWithConfiguration(ChangeFileLoaderInExtensionAndKernelRector::class, [
         ChangeFileLoaderInExtensionAndKernelRector::FROM => 'yaml',
