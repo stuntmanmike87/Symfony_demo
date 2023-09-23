@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\Admin;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use Generator;
+use App\Entity\Post;
 use App\Entity\User;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
@@ -51,9 +54,7 @@ class BlogControllerTest extends WebTestCase
         $this->client->loginUser($user);
     }
 
-    /**
-     * @dataProvider getUrlsForRegularUsers
-     */
+    #[DataProvider('getUrlsForRegularUsers')]
     public function testAccessDeniedForRegularUsers(string $httpMethod, string $url): void
     {
         $this->client->getCookieJar()->clear();
@@ -69,7 +70,7 @@ class BlogControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
-    public function getUrlsForRegularUsers(): \Generator
+    public static function getUrlsForRegularUsers(): Generator
     {
         yield ['GET', '/en/admin/post/'];
         yield ['GET', '/en/admin/post/1'];
@@ -112,7 +113,7 @@ class BlogControllerTest extends WebTestCase
         /** @var PostRepository $postRepository */
         $postRepository = static::getContainer()->get(PostRepository::class);
 
-        /** @var \App\Entity\Post $post */
+        /** @var Post $post */
         $post = $postRepository->findOneByTitle($postTitle);
 
         $this->assertNotNull($post);
@@ -168,7 +169,7 @@ class BlogControllerTest extends WebTestCase
         /** @var PostRepository $postRepository */
         $postRepository = static::getContainer()->get(PostRepository::class);
 
-        /** @var \App\Entity\Post $post */
+        /** @var Post $post */
         $post = $postRepository->find(1);
 
         $this->assertSame($newBlogPostTitle, $post->getTitle());

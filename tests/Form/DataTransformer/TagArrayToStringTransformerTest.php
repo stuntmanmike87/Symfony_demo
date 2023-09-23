@@ -16,6 +16,7 @@ namespace App\Tests\Form\DataTransformer;
 use App\Entity\Tag;
 use App\Form\DataTransformer\TagArrayToStringTransformer;
 use App\Repository\TagRepository;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -118,23 +119,21 @@ final class TagArrayToStringTransformerTest extends TestCase
         /* $tag = new Tag('name');
         
         $tagRepository = $this->createMock(ObjectRepository::class);
-        $tagRepository->expects($this->any())
-            ->method('find')
-            ->willReturn($tag);
+        $tagRepository->expects($this->any())->method('find')->willReturn($tag);
 
         $objectManager = $this->createMock(ObjectManager::class);
-        $objectManager->expects($this->any())
-            ->method('getRepository')
-            ->willReturn($tagRepository); */
+        $objectManager->expects($this->any())->method('getRepository')->willReturn($tagRepository); */
+        
+        
+        /* $tagRepository = $this->getMockBuilder(TagRepository::class)->disableOriginalConstructor()->getMock();
+        $tagRepository->expects($this->any())->method('findBy')->willReturn($findByReturnValues);
+        //Call to an undefined method App\Repository\TagRepository::expects(). */
+        
+        /** @var MockObject $tagRepository */
+        $tagRepository = $this->createMock(TagRepository::class);
+        $tagRepository->method('findBy')->willReturn($findByReturnValues);
 
-        /** @var \App\Repository\TagRepository $tagRepository */
-        $tagRepository = $this->getMockBuilder(TagRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $tagRepository->expects($this->any())//Call to an undefined method App\Repository\TagRepository::expects().
-            ->method('findBy')
-            ->willReturn($findByReturnValues);
-
+        /** @var TagRepository $tagRepository */
         return new TagArrayToStringTransformer($tagRepository);
     }
 }

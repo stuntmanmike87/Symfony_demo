@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace App\Tests\Command;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use Generator;
 use App\Command\ListUsersCommand;
 
 final class ListUsersCommandTest extends AbstractCommandTest
 {
-    /**
-     * @dataProvider maxResultsProvider
-     *
-     * This test verifies the amount of data is right according to the given parameter max results.
-     */
+    #[DataProvider('maxResultsProvider
+
+This test verifies the amount of data is right according to the given parameter max results.')]
     public function testListUsers(int $maxResults): void
     {
         $tester = $this->executeCommand(
@@ -32,7 +32,7 @@ final class ListUsersCommandTest extends AbstractCommandTest
         $this->assertSame($emptyDisplayLines + $maxResults, mb_substr_count($tester->getDisplay(), "\n"));
     }
 
-    public function maxResultsProvider(): \Generator
+    public function maxResultsProvider(): Generator
     {
         yield [1];
         yield [2];
