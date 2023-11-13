@@ -60,4 +60,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ]);
     }
+    if ($containerConfigurator->env() === 'dev') {
+        $containerConfigurator->extension('doctrine', [
+            'dbal' => [
+                'profiling_collect_backtrace' => true,
+            ],
+        ]);
+    }
 };
