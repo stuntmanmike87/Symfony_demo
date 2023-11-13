@@ -108,7 +108,7 @@ class BlogControllerTest extends WebTestCase
             'post[content]' => $postContent,
         ]);
 
-        $this->assertResponseRedirects('/en/admin/post/', Response::HTTP_FOUND);
+        $this->assertResponseRedirects('/en/admin/post/', Response::HTTP_SEE_OTHER);
 
         /** @var PostRepository $postRepository */
         $postRepository = static::getContainer()->get(PostRepository::class);
@@ -164,7 +164,7 @@ class BlogControllerTest extends WebTestCase
             'post[title]' => $newBlogPostTitle,
         ]);
 
-        $this->assertResponseRedirects('/en/admin/post/1/edit', Response::HTTP_FOUND);
+        $this->assertResponseRedirects('/en/admin/post/1/edit', Response::HTTP_SEE_OTHER);
 
         /** @var PostRepository $postRepository */
         $postRepository = static::getContainer()->get(PostRepository::class);
@@ -186,7 +186,7 @@ class BlogControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', '/en/admin/post/1');
         $this->client->submit($crawler->filter('#delete-form')->form());
 
-        $this->assertResponseRedirects('/en/admin/post/', Response::HTTP_FOUND);
+        $this->assertResponseRedirects('/en/admin/post/', Response::HTTP_SEE_OTHER);
 
         /** @var PostRepository $postRepository */
         $postRepository = static::getContainer()->get(PostRepository::class);

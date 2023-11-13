@@ -107,10 +107,10 @@ final class BlogController extends AbstractController
             $submit = $form->get('saveAndCreateNew');
 
             if ($submit->isClicked()) {
-                return $this->redirectToRoute('admin_post_new');
+                return $this->redirectToRoute('admin_post_new', [], Response::HTTP_SEE_OTHER);
             }
 
-            return $this->redirectToRoute('admin_post_index');
+            return $this->redirectToRoute('admin_post_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin/blog/new.html.twig', [
@@ -148,7 +148,7 @@ final class BlogController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'post.updated_successfully');
 
-            return $this->redirectToRoute('admin_post_edit', ['id' => $post->getId()]);
+            return $this->redirectToRoute('admin_post_edit', ['id' => $post->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin/blog/edit.html.twig', [
@@ -168,7 +168,7 @@ final class BlogController extends AbstractController
         $token = $request->request->get('token');
 
         if (!$this->isCsrfTokenValid('delete', $token)) {
-            return $this->redirectToRoute('admin_post_index');
+            return $this->redirectToRoute('admin_post_index', [], Response::HTTP_SEE_OTHER);
         }
 
         // Delete the tags associated with this blog post. This is done automatically
@@ -181,6 +181,6 @@ final class BlogController extends AbstractController
 
         $this->addFlash('success', 'post.deleted_successfully');
 
-        return $this->redirectToRoute('admin_post_index');
+        return $this->redirectToRoute('admin_post_index', [], Response::HTTP_SEE_OTHER);
     }
 }
