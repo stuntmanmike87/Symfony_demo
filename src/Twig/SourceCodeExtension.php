@@ -13,17 +13,19 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
+use Closure;//use PhpParser\Node\Expr\Closure;
+use function Symfony\Component\String\u;
 use LogicException;
+use ReflectionFunction;
 use ReflectionFunctionAbstract;
 use ReflectionMethod;
-use Closure;//use PhpParser\Node\Expr\Closure;
 use ReflectionObject;
-use ReflectionFunction;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\ErrorHandler\ErrorRenderer\FileLinkFormatter;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TemplateWrapper;
 use Twig\TwigFunction;
-use function Symfony\Component\String\u;
 
 /**
  * CAUTION: this is an extremely advanced Twig extension. It's used to get the
@@ -36,10 +38,22 @@ use function Symfony\Component\String\u;
  */
 final class SourceCodeExtension extends AbstractExtension
 {
+    private FileLinkFormatter $fileLinkFormat;
+    private string $projectDir;
+
     /**
      * @var callable|null
      */
     private $controller;
+
+    public function __construct(
+        FileLinkFormatter $fileLinkFormat,
+        #[Autowire('%kernel.project_dir%')]
+        string $projectDir,
+    ) {
+        $this->fileLinkFormat = $fileLinkFormat;
+        $this->projectDir = str_replace('\\', '/', $projectDir).'/';
+    }
 
     public function setController(?callable $controller): void
     {
@@ -49,8 +63,30 @@ final class SourceCodeExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
+            new TwigFunction('link_source_file', $this->linkSourceFile(...), ['is_safe' => ['html'], 'needs_environment' => true]),
             new TwigFunction('show_source_code', $this->showSourceCode(...), ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
+    }
+
+    /**
+     * Render a link to a source file.
+     */
+    public function linkSourceFile(Environment $twig, string $file, int $line): string
+    {
+        $text = str_replace('\\', '/', $file);
+        if (str_starts_with($text, $this->projectDir)) {
+            $text = mb_substr($text, mb_strlen($this->projectDir));
+        }
+
+        if (false === $link = $this->fileLinkFormat->format($file, $line)) {
+            return '';
+        }
+
+        return sprintf('<a href="%s" title="Click to open this file" class="file_link">%s</a> at line %d',
+            htmlspecialchars($link, \ENT_COMPAT | \ENT_SUBSTITUTE, $twig->getCharset()),
+            htmlspecialchars($text, \ENT_COMPAT | \ENT_SUBSTITUTE, $twig->getCharset()),
+            $line,
+        );
     }
 
     /**
