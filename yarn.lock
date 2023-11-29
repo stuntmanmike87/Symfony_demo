@@ -955,10 +955,10 @@
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@fortawesome/fontawesome-free@^6.4.2":
-  version "6.4.2"
-  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-6.4.2.tgz"
-  integrity sha512-m5cPn3e2+FDCOgi1mz0RexTUvvQibBebOUlUlW0+YrMjDTPkiJ6VTKukA1GRsvRw+12KyJndNjj0O4AgTxm2Pg==
+"@fortawesome/fontawesome-free@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-6.5.0.tgz"
+  integrity sha512-npV8sIYN4tQmLkzkWU6Q2Ot8L3XqBzLpS+rGTl96nFM7qbMWIoFqcdp0YrcWlfRDQx5G+gA2sn8uSFNRAYTrrA==
 
 "@hotwired/stimulus-webpack-helpers@^1.0.0", "@hotwired/stimulus-webpack-helpers@^1.0.1":
   version "1.0.1"
@@ -1811,10 +1811,10 @@ bootstrap@^5.3.2:
   resolved "https://registry.npmjs.org/bootstrap/-/bootstrap-5.3.2.tgz"
   integrity sha512-D32nmNWiQHo94BKHLmOrdjlL05q1c8oxbtBphQFb9Z5to6eGRDCm0QgeaZ4zFBHzfg2++rqa2JkqCcxDy0sH0g==
 
-bootstrap5-tags@^1.6.11:
-  version "1.6.11"
-  resolved "https://registry.npmjs.org/bootstrap5-tags/-/bootstrap5-tags-1.6.11.tgz"
-  integrity sha512-6A6USE9EZUvkNOwFpQYPr5+L/CA5WOrCPnu2+o2W2m0UmhLxt79XF3psrbGo6Y1xIU7aJMqwmS+BSQU9FsKusA==
+bootstrap5-tags@^1.6.14:
+  version "1.6.14"
+  resolved "https://registry.npmjs.org/bootstrap5-tags/-/bootstrap5-tags-1.6.14.tgz"
+  integrity sha512-cQ6YRsxyqXBphJNpf9e6CHziknKFtBey3OG9Gdy09+yVDLAsjJlVd0TdTOaFUbU5Qvl7RVO40op60u7H6Ma07A==
 
 bootswatch@^5.3.2:
   version "5.3.2"
