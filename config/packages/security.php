@@ -38,7 +38,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     'lifetime' => 604800,
                 ],
                 'logout' => [
-                    'path' => 'security_logout',
                     'target' => 'homepage',
                     'enable_csrf' => true,
                 ],
