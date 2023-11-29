@@ -8,16 +8,20 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('doctrine', [
         'dbal' => [
             'url' => '%env(resolve:DATABASE_URL)%',
+            'use_savepoints' => true,
+            'profiling_collect_backtrace' => '%kernel.debug%',
         ],
         'orm' => [
             'auto_generate_proxy_classes' => true,
             'enable_lazy_ghost_objects' => true,
+            'validate_xml_mapping' => true,
             'naming_strategy' => 'doctrine.orm.naming_strategy.underscore_number_aware',
             'auto_mapping' => true,
+            'report_fields_where_declared' => true,
             'mappings' => [
                 'App' => [
-                    'is_bundle' => false,
                     'type' => 'attribute',
+                    'is_bundle' => false,
                     'dir' => '%kernel.project_dir%/src/Entity',
                     'prefix' => 'App\Entity',
                     'alias' => 'App',

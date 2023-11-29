@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('framework', [
         'validation' => [
-            'enable_annotations' => true,
+            'enable_attributes' => true,
             'email_validation_mode' => 'html5',
             'auto_mapping' => [
                 'App\Entity\\' => [

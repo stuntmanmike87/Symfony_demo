@@ -8,13 +8,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('framework', [
         'secret' => '%env(APP_SECRET)%',
         'csrf_protection' => true,
+        'annotations' => false,
         'http_method_override' => false,
         'handle_all_throwables' => true,
         'session' => [
             'handler_id' => null,
             'cookie_secure' => 'auto',
             'cookie_samesite' => 'lax',
-            'storage_factory_id' => 'session.storage.factory.native',
         ],
         'esi' => true,
         'fragments' => true,

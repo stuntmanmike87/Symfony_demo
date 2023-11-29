@@ -12,6 +12,20 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'fallbacks' => [
                 '%locale%',
             ],
+            'providers' => [
+                'crowdin' => [
+                    'dsn' => '%env(CROWDIN_DSN)%',
+                ],
+                'loco' => [
+                    'dsn' => '%env(LOCO_DSN)%',
+                ],
+                'lokalise' => [
+                    'dsn' => '%env(LOKALISE_DSN)%',
+                ],
+                'phrase' => [
+                    'dsn' => '%env(PHRASE_DSN)%',
+                ],
+            ],
         ],
     ]);
 };
