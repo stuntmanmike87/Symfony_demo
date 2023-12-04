@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\Admin;
 
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use App\Entity\Post;
@@ -42,6 +43,7 @@ class BlogControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
 
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();

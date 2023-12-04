@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use Override;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -56,6 +57,7 @@ final class ListUsersCommand extends Command
         parent::__construct();
     }
 
+    #[Override]
     protected function configure(): void
     {
         $this
@@ -86,6 +88,7 @@ final class ListUsersCommand extends Command
      * This method is executed after initialize(). It usually contains the logic
      * to execute to complete this command task.
      */
+    #[Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var int|null $maxResults */

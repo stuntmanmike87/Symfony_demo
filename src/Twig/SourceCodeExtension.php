@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
+use Override;
 use Closure;//use PhpParser\Node\Expr\Closure;
 use function Symfony\Component\String\u;
 use LogicException;
@@ -38,8 +39,8 @@ use Twig\TwigFunction;
  */
 final class SourceCodeExtension extends AbstractExtension
 {
-    private FileLinkFormatter $fileLinkFormat;
-    private string $projectDir;
+
+    private readonly string $projectDir;
 
     /**
      * @var callable|null
@@ -47,11 +48,10 @@ final class SourceCodeExtension extends AbstractExtension
     private $controller;
 
     public function __construct(
-        FileLinkFormatter $fileLinkFormat,
+        private readonly FileLinkFormatter $fileLinkFormat,
         #[Autowire('%kernel.project_dir%')]
         string $projectDir,
     ) {
-        $this->fileLinkFormat = $fileLinkFormat;
         $this->projectDir = str_replace('\\', '/', $projectDir).'/';
     }
 
@@ -60,6 +60,7 @@ final class SourceCodeExtension extends AbstractExtension
         $this->controller = $controller;
     }
 
+    #[Override]
     public function getFunctions(): array
     {
         return [

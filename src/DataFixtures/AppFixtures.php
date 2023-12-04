@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use Override;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\Tag;
@@ -36,6 +37,7 @@ final class AppFixtures extends Fixture
     ) {
     }
 
+    #[Override]
     public function load(ObjectManager $manager): void
     {
         $this->loadUsers($manager);

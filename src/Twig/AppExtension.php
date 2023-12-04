@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
+use Override;
 use Symfony\Component\Intl\Locales;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -45,6 +46,7 @@ final class AppExtension extends AbstractExtension
         $this->localeCodes = $localeCodes;
     }
 
+    #[Override]
     public function getFunctions(): array
     {
         return [

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Command;
 
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use App\Command\AddUserCommand;
@@ -31,6 +32,7 @@ final class AddUserCommandTest extends AbstractCommandTest
         'full-name' => 'Chuck Norris',
     ];
 
+    #[Override]
     protected function setUp(): void
     {
         if ('Windows' === \PHP_OS_FAMILY) {
@@ -104,6 +106,7 @@ See https://symfony.com/doc/current/components/console/helpers/questionhelper.ht
         $this->assertSame($isAdmin ? ['ROLE_ADMIN'] : ['ROLE_USER'], $user->getRoles());
     }
 
+    #[Override]
     protected function getCommandFqcn(): string
     {
         return AddUserCommand::class;

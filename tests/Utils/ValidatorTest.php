@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Utils;
 
+use Override;
 use App\Utils\Validator;
 use PHPUnit\Framework\TestCase;
 
@@ -20,6 +21,7 @@ final class ValidatorTest extends TestCase
 {
     private Validator $validator;
 
+    #[Override]
     protected function setUp(): void
     {
         $this->validator = new Validator();

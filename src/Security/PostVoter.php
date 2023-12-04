@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Security;
 
+use Override;
 use App\Entity\Post;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -39,6 +40,7 @@ final class PostVoter extends Voter
     /**
      * @param mixed $subject
      *///@phpstan-param object $subject
+    #[Override]
     protected function supports(string $attribute, mixed $subject): bool
     {
         // this voter is only executed on Post objects and for three specific permissions
@@ -48,6 +50,7 @@ final class PostVoter extends Voter
     /**
      * @param mixed $post
      *///Post $post//TSubject $post
+    #[Override]
     protected function voteOnAttribute(string $attribute, mixed $post, TokenInterface $token): bool
     {
         $user = $token->getUser();

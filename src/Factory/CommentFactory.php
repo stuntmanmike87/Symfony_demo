@@ -11,6 +11,7 @@
 
 namespace App\Factory;
 
+use Override;
 use App\Entity\Comment;
 use Doctrine\ORM\EntityRepository;
 use Zenstruck\Foundry\ModelFactory;
@@ -69,6 +70,7 @@ final class CommentFactory extends ModelFactory
      *
      * @todo add your default values here
      */
+    #[Override]
     protected function getDefaults(): array
     {
         return [
@@ -82,6 +84,7 @@ final class CommentFactory extends ModelFactory
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
      */
+    #[Override]
     protected function initialize(): self
     {
         return $this
@@ -89,6 +92,7 @@ final class CommentFactory extends ModelFactory
         ;
     }
 
+    #[Override]
     protected static function getClass(): string
     {
         return Comment::class;

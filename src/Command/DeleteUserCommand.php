@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use Override;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Utils\Validator;
@@ -58,6 +59,7 @@ final class DeleteUserCommand extends Command
         parent::__construct();
     }
 
+    #[Override]
     protected function configure(): void
     {
         $this
@@ -75,6 +77,7 @@ final class DeleteUserCommand extends Command
             );
     }
 
+    #[Override]
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         // SymfonyStyle is an optional feature that Symfony provides so you can
@@ -83,6 +86,7 @@ final class DeleteUserCommand extends Command
         $this->io = new SymfonyStyle($input, $output);
     }
 
+    #[Override]
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
         if (null !== $input->getArgument('username')) {
@@ -104,6 +108,7 @@ final class DeleteUserCommand extends Command
         $input->setArgument('username', $username);
     }
 
+    #[Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string|null $username */

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use Override;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Utils\Validator;
@@ -67,6 +68,7 @@ final class AddUserCommand extends Command
         parent::__construct();
     }
 
+    #[Override]
     protected function configure(): void
     {
         $this
@@ -85,6 +87,7 @@ final class AddUserCommand extends Command
      * This optional method is the first one executed for a command after configure()
      * and is useful to initialize properties based on the input arguments and options.
      */
+    #[Override]
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         // SymfonyStyle is an optional feature that Symfony provides so you can
@@ -103,6 +106,7 @@ final class AddUserCommand extends Command
      * quite a lot of work. However, if the command is meant to be used by external
      * users, this method is a nice way to fall back and prevent errors.
      */
+    #[Override]
     protected function interact(InputInterface $input, OutputInterface $output): void
     {//Cognitive complexity for "App\Command\AddUserCommand::interact()" is 12, keep it under 8
         if (null !== $input->getArgument('username') && null !== $input->getArgument('password') && null !== $input->getArgument('email') && null !== $input->getArgument('full-name')) {
@@ -162,6 +166,7 @@ final class AddUserCommand extends Command
      * This method is executed after interact() and initialize(). It usually
      * contains the logic to execute to complete this command task.
      */
+    #[Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $stopwatch = new Stopwatch();

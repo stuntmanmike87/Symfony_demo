@@ -33,15 +33,14 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         //SetList::DEAD_CODE,
-        // SetList::ACTION_INJECTION_TO_CONSTRUCTOR_INJECTION,
         // SetList::EARLY_RETURN,
         // SetList::INSTANCEOF,
         // SetList::NAMING,
-        SetList::PHP_82,
+        SetList::PHP_83,
         // SetList::PRIVATIZATION,
         // SetList::STRICT_BOOLEANS,
         // SetList::TYPE_DECLARATION,
-        LevelSetList::UP_TO_PHP_82,
+        LevelSetList::UP_TO_PHP_83,
     ]);
 
     // symfony rules
@@ -66,7 +65,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->sets([
         //SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
-        SymfonySetList::SYMFONY_63,
+        SymfonySetList::SYMFONY_63,//SYMFONY_70,
         SymfonySetList::SYMFONY_CODE_QUALITY,
         SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
     ]);

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
+use Override;
 use Locale;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -29,6 +30,7 @@ use function Symfony\Component\String\u;
  */
 final class DateTimePickerType extends AbstractType
 {
+    #[Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         // @see https://symfony.com/doc/current/reference/forms/types/date.html#rendering-a-single-html5-text-box
@@ -51,6 +53,7 @@ final class DateTimePickerType extends AbstractType
         ]);
     }
 
+    #[Override]
     public function getParent(): ?string
     {
         return DateTimeType::class;

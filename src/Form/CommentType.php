@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use Override;
 use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -31,6 +32,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class CommentType extends AbstractType
 {
+    #[Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         // By default, form fields include the 'required' attribute, which enables
@@ -46,6 +48,7 @@ final class CommentType extends AbstractType
         ;
     }
 
+    #[Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

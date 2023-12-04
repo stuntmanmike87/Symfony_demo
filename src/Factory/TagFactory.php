@@ -11,6 +11,7 @@
 
 namespace App\Factory;
 
+use Override;
 use App\Entity\Tag;
 use Doctrine\ORM\EntityRepository;
 use Zenstruck\Foundry\ModelFactory;
@@ -69,6 +70,7 @@ final class TagFactory extends ModelFactory
      *
      * @todo add your default values here
      */
+    #[Override]
     protected function getDefaults(): array
     {
         return [
@@ -79,6 +81,7 @@ final class TagFactory extends ModelFactory
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
      */
+    #[Override]
     protected function initialize(): self
     {
         return $this
@@ -86,6 +89,7 @@ final class TagFactory extends ModelFactory
         ;
     }
 
+    #[Override]
     protected static function getClass(): string
     {
         return Tag::class;

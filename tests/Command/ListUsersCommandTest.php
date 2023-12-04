@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Command;
 
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use App\Command\ListUsersCommand;
@@ -52,6 +53,7 @@ This test verifies the amount of data is right according to the given parameter 
         $this->assertEmailCount(1);
     }
 
+    #[Override]
     protected function getCommandFqcn(): string
     {
         return ListUsersCommand::class;
