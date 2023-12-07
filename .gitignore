@@ -32,3 +32,8 @@ yarn-error.log
 ###> PHPMetrics HTML report ###
 /myreport/
 ###< PHPMetrics HTML report ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###

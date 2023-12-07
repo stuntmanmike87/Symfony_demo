@@ -10,7 +10,7 @@
         "bloodhound-js": "^1.2.3",
         "bootstrap": "^5.3.2",
         "bootswatch": "^5.3.2",
-        "core-js": "^3.33.3",
+        "core-js": "^3.34.0",
         "flatpickr": "^4.6.9",
         "highlight.js": "^11.9.0",
         "imports-loader": "^4.0.1",
