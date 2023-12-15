@@ -15,14 +15,11 @@
             Those two blocks defines frontend entrypoint for CSS and JavaScript assets
             See https://symfony.com/doc/current/frontend.html
         #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+        {% block stylesheets %}{% endblock %}
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
-
-        <link rel="shortcut icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
 
     <body id="{% block body_id %}{% endblock %}">

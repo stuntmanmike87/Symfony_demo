@@ -18,11 +18,10 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-###> symfony/webpack-encore-bundle ###
-/node_modules/
-npm-debug.log
-yarn-error.log
-###< symfony/webpack-encore-bundle ###
+###> symfony/asset-mapper ###
+/public/assets/
+/assets/vendor
+###< symfony/asset-mapper ###
 
 ###> phpunit/phpunit ###
 /phpunit.xml
@@ -37,3 +36,5 @@ yarn-error.log
 /.php-cs-fixer.php
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
+
+node_modules
