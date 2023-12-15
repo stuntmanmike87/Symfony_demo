@@ -75,9 +75,10 @@ final class UserController extends AbstractController
 
             // The logout method has a protection against CSRF attacks, it's disabled here
             // because the form already has a CSRF token validated.
-            /** @var Response $response*/
-            $response = $security->logout(false);
-            return $response;
+            // /** @var Response $response*/
+            // $response = $security->logout(false);
+            // return $response;
+            return $security->logout(validateCsrfToken: false) ?? $this->redirectToRoute('homepage');
         }
 
         return $this->render('user/change_password.html.twig', [
