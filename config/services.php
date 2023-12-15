@@ -34,5 +34,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(CommentNotificationSubscriber::class)
         ->arg('$sender', '%app.notifications.email_sender%');
 
-    $services->alias(LogoutUrlGenerator::class, 'security.logout_url_generator');
+    //$services->alias(LogoutUrlGenerator::class, 'security.logout_url_generator');
 };
