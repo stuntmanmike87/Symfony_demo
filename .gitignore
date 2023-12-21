@@ -22,12 +22,6 @@
 /public/assets/
 /assets/vendor
 ###< symfony/asset-mapper ###
-
-###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
-
 ###> PHPMetrics HTML report ###
 /myreport/
 ###< PHPMetrics HTML report ###
