@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace App\Tests\Controller\Admin;
 
 use Override;
-use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use App\Entity\Post;
 use App\Entity\User;
@@ -46,7 +45,6 @@ class BlogControllerTest extends WebTestCase
     #[Override]
     protected function setUp(): void
     {
-        parent::setUp();
         $this->client = static::createClient();
 
         /** @var UserRepository $userRepository */
@@ -56,7 +54,9 @@ class BlogControllerTest extends WebTestCase
         $this->client->loginUser($user);
     }
 
-    #[DataProvider('getUrlsForRegularUsers')]
+    /**
+     * @dataProvider getUrlsForRegularUsers
+     */
     public function testAccessDeniedForRegularUsers(string $httpMethod, string $url): void
     {
         $this->client->getCookieJar()->clear();

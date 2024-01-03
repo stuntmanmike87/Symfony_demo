@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace App\Tests\Command;
 
 use Override;
-use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use App\Command\AddUserCommand;
 use App\Repository\UserRepository;
@@ -40,10 +39,12 @@ final class AddUserCommandTest extends AbstractCommandTest
         }
     }
 
-    #[DataProvider('isAdminDataProvider
-
-This test provides all the arguments required by the command, so the
-command runs non-interactively and it won\'t ask for any argument.')]
+    /**
+     * @dataProvider isAdminDataProvider
+     *
+     * This test provides all the arguments required by the command, so the
+     * command runs non-interactively and it won't ask for any argument.
+     */
     public function testCreateUserNonInteractive(bool $isAdmin): void
     {
         $input = $this->userData;
@@ -53,15 +54,17 @@ command runs non-interactively and it won\'t ask for any argument.')]
 
         $this->executeCommand($input);
 
-        $this->assertUserCreated($isAdmin);
+        $this->assertUserCreated($isAdmin); 
     }
 
-    #[DataProvider('isAdminDataProvider
-
-This test doesn\'t provide all the arguments required by the command, so
-the command runs interactively and it will ask for the value of the missing
-arguments.
-See https://symfony.com/doc/current/components/console/helpers/questionhelper.html#testing-a-command-that-expects-input')]
+    /**
+     * @dataProvider isAdminDataProvider
+     *
+     * This test doesn't provide all the arguments required by the command, so
+     * the command runs interactively and it will ask for the value of the missing
+     * arguments.
+     * See https://symfony.com/doc/current/components/console/helpers/questionhelper.html#testing-a-command-that-expects-input
+     */
     public function testCreateUserInteractive(bool $isAdmin): void
     {
         $this->executeCommand(
