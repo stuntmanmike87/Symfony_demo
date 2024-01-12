@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Generator;
 use App\Entity\User;
 use App\Repository\UserRepository;
@@ -36,9 +37,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class UserControllerTest extends WebTestCase
 {
-    /**
-     * @dataProvider getUrlsForAnonymousUsers
-     */
+    #[DataProvider('getUrlsForAnonymousUsers')]
     public function testAccessDeniedForAnonymousUsers(string $httpMethod, string $url): void
     {
         $client = static::createClient();
