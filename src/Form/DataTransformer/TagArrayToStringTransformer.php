@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Form\DataTransformer;
 
+use Override;
 use App\Entity\Tag;
 use App\Repository\TagRepository;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -38,6 +39,7 @@ final readonly class TagArrayToStringTransformer implements DataTransformerInter
     {
     }
 
+    #[Override]
     public function transform($tags): string
     {
         // The value received is an array of Tag objects generated with
@@ -52,6 +54,7 @@ final readonly class TagArrayToStringTransformer implements DataTransformerInter
     //  *
     //  * @phpstan-return array<int, Tag>
     //  */
+    #[Override]
     public function reverseTransform($string): mixed//array
     {
         if (null === $string || u($string)->isEmpty()) {

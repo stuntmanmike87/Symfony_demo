@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Override;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -83,6 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->fullName;
     }
 
+    #[Override]
     public function getUserIdentifier(): string
     {
         return (string) $this->username;
@@ -108,6 +110,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->email = $email;
     }
 
+    #[Override]
     public function getPassword(): ?string
     {
         return $this->password;
@@ -121,6 +124,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returns the roles or permissions granted to the user for security.
      */
+    #[Override]
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -160,6 +164,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * {@inheritdoc}
      */
+    #[Override]
     public function eraseCredentials(): void
     {
         // if you had a plainPassword property, you'd nullify it here

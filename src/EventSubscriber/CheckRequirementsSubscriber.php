@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
+use Override;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,6 +45,7 @@ final readonly class CheckRequirementsSubscriber implements EventSubscriberInter
     // listen to. You can listen to several events, execute more than one method
     // for each event and set the priority of each event too.
     // See https://symfony.com/doc/current/event_dispatcher.html#creating-an-event-subscriber
+    #[Override]
     public static function getSubscribedEvents(): array
     {
         return [

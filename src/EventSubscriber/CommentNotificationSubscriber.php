@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
+use Override;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Event\CommentCreatedEvent;
@@ -37,6 +38,7 @@ final readonly class CommentNotificationSubscriber implements EventSubscriberInt
     ) {
     }
 
+    #[Override]
     public static function getSubscribedEvents(): array
     {
         return [
