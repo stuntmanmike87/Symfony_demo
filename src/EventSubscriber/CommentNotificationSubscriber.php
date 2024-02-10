@@ -65,6 +65,7 @@ final readonly class CommentNotificationSubscriber implements EventSubscriberInt
         ], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $subject = $this->translator->trans('notification.comment_created');
+
         $body = $this->translator->trans('notification.comment_created.description', [
             'title' => $post->getTitle(),
             'link' => $linkToPost,
