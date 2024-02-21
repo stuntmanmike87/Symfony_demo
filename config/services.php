@@ -11,7 +11,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set('locale', 'en');
 
-    $parameters->set('app_locales', 'ar|en|fr|de|es|cs|nl|ru|uk|ro|pt_BR|pl|it|ja|id|ca|sl|hr|zh_CN|bg|tr|lt|bs|sr_Cyrl|sr_Latn|eu');
+    $parameters->set('app_locales', 'ar|en|fr|de|es|cs|nl|ru|uk|ro|pt_BR|pl|it|ja|id|ca|sl|sq|hr|zh_CN|bg|tr|lt|bs|sr_Cyrl|sr_Latn|eu|ne|bn');
 
     $parameters->set('app.notifications.email_sender', 'anonymous@example.com');
 
