@@ -26,6 +26,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  * See https://symfony.com/doc/current/security/voters.html
  *
  * @author Yonel Ceruto <yonelceruto@gmail.com>
+ *
+ * @extends Voter<non-empty-string, Post>
  */
 final class PostVoter extends Voter
 {
@@ -39,7 +41,7 @@ final class PostVoter extends Voter
 
     /**
      * @param mixed $subject
-     *///@phpstan-param object $subject
+     */
     #[Override]
     protected function supports(string $attribute, mixed $subject): bool
     {

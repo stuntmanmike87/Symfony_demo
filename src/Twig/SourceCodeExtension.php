@@ -192,16 +192,18 @@ final class SourceCodeExtension extends AbstractExtension
         /** @var string[] $codeLines */
         $codeLines = u($code)->split("\n");
 
-        /** @param UnicodeString $lineOfCode *///** @param string|null $lineOfCode */
+        //** @param UnicodeString $lineOfCode */
+        /** @param string|null $lineOfCode */
         $indentedOrBlankLines = array_filter($codeLines, static fn($lineOfCode) =>
-            u((string)$lineOfCode)->isEmpty() || u((string)$lineOfCode)->startsWith('    '));
+            u($lineOfCode)->isEmpty() || u($lineOfCode)->startsWith('    '));
             //Call to function is_countable() with array will always evaluate to true.
             $codeIsIndented = \count((array) $indentedOrBlankLines) === (is_countable($codeLines) ? \count($codeLines) : 0);
 
         if ($codeIsIndented) {
-            /** @param UnicodeString $lineOfCode *///** @param string|null $lineOfCode */
+            //** @param UnicodeString $lineOfCode */
+            /** @param string|null $lineOfCode */
             $unindentedLines = array_map(static fn($lineOfCode) =>
-                u((string)$lineOfCode)->after('    '), $codeLines);
+                u($lineOfCode)->after('    '), $codeLines);
 
             $code = u("\n")->join($unindentedLines)->toString();
         }

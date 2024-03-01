@@ -8,7 +8,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('doctrine', [
         'dbal' => [
             'url' => '%env(resolve:DATABASE_URL)%',
-            'use_savepoints' => true,
             'profiling_collect_backtrace' => '%kernel.debug%',
         ],
         'orm' => [
@@ -61,13 +60,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                         'adapter' => 'cache.system',
                     ],
                 ],
-            ],
-        ]);
-    }
-    if ($containerConfigurator->env() === 'dev') {
-        $containerConfigurator->extension('doctrine', [
-            'dbal' => [
-                'profiling_collect_backtrace' => true,
             ],
         ]);
     }
