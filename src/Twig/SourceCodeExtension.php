@@ -13,21 +13,15 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
-use Override;
-use Closure;//use PhpParser\Node\Expr\Closure;
-use function Symfony\Component\String\u;
-use LogicException;
-use ReflectionFunction;
-use ReflectionFunctionAbstract;
-use ReflectionMethod;
-use ReflectionObject;
+// use Closure; // use PhpParser\Node\Expr\Closure;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\ErrorHandler\ErrorRenderer\FileLinkFormatter;
-use Symfony\Component\String\UnicodeString;
+// use Symfony\Component\String\UnicodeString;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TemplateWrapper;
 use Twig\TwigFunction;
+use function Symfony\Component\String\u;
 
 /**
  * CAUTION: this is an extremely advanced Twig extension. It's used to get the
@@ -40,7 +34,6 @@ use Twig\TwigFunction;
  */
 final class SourceCodeExtension extends AbstractExtension
 {
-
     private readonly string $projectDir;
 
     /**
@@ -61,7 +54,7 @@ final class SourceCodeExtension extends AbstractExtension
         $this->controller = $controller;
     }
 
-    #[Override]
+    #[\Override]
     public function getFunctions(): array
     {
         return [
@@ -119,7 +112,7 @@ final class SourceCodeExtension extends AbstractExtension
         $fileName = $method->getFileName();
 
         if (false === $classCode = file($fileName)) {
-            throw new LogicException(sprintf('There was an error while trying to read the contents of the "%s" file.', $fileName));
+            throw new \LogicException(sprintf('There was an error while trying to read the contents of the "%s" file.', $fileName));
         }
 
         $startLine = (int) $method->getStartLine() - 1;
@@ -149,20 +142,20 @@ final class SourceCodeExtension extends AbstractExtension
      *
      * This logic is copied from Symfony\Component\HttpKernel\Controller\ControllerResolver::getArguments
      */
-    private function getCallableReflector(callable $callable): ReflectionFunctionAbstract
+    private function getCallableReflector(callable $callable): \ReflectionFunctionAbstract
     {
         if (\is_array($callable)) {
-            return new ReflectionMethod($callable[0], $callable[1]);
+            return new \ReflectionMethod($callable[0], $callable[1]);
         }
 
-        if (\is_object($callable) && !$callable instanceof Closure) {
-            $r = new ReflectionObject($callable);
+        if (\is_object($callable) && !$callable instanceof \Closure) {
+            $r = new \ReflectionObject($callable);
 
             return $r->getMethod('__invoke');
         }
 
-        /** @var Closure|string $callable */
-        return new ReflectionFunction($callable);
+        //** @var Closure|string $callable */
+        return new \ReflectionFunction($callable);
     }
 
     /**
@@ -192,18 +185,16 @@ final class SourceCodeExtension extends AbstractExtension
         /** @var string[] $codeLines */
         $codeLines = u($code)->split("\n");
 
-        //** @param UnicodeString $lineOfCode */
+        // ** @param UnicodeString $lineOfCode */
         /** @param string|null $lineOfCode */
-        $indentedOrBlankLines = array_filter($codeLines, static fn($lineOfCode) =>
-            u($lineOfCode)->isEmpty() || u($lineOfCode)->startsWith('    '));
-            //Call to function is_countable() with array will always evaluate to true.
-            $codeIsIndented = \count((array) $indentedOrBlankLines) === (is_countable($codeLines) ? \count($codeLines) : 0);
+        $indentedOrBlankLines = array_filter($codeLines, static fn ($lineOfCode) => u($lineOfCode)->isEmpty() || u($lineOfCode)->startsWith('    '));
+        // Call to function is_countable() with array will always evaluate to true.
+        $codeIsIndented = \count((array) $indentedOrBlankLines) === (is_countable($codeLines) ? \count($codeLines) : 0);
 
         if ($codeIsIndented) {
-            //** @param UnicodeString $lineOfCode */
+            // ** @param UnicodeString $lineOfCode */
             /** @param string|null $lineOfCode */
-            $unindentedLines = array_map(static fn($lineOfCode) =>
-                u($lineOfCode)->after('    '), $codeLines);
+            $unindentedLines = array_map(static fn ($lineOfCode) => u($lineOfCode)->after('    '), $codeLines);
 
             $code = u("\n")->join($unindentedLines)->toString();
         }
