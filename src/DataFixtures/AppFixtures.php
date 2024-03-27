@@ -13,20 +13,17 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use Override;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\User;
 use DateTime;
-use Exception;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-//use Symfony\Component\String\AbstractUnicodeString;
+// use Symfony\Component\String\AbstractUnicodeString;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\String\UnicodeString;
-
 use function Symfony\Component\String\u;
 
 final class AppFixtures extends Fixture
@@ -37,7 +34,7 @@ final class AppFixtures extends Fixture
     ) {
     }
 
-    #[Override]
+    #[\Override]
     public function load(ObjectManager $manager): void
     {
         $this->loadUsers($manager);
@@ -49,14 +46,20 @@ final class AppFixtures extends Fixture
     {
         foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles]) {
             $user = new User();
-            /** @var string $fullname */$user->setFullName($fullname);
-            /** @var string $username */$user->setUsername($username);
-            /** @var string $password */$user->setPassword($this->passwordHasher->hashPassword($user, $password));
-            /** @var string $email */$user->setEmail($email);
-            /** @var string[] $roles */$user->setRoles($roles);
+            /** @var string $fullname */
+            $user->setFullName($fullname);
+            /** @var string $username */
+            $user->setUsername($username);
+            /** @var string $password */
+            $user->setPassword($this->passwordHasher->hashPassword($user, $password));
+            /** @var string $email */
+            $user->setEmail($email);
+            /** @var string[] $roles */
+            $user->setRoles($roles);
 
             $manager->persist($user);
-            /** @var string $username */$this->addReference($username, $user);
+            /** @var string $username */
+            $this->addReference($username, $user);
         }
 
         $manager->flush();
@@ -78,13 +81,18 @@ final class AppFixtures extends Fixture
     {
         foreach ($this->getPostData() as [$title, $slug, $summary, $content, $publishedAt, $author, $tags]) {
             $post = new Post();
-            /** @var string $title */$post->setTitle($title);
-            /** @var string $slug */$post->setSlug($slug);
-            /** @var string $summary */$post->setSummary($summary);
-            /** @var string $content */$post->setContent($content);
+            /** @var string $title */
+            $post->setTitle($title);
+            /** @var string $slug */
+            $post->setSlug($slug);
+            /** @var string $summary */
+            $post->setSummary($summary);
+            /** @var string $content */
+            $post->setContent($content);
             /** @var DateTime $publishedAt */
             $post->setPublishedAt($publishedAt);
-            /** @var User $author */$post->setAuthor($author);
+            /** @var User $author */
+            $post->setAuthor($author);
             /** @var array<string> $tags *///** @var \App\Entity\Tag[] $tags */
             $post->addTag($tags);
 
@@ -95,7 +103,7 @@ final class AppFixtures extends Fixture
                 $comment = new Comment();
                 $comment->setAuthor($commentAuthor);
                 $comment->setContent((string) $this->getRandomText(random_int(255, 512)));
-                $comment->setPublishedAt(new DateTime('now + '.$i.'seconds'));
+                $comment->setPublishedAt(new \DateTime('now + '.$i.'seconds'));
 
                 $post->addComment($comment);
             }
@@ -113,9 +121,9 @@ final class AppFixtures extends Fixture
     {
         return [
             // $userData = [$fullname, $username, $password, $email, $roles];
-            ['Jane Doe', 'jane_admin', 'kitten', 'jane_admin@symfony.com', 'ROLE_ADMIN'],//[User::ROLE_ADMIN]
-            ['Tom Doe', 'tom_admin', 'kitten', 'tom_admin@symfony.com', 'ROLE_ADMIN'],//[User::ROLE_ADMIN]
-            ['John Doe', 'john_user', 'kitten', 'john_user@symfony.com', 'ROLE_USER'],//[User::ROLE_USER]
+            ['Jane Doe', 'jane_admin', 'kitten', 'jane_admin@symfony.com', 'ROLE_ADMIN'], // [User::ROLE_ADMIN]
+            ['Tom Doe', 'tom_admin', 'kitten', 'tom_admin@symfony.com', 'ROLE_ADMIN'], // [User::ROLE_ADMIN]
+            ['John Doe', 'john_user', 'kitten', 'john_user@symfony.com', 'ROLE_USER'], // [User::ROLE_USER]
         ];
     }
 
@@ -138,7 +146,7 @@ final class AppFixtures extends Fixture
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      *
      * @return array<mixed>
      */
@@ -157,7 +165,7 @@ final class AppFixtures extends Fixture
                 $this->slugger->slug($title)->lower(),
                 $this->getRandomText(),
                 $this->getPostContent(),
-                (new DateTime('now - '.$i.'days'))->setTime(random_int(8, 17), random_int(7, 49), random_int(0, 59)),
+                (new \DateTime('now - '.$i.'days'))->setTime(random_int(8, 17), random_int(7, 49), random_int(0, 59)),
                 // Ensure that the first post is written by Jane Doe to simplify tests
                 $user,
                 $this->getRandomTags(),
@@ -206,7 +214,7 @@ final class AppFixtures extends Fixture
         ];
     }
 
-    private function getRandomText(int $maxLength = 255): UnicodeString//stribg
+    private function getRandomText(int $maxLength = 255): UnicodeString// stribg
     {
         $phrases = $this->getPhrases();
         shuffle($phrases);
@@ -260,7 +268,7 @@ final class AppFixtures extends Fixture
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      *
      * @return array<Tag>
      */

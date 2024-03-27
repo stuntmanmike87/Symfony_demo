@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Override;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -49,19 +48,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank]
-    private ?string $fullName = null;//private string $fullName;
+    private ?string $fullName = null; // private string $fullName;
 
     #[ORM\Column(type: Types::STRING, unique: true)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 50)]
-    private ?string $username = null;//private string $username;
+    private ?string $username = null; // private string $username;
 
     #[ORM\Column(type: Types::STRING, unique: true)]
     #[Assert\Email]
-    private ?string $email = null;//private string $email;
+    private ?string $email = null; // private string $email;
 
     #[ORM\Column(type: Types::STRING)]
-    private ?string $password = null;//private string $password;
+    private ?string $password = null; // private string $password;
 
     /**
      * @var string[]
@@ -84,7 +83,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->fullName;
     }
 
-    #[Override]
+    #[\Override]
     public function getUserIdentifier(): string
     {
         return (string) $this->username;
@@ -110,7 +109,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->email = $email;
     }
 
-    #[Override]
+    #[\Override]
     public function getPassword(): ?string
     {
         return $this->password;
@@ -124,13 +123,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returns the roles or permissions granted to the user for security.
      */
-    #[Override]
+    #[\Override]
     public function getRoles(): array
     {
         $roles = $this->roles;
 
         // guarantees that a user always has at least one role for security
-        if ($roles === []) {//if ($roles === ['']//if ($roles == null) {
+        if ([] === $roles) {// if ($roles === ['']//if ($roles == null) {
             $roles[] = self::ROLE_USER;
         }
 
@@ -164,7 +163,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * {@inheritdoc}
      */
-    #[Override]
+    #[\Override]
     public function eraseCredentials(): void
     {
         // if you had a plainPassword property, you'd nullify it here

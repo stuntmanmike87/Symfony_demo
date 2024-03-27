@@ -13,14 +13,12 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
-use Override;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use function Symfony\Component\String\u;
-use UnexpectedValueException;
 
 /**
  * When visiting the homepage, this listener redirects the user to the most
@@ -32,7 +30,7 @@ use UnexpectedValueException;
  */
 final class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
 {
-    /** @var string[] $locales */
+    /** @var string[] */
     private array $locales;
 
     private readonly string $defaultLocale;
@@ -44,15 +42,15 @@ final class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterf
     ) {
         $this->locales = explode('|', trim($locales));
 
-        if ($this->locales === []) {
-            throw new UnexpectedValueException('The list of supported locales must not be empty.');
+        if ([] === $this->locales) {
+            throw new \UnexpectedValueException('The list of supported locales must not be empty.');
         }
 
-        //Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.
-        $this->defaultLocale = $defaultLocale ?: $this->locales[0];//$this->defaultLocale = $defaultLocale ?: $this->locales[0];
-        //Only booleans are allowed in a ternary operator condition, string|null given.
+        // Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.
+        $this->defaultLocale = $defaultLocale ?: $this->locales[0]; // $this->defaultLocale = $defaultLocale ?: $this->locales[0];
+        // Only booleans are allowed in a ternary operator condition, string|null given.
         if (!\in_array($this->defaultLocale, $this->locales, true)) {
-            throw new UnexpectedValueException(sprintf('The default locale ("%s") must be one of "%s".', $this->defaultLocale, $locales));
+            throw new \UnexpectedValueException(sprintf('The default locale ("%s") must be one of "%s".', $this->defaultLocale, $locales));
         }
 
         // Add the default locale at the first position of the array,
@@ -62,7 +60,7 @@ final class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterf
         $this->locales = array_unique($this->locales);
     }
 
-    #[Override]
+    #[\Override]
     public static function getSubscribedEvents(): array
     {
         return [

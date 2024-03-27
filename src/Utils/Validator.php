@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace App\Utils;
 
+use Nette\Utils\Strings;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use function Symfony\Component\String\u;
-use Nette\Utils\Strings;
 
 /**
  * This class is used to provide an example of integrating simple classes as
@@ -23,13 +23,14 @@ use Nette\Utils\Strings;
  * See https://symfony.com/doc/current/service_container.html#creating-configuring-services-in-the-container.
  *
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ *
  * @see \App\Tests\Utils\ValidatorTest
  */
 final class Validator
 {
     public function validateUsername(?string $username): string
     {
-        if ($username === null) {
+        if (null === $username) {
             throw new InvalidArgumentException('The username can not be empty.');
         }
 
@@ -42,7 +43,7 @@ final class Validator
 
     public function validatePassword(?string $plainPassword): string
     {
-        if ($plainPassword === null) {
+        if (null === $plainPassword) {
             throw new InvalidArgumentException('The password can not be empty.');
         }
 
@@ -55,7 +56,7 @@ final class Validator
 
     public function validateEmail(?string $email): string
     {
-        if ($email === null) {
+        if (null === $email) {
             throw new InvalidArgumentException('The email can not be empty.');
         }
 
@@ -68,7 +69,7 @@ final class Validator
 
     public function validateFullName(?string $fullName): string
     {
-        if ($fullName === null) {
+        if (null === $fullName) {
             throw new InvalidArgumentException('The full name can not be empty.');
         }
 

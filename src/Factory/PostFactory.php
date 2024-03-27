@@ -11,7 +11,6 @@
 
 namespace App\Factory;
 
-use Override;
 use App\Entity\Post;
 use App\Repository\PostRepository;
 use Zenstruck\Foundry\ModelFactory;
@@ -70,7 +69,7 @@ final class PostFactory extends ModelFactory
      *
      * @todo add your default values here
      */
-    #[Override]
+    #[\Override]
     protected function getDefaults(): array
     {
         return [
@@ -86,7 +85,7 @@ final class PostFactory extends ModelFactory
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
      */
-    #[Override]
+    #[\Override]
     protected function initialize(): self
     {
         return $this
@@ -94,7 +93,7 @@ final class PostFactory extends ModelFactory
         ;
     }
 
-    #[Override]
+    #[\Override]
     protected static function getClass(): string
     {
         return Post::class;

@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Form\DataTransformer;
 
-use Override;
 use App\Entity\Tag;
 use App\Repository\TagRepository;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -29,17 +28,17 @@ use function Symfony\Component\String\u;
  * @author Jonathan Boyer <contact@grafikart.fr>
  *
  * @template-implements DataTransformerInterface<Tag[], string>
+ *
  * @see \App\Tests\Form\DataTransformer\TagArrayToStringTransformerTest
  */
 final readonly class TagArrayToStringTransformer implements DataTransformerInterface
 {
     public function __construct(
         private TagRepository $tags
-    )
-    {
+    ) {
     }
 
-    #[Override]
+    #[\Override]
     public function transform($tags): string
     {
         // The value received is an array of Tag objects generated with
@@ -54,8 +53,8 @@ final readonly class TagArrayToStringTransformer implements DataTransformerInter
     //  *
     //  * @phpstan-return array<int, Tag>
     //  */
-    #[Override]
-    public function reverseTransform($string): mixed//array
+    #[\Override]
+    public function reverseTransform($string): mixed// array
     {
         if (null === $string || u($string)->isEmpty()) {
             return [];
@@ -66,7 +65,7 @@ final readonly class TagArrayToStringTransformer implements DataTransformerInter
         $strings = $ustring->split(',');
         /** @var string[] $strings */
         $names = array_filter(array_unique($this->trim($strings)));
-        //$names = array_filter(array_unique($this->trim(u($string)->split(','))));
+        // $names = array_filter(array_unique($this->trim(u($string)->split(','))));
 
         // Get the current tags and find the new ones that should be created.
         /** @var Tag[] $tags */

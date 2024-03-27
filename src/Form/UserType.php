@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use Override;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -28,7 +27,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class UserType extends AbstractType
 {
-    #[Override]
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         // For the full reference of options defined by each form field type
@@ -54,7 +53,7 @@ final class UserType extends AbstractType
         ;
     }
 
-    #[Override]
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

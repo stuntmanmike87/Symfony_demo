@@ -39,10 +39,11 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  *
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ *
  * @see \App\Tests\Controller\Admin\BlogControllerTest
  */
 #[Route('/admin/post')]
-#[IsGranted("ROLE_ADMIN")]//#[IsGranted(User::class)]//#[IsGranted(User::ROLE_ADMIN)]
+#[IsGranted('ROLE_ADMIN')] // #[IsGranted(User::class)]//#[IsGranted(User::ROLE_ADMIN)]
 final class BlogController extends AbstractController
 {
     /**

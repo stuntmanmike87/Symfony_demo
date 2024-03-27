@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use Override;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Utils\Validator;
@@ -49,6 +48,7 @@ use function Symfony\Component\String\u;
  *
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
+ *
  * @see \App\Tests\Command\AddUserCommandTest
  */
 #[AsCommand(
@@ -68,7 +68,7 @@ final class AddUserCommand extends Command
         parent::__construct();
     }
 
-    #[Override]
+    #[\Override]
     protected function configure(): void
     {
         $this
@@ -87,7 +87,7 @@ final class AddUserCommand extends Command
      * This optional method is the first one executed for a command after configure()
      * and is useful to initialize properties based on the input arguments and options.
      */
-    #[Override]
+    #[\Override]
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         // SymfonyStyle is an optional feature that Symfony provides so you can
@@ -106,9 +106,9 @@ final class AddUserCommand extends Command
      * quite a lot of work. However, if the command is meant to be used by external
      * users, this method is a nice way to fall back and prevent errors.
      */
-    #[Override]
+    #[\Override]
     protected function interact(InputInterface $input, OutputInterface $output): void
-    {//Cognitive complexity for "App\Command\AddUserCommand::interact()" is 12, keep it under 8
+    {// Cognitive complexity for "App\Command\AddUserCommand::interact()" is 12, keep it under 8
         if (null !== $input->getArgument('username') && null !== $input->getArgument('password') && null !== $input->getArgument('email') && null !== $input->getArgument('full-name')) {
             return;
         }
@@ -128,7 +128,7 @@ final class AddUserCommand extends Command
         if (null !== $username) {
             $this->io->text(' > <info>Username</info>: '.$username);
         } else {
-            $username = $this->io->ask('Username', null, fn(?string $username): string => $this->validator->validateUsername($username));
+            $username = $this->io->ask('Username', null, fn (?string $username): string => $this->validator->validateUsername($username));
             $input->setArgument('username', $username);
         }
 
@@ -139,7 +139,7 @@ final class AddUserCommand extends Command
         if (null !== $password) {
             $this->io->text(' > <info>Password</info>: '.u('*')->repeat(u($password)->length()));
         } else {
-            $password = $this->io->askHidden('Password (your type will be hidden)', fn(?string $plainPassword): string => $this->validator->validatePassword($plainPassword));
+            $password = $this->io->askHidden('Password (your type will be hidden)', fn (?string $plainPassword): string => $this->validator->validatePassword($plainPassword));
             $input->setArgument('password', $password);
         }
 
@@ -149,7 +149,7 @@ final class AddUserCommand extends Command
         if (null !== $email) {
             $this->io->text(' > <info>Email</info>: '.$email);
         } else {
-            $email = $this->io->ask('Email', null, fn(?string $email): string => $this->validator->validateEmail($email));
+            $email = $this->io->ask('Email', null, fn (?string $email): string => $this->validator->validateEmail($email));
             $input->setArgument('email', $email);
         }
 
@@ -159,7 +159,7 @@ final class AddUserCommand extends Command
         if (null !== $fullName) {
             $this->io->text(' > <info>Full Name</info>: '.$fullName);
         } else {
-            $fullName = $this->io->ask('Full Name', null, fn(?string $fullName): string => $this->validator->validateFullName($fullName));
+            $fullName = $this->io->ask('Full Name', null, fn (?string $fullName): string => $this->validator->validateFullName($fullName));
             $input->setArgument('full-name', $fullName);
         }
     }
@@ -168,7 +168,7 @@ final class AddUserCommand extends Command
      * This method is executed after interact() and initialize(). It usually
      * contains the logic to execute to complete this command task.
      */
-    #[Override]
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $stopwatch = new Stopwatch();
@@ -185,7 +185,7 @@ final class AddUserCommand extends Command
 
         /** @var string $fullName */
         $fullName = $input->getArgument('full-name');
-        
+
         /** @var bool $isAdmin */
         $isAdmin = $input->getOption('admin');
 

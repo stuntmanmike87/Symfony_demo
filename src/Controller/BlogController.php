@@ -37,6 +37,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  *
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ *
  * @see \App\Tests\Controller\BlogControllerTest
  */
 #[Route('/blog')]
@@ -116,7 +117,7 @@ final class BlogController extends AbstractController
         $comment = new Comment();
         /** @var User $author */
         $author = $this->getUser();
-        $comment->setAuthor($author);//$comment->setAuthor($this->getUser());
+        $comment->setAuthor($author); // $comment->setAuthor($this->getUser());
         $post->addComment($comment);
 
         $form = $this->createForm(CommentType::class, $comment);

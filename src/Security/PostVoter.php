@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Security;
 
-use Override;
 use App\Entity\Post;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -39,20 +38,15 @@ final class PostVoter extends Voter
 
     public const string SHOW = 'show';
 
-    /**
-     * @param mixed $subject
-     */
-    #[Override]
+    #[\Override]
     protected function supports(string $attribute, mixed $subject): bool
     {
         // this voter is only executed on Post objects and for three specific permissions
         return $subject instanceof Post && \in_array($attribute, [self::SHOW, self::EDIT, self::DELETE], true);
     }
 
-    /**
-     * @param mixed $post
-     *///Post $post//TSubject $post
-    #[Override]
+    // Post $post//TSubject $post
+    #[\Override]
     protected function voteOnAttribute(string $attribute, mixed $post, TokenInterface $token): bool
     {
         $user = $token->getUser();
@@ -65,7 +59,7 @@ final class PostVoter extends Voter
         // the logic of this voter is pretty simple: if the logged user is the
         // author of the given blog post, grant permission; otherwise, deny it.
         // (the supports() method guarantees that $post is a Post object)
-        /** @var Post $post */
+        //** @var Post $post */
         return $user === $post->getAuthor();
     }
 }

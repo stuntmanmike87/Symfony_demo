@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use Override;
 use App\Entity\Post;
 use App\Form\Type\DateTimePickerType;
 use App\Form\Type\TagsInputType;
@@ -40,7 +39,7 @@ final class PostType extends AbstractType
     ) {
     }
 
-    #[Override]
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         // For the full reference of options defined by each form field type
@@ -87,7 +86,7 @@ final class PostType extends AbstractType
         ;
     }
 
-    #[Override]
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

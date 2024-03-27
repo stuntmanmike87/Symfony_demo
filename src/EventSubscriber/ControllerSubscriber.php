@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
-use Override;
 use App\Twig\SourceCodeExtension;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
@@ -33,7 +32,7 @@ final readonly class ControllerSubscriber implements EventSubscriberInterface
     ) {
     }
 
-    #[Override]
+    #[\Override]
     public static function getSubscribedEvents(): array
     {
         return [

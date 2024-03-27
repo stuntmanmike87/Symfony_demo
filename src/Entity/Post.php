@@ -14,12 +14,11 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\PostRepository;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Criteria;//use RectorPrefix202309\Doctrine\Common\Collections\Criteria;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -47,33 +46,33 @@ class Post
 
     #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank]
-    private ?string $title = null;//private string $title;
+    private ?string $title = null;
 
     #[ORM\Column(type: Types::STRING)]
-    private ?string $slug = null;//private string $slug;
+    private ?string $slug = null;
 
     #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank(message: 'post.blank_summary')]
     #[Assert\Length(max: 255)]
-    private ?string $summary = null;//private string $summary;
+    private ?string $summary = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'post.blank_content')]
     #[Assert\Length(min: 10, minMessage: 'post.too_short_content')]
-    private ?string $content = null;//private string $content;
+    private ?string $content = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private DateTime $publishedAt;
+    private \DateTime $publishedAt;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $author = null;//private User $author;
+    private ?User $author = null;
 
     /**
      * @var Collection<int, Comment>
      */
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', orphanRemoval: true, cascade: ['persist'])]
-    #[ORM\OrderBy(['publishedAt' => Criteria::DESC])]//#[ORM\OrderBy(['publishedAt' => 'DESC'])]
+    #[ORM\OrderBy(['publishedAt' => Order::Descending])]
     private Collection $comments;
 
     /**
@@ -81,13 +80,13 @@ class Post
      */
     #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
     #[ORM\JoinTable(name: 'symfony_demo_post_tag')]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]//#[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => Order::Ascending])]
     #[Assert\Count(max: 4, maxMessage: 'post.too_many_tags')]
     private Collection $tags;
 
     public function __construct()
     {
-        $this->publishedAt = new DateTime();
+        $this->publishedAt = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
@@ -127,12 +126,12 @@ class Post
         $this->content = $content;
     }
 
-    public function getPublishedAt(): DateTime
+    public function getPublishedAt(): \DateTime
     {
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(DateTime $publishedAt): void
+    public function setPublishedAt(\DateTime $publishedAt): void
     {
         $this->publishedAt = $publishedAt;
     }
@@ -182,7 +181,7 @@ class Post
     /** @param array<string> $tags */
     public function addTag(array $tags = []): void
     {
-        /** @var string[] $tags *//** @var Tag $tag */
+        /** @var string[] $tags */ /** @var Tag $tag */
         foreach ($tags as $tag) {
             if (!$this->tags->contains($tag)) {
                 $this->tags->add($tag);

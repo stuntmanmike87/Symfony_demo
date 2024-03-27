@@ -32,9 +32,10 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  * $this->getUser() method, which still works inside controllers.
  *
  * @author Romain Monteil <monteil.romain@gmail.com>
+ *
  * @see \App\Tests\Controller\UserControllerTest
  */
-#[Route('/profile'), IsGranted('ROLE_USER')]//#[Route('/profile'), IsGranted(User::ROLE_USER)]
+#[Route('/profile'), IsGranted('ROLE_USER')] // #[Route('/profile'), IsGranted(User::ROLE_USER)]
 final class UserController extends AbstractController
 {
     #[Route('/edit', methods: ['GET', 'POST'], name: 'user_edit')]
@@ -59,7 +60,7 @@ final class UserController extends AbstractController
             'form' => $form,
         ]);
     }
-    
+
     #[Route('/change-password', name: 'user_change_password', methods: ['GET', 'POST'])]
     public function changePassword(
         #[CurrentUser] User $user,

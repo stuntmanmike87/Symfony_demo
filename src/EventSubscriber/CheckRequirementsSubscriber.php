@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
-use Override;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,15 +36,14 @@ final readonly class CheckRequirementsSubscriber implements EventSubscriberInter
 {
     public function __construct(
         private EntityManagerInterface $entityManager
-    )
-    {
+    ) {
     }
 
     // Event Subscribers must define this method to declare the events they
     // listen to. You can listen to several events, execute more than one method
     // for each event and set the priority of each event too.
     // See https://symfony.com/doc/current/event_dispatcher.html#creating-an-event-subscriber
-    #[Override]
+    #[\Override]
     public static function getSubscribedEvents(): array
     {
         return [
@@ -65,10 +63,10 @@ final readonly class CheckRequirementsSubscriber implements EventSubscriberInter
     public function handleConsoleError(ConsoleErrorEvent $event): void
     {
         $commandNames = ['doctrine:fixtures:load', 'doctrine:database:create', 'doctrine:schema:create', 'doctrine:database:drop'];
-        //Only booleans are allowed in &&, Symfony\Component\Console\Command\Command|null given on the left side.
+        // Only booleans are allowed in &&, Symfony\Component\Console\Command\Command|null given on the left side.
         if ($event->getCommand() && \in_array($event->getCommand()->getName(), $commandNames, true) && ($this->isSQLitePlatform() && !\extension_loaded('sqlite3'))) {
-                $io = new SymfonyStyle($event->getInput(), $event->getOutput());
-                $io->error('This command requires to have the "sqlite3" PHP extension enabled because, by default, the Symfony Demo application uses SQLite to store its information.');
+            $io = new SymfonyStyle($event->getInput(), $event->getOutput());
+            $io->error('This command requires to have the "sqlite3" PHP extension enabled because, by default, the Symfony Demo application uses SQLite to store its information.');
         }
     }
 
@@ -88,7 +86,7 @@ final readonly class CheckRequirementsSubscriber implements EventSubscriberInter
 
         // Check if SQLite is enabled
         if ($isDriverException && $this->isSQLitePlatform() && !\extension_loaded('sqlite3')) {
-            $event->setThrowable(new Exception('PHP extension "sqlite3" must be enabled because, by default, the Symfony Demo application uses SQLite to store its information.'));
+            $event->setThrowable(new \Exception('PHP extension "sqlite3" must be enabled because, by default, the Symfony Demo application uses SQLite to store its information.'));
         }
     }
 

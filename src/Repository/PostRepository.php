@@ -15,11 +15,11 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use App\Entity\Tag;
-use App\Pagination\Paginator;use DateTime;
+use App\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use function Symfony\Component\String\u;
 use Symfony\Component\String\UnicodeString;
+use function Symfony\Component\String\u;
 
 /**
  * This custom Doctrine repository contains some methods which are useful when
@@ -50,7 +50,7 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('p.tags', 't')
             ->where('p.publishedAt <= :now')
             ->orderBy('p.publishedAt', 'DESC')
-            ->setParameter('now', new DateTime())
+            ->setParameter('now', new \DateTime())
         ;
 
         if ($tag instanceof Tag) {
@@ -95,15 +95,15 @@ class PostRepository extends ServiceEntityRepository
     /**
      * Transforms the search string into an array of search terms.
      *
-     * @return array<UnicodeString> .
+     * @return array<UnicodeString>
      */
-    //@return string[]
+    // @return string[]
     private function extractSearchTerms(string $searchQuery): array
     {
         $searchQuery = u($searchQuery)->replaceMatches('/[[:space:]]+/', ' ')->trim();
         $terms = array_unique($searchQuery->split(' '));
 
         // ignore the search terms that are too short
-        return array_filter($terms, static fn($term) => 2 <= $term->length());
+        return array_filter($terms, static fn ($term) => 2 <= $term->length());
     }
 }

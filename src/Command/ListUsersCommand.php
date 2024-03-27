@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use Override;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -40,6 +39,7 @@ use Symfony\Component\Mime\Email;
  * See https://symfony.com/doc/current/console.html
  *
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ *
  * @see \App\Tests\Command\ListUsersCommandTest
  */
 #[AsCommand(
@@ -57,7 +57,7 @@ final class ListUsersCommand extends Command
         parent::__construct();
     }
 
-    #[Override]
+    #[\Override]
     protected function configure(): void
     {
         $this
@@ -88,7 +88,7 @@ final class ListUsersCommand extends Command
      * This method is executed after initialize(). It usually contains the logic
      * to execute to complete this command task.
      */
-    #[Override]
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var int|null $maxResults */
@@ -97,7 +97,7 @@ final class ListUsersCommand extends Command
         // Use ->findBy() instead of ->findAll() to allow result sorting and limiting
         $allUsers = $this->users->findBy([], ['id' => 'DESC'], $maxResults);
 
-        $createUserArray = static fn(User $user) => [
+        $createUserArray = static fn (User $user) => [
             $user->getId(),
             $user->getFullName(),
             $user->getUsername(),

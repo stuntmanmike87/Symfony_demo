@@ -16,7 +16,6 @@ namespace App\Pagination;
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
 use Doctrine\ORM\Tools\Pagination\CountWalker;
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
-use Traversable;
 
 /**
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
@@ -36,15 +35,14 @@ final class Paginator
     private int $numResults;
 
     /**
-     * @var Traversable<array-key, object>
+     * @var \Traversable<array-key, object>
      */
-    private Traversable $results;
+    private \Traversable $results;
 
     public function __construct(
         private readonly DoctrineQueryBuilder $queryBuilder,
         private readonly int $pageSize = self::PAGE_SIZE
-    )
-    {
+    ) {
     }
 
     public function paginate(int $page = 1): self
@@ -69,9 +67,9 @@ final class Paginator
 
         /** @var array<string, mixed> $havingDqlParts */
         $havingDqlParts = $this->queryBuilder->getDQLPart('having');
-        //Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.
-        //Only booleans are allowed in a ternary operator condition, array<string, mixed> given.
-        $useOutputWalkers = $havingDqlParts !== [];
+        // Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.
+        // Only booleans are allowed in a ternary operator condition, array<string, mixed> given.
+        $useOutputWalkers = [] !== $havingDqlParts;
         $paginator->setUseOutputWalkers($useOutputWalkers);
 
         $this->results = $paginator->getIterator();
@@ -126,9 +124,9 @@ final class Paginator
     }
 
     /**
-     * @return Traversable<int, object>
+     * @return \Traversable<int, object>
      */
-    public function getResults(): Traversable
+    public function getResults(): \Traversable
     {
         return $this->results;
     }

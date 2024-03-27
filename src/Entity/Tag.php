@@ -13,11 +13,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Override;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use JsonSerializable;
-use Stringable;
 
 /**
  * Defines the properties of the Tag entity to represent the post tags.
@@ -28,7 +25,7 @@ use Stringable;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'symfony_demo_tag')]
-class Tag implements JsonSerializable, Stringable
+class Tag implements \JsonSerializable, \Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -49,7 +46,7 @@ class Tag implements JsonSerializable, Stringable
         return $this->name;
     }
 
-    #[Override]
+    #[\Override]
     public function jsonSerialize(): string
     {
         // This entity implements JsonSerializable (http://php.net/manual/en/class.jsonserializable.php)
@@ -59,7 +56,7 @@ class Tag implements JsonSerializable, Stringable
         return $this->name;
     }
 
-    #[Override]
+    #[\Override]
     public function __toString(): string
     {
         return $this->name;

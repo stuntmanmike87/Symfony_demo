@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use Override;
-use Locale;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,7 +28,7 @@ use function Symfony\Component\String\u;
  */
 final class DateTimePickerType extends AbstractType
 {
-    #[Override]
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         // @see https://symfony.com/doc/current/reference/forms/types/date.html#rendering-a-single-html5-text-box
@@ -44,7 +42,7 @@ final class DateTimePickerType extends AbstractType
                 'class' => 'flatpickr',
                 // Attributes for flatpickr usage
                 'data-flatpickr-class' => 'standard',
-                'data-date-locale' => u(Locale::getDefault())->replace('_', '-')->lower(),
+                'data-date-locale' => u(\Locale::getDefault())->replace('_', '-')->lower(),
                 'data-date-format' => 'Y-m-d H:i',
             ],
             'format' => 'yyyy-MM-dd HH:mm',
@@ -53,7 +51,7 @@ final class DateTimePickerType extends AbstractType
         ]);
     }
 
-    #[Override]
+    #[\Override]
     public function getParent(): ?string
     {
         return DateTimeType::class;
