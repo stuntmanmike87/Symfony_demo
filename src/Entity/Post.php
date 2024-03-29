@@ -16,7 +16,7 @@ namespace App\Entity;
 use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\Order;
+// use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -33,6 +33,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
+ *
+ * @final
  */
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ORM\Table(name: 'symfony_demo_post')]
@@ -68,11 +70,9 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
-    /**
-     * @var Collection<int, Comment>
-     */
+    /** @var Collection<int, Comment> */
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', orphanRemoval: true, cascade: ['persist'])]
-    #[ORM\OrderBy(['publishedAt' => Order::Descending])]
+    #[ORM\OrderBy(['publishedAt' => 'DESC'])] // Order::Descending
     private Collection $comments;
 
     /**
@@ -80,7 +80,7 @@ class Post
      */
     #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
     #[ORM\JoinTable(name: 'symfony_demo_post_tag')]
-    #[ORM\OrderBy(['name' => Order::Ascending])]
+    #[ORM\OrderBy(['name' => 'ASC'])] // Order::Ascending
     #[Assert\Count(max: 4, maxMessage: 'post.too_many_tags')]
     private Collection $tags;
 

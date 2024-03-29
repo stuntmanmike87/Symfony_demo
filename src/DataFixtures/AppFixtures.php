@@ -17,7 +17,6 @@ use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\User;
-use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -45,20 +44,21 @@ final class AppFixtures extends Fixture
     private function loadUsers(ObjectManager $manager): void
     {
         foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles]) {
-            $user = new User();
             /** @var string $fullname */
-            $user->setFullName($fullname);
             /** @var string $username */
-            $user->setUsername($username);
             /** @var string $password */
-            $user->setPassword($this->passwordHasher->hashPassword($user, $password));
             /** @var string $email */
-            $user->setEmail($email);
             /** @var string[] $roles */
+            $user = new User();
+
+            $user->setFullName($fullname);
+            $user->setUsername($username);
+            $user->setPassword($this->passwordHasher->hashPassword($user, $password));
+            $user->setEmail($email);
             $user->setRoles($roles);
 
             $manager->persist($user);
-            /** @var string $username */
+
             $this->addReference($username, $user);
         }
 
@@ -80,20 +80,21 @@ final class AppFixtures extends Fixture
     private function loadPosts(ObjectManager $manager): void
     {
         foreach ($this->getPostData() as [$title, $slug, $summary, $content, $publishedAt, $author, $tags]) {
-            $post = new Post();
             /** @var string $title */
-            $post->setTitle($title);
             /** @var string $slug */
-            $post->setSlug($slug);
             /** @var string $summary */
-            $post->setSummary($summary);
             /** @var string $content */
-            $post->setContent($content);
-            /** @var DateTime $publishedAt */
-            $post->setPublishedAt($publishedAt);
+            /** @var \DateTime $publishedAt */
             /** @var User $author */
+            /** @var array<string> $tags */ // ** @var \App\Entity\Tag[] $tags */
+            $post = new Post();
+
+            $post->setTitle($title);
+            $post->setSlug($slug);
+            $post->setSummary($summary);
+            $post->setContent($content);
+            $post->setPublishedAt($publishedAt);
             $post->setAuthor($author);
-            /** @var array<string> $tags *///** @var \App\Entity\Tag[] $tags */
             $post->addTag($tags);
 
             foreach (range(1, 5) as $i) {

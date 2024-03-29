@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Rector\Doctrine\CodeQuality\Rector\Property\OrderByKeyToClassConstRector;
 use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
@@ -82,6 +83,9 @@ return static function (RectorConfig $rectorConfig): void {
     /* $rectorConfig->skip([
         VarConstantCommentRector::class,
     ]); */
+
+    $rectorConfig->importShortClasses(false);
+    $rectorConfig->skip([OrderByKeyToClassConstRector::class,]);
 
     /* $rectorConfig->ruleWithConfiguration(ChangeFileLoaderInExtensionAndKernelRector::class, [
         ChangeFileLoaderInExtensionAndKernelRector::FROM => 'yaml',

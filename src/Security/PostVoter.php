@@ -59,7 +59,7 @@ final class PostVoter extends Voter
         // the logic of this voter is pretty simple: if the logged user is the
         // author of the given blog post, grant permission; otherwise, deny it.
         // (the supports() method guarantees that $post is a Post object)
-        //** @var Post $post */
+        // ** @var Post $post */
         return $user === $post->getAuthor();
     }
 }

@@ -27,6 +27,8 @@ use function Symfony\Component\String\u;
  *
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ *
+ * @final
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'symfony_demo_comment')]

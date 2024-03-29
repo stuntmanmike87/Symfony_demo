@@ -38,13 +38,6 @@ parameters:
             message: '#Cognitive complexity for "App\\Command\\AddUserCommand::interact\(\)" is 12, keep it under 8#'
             path: src/Command/AddUserCommand.php
         -
-            message: '#Class should have suffix "EventSubscriber" to respect parent type#'
-            paths:
-                - src/EventSubscriber/CheckRequirementsSubscriber.php
-                - src/EventSubscriber/CommentNotificationSubscriber.php
-                - src/EventSubscriber/ControllerSubscriber.php
-                - src/EventSubscriber/RedirectToPreferredLocaleSubscriber.php
-        -
             message: '#Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.#'
             path: src/EventSubscriber/RedirectToPreferredLocaleSubscriber.php
             # path: src/Pagination/Paginator.php
@@ -107,7 +100,6 @@ parameters:
         -
             message: '#Function "method_exists\(\)" cannot be used\/left in the code\: use ReflectionProvider->has\*\(\) instead#'
             path: tests/bootstrap.php
-
 
     doctrine:
         # ormRepositoryClass: MyApp\Doctrine\BetterDocumentRepository
