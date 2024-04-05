@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('doctrine', [
-        'server_version' => '16',
+        // 'server_version' => '16',
         'dbal' => [
             'url' => '%env(resolve:DATABASE_URL)%',
             'profiling_collect_backtrace' => '%kernel.debug%',
@@ -26,10 +26,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     'dir' => '%kernel.project_dir%/src/Entity',
                     'prefix' => 'App\Entity',
                     'alias' => 'App',
-                    'controller_resolver' => [
-                        'auto_mapping' => true,
-                    ]
                 ],
+            ],
+            'controller_resolver' => [
+                'auto_mapping' => true,
             ],
         ],
     ]);
