@@ -54,7 +54,6 @@
         "dama/doctrine-test-bundle": "^8.0.0",
         "doctrine/doctrine-fixtures-bundle": "^3.5",
         "friendsofphp/php-cs-fixer": "^3.40",
-        "phpmetrics/phpmetrics": "^2.8",
         "phpstan/extension-installer": "^1.2",
         "phpstan/phpstan": "^1.2",
         "phpstan/phpstan-beberlei-assert": "^1.0",
