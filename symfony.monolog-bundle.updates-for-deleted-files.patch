@@ -1,0 +1,9 @@
+diff --git a/config/packages/monolog.yaml b/config/packages/monolog.yaml
+index 8c9efa9..9db7d8a 100644
+--- a/config/packages/monolog.yaml
++++ b/config/packages/monolog.yaml
+@@ -59,3 +59,4 @@ when@prod:
+                 type: stream
+                 channels: [deprecation]
+                 path: php://stderr
++                formatter: monolog.formatter.json
