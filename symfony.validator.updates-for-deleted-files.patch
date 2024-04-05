@@ -1,0 +1,12 @@
+diff --git a/config/packages/validator.yaml b/config/packages/validator.yaml
+index 0201281..dd47a6a 100644
+--- a/config/packages/validator.yaml
++++ b/config/packages/validator.yaml
+@@ -1,7 +1,5 @@
+ framework:
+     validation:
+-        email_validation_mode: html5
+-
+         # Enables validator auto-mapping support.
+         # For instance, basic validation constraints will be inferred from Doctrine's metadata.
+         #auto_mapping:
