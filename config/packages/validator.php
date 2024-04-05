@@ -8,7 +8,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('framework', [
         'validation' => [
             'enable_attributes' => true,
-            'email_validation_mode' => 'html5',
+            // 'email_validation_mode' => 'html5',
             'auto_mapping' => [
                 'App\Entity\\' => [
                 ],

@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('framework', [
         'router' => [
-            'utf8' => true,
+            // 'utf8' => true,
         ],
     ]);
     if ($containerConfigurator->env() === 'prod') {

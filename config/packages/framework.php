@@ -10,17 +10,18 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'csrf_protection' => true,
         'annotations' => false,
         'http_method_override' => false,
-        'handle_all_throwables' => true,
-        'session' => [
-            'handler_id' => null,
-            'cookie_secure' => 'auto',
-            'cookie_samesite' => 'lax',
-        ],
+        // 'handle_all_throwables' => true,
+        // 'session' => [
+        //     'handler_id' => null,
+        //     'cookie_secure' => 'auto',
+        //     'cookie_samesite' => 'lax',
+        // ],
+        'session' => true,
         'esi' => true,
         'fragments' => true,
-        'php_errors' => [
-            'log' => true,
-        ],
+        // 'php_errors' => [
+        //     'log' => true,
+        // ],
         'ide' => null,
     ]);
     if ($containerConfigurator->env() === 'test') {

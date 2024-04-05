@@ -89,6 +89,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                         'deprecation',
                     ],
                     'path' => 'php://stderr',
+                    'formatter' => 'monolog.formatter.json',
                 ],
             ],
         ]);
