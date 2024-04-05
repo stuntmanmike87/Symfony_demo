@@ -1,0 +1,11 @@
+diff --git a/config/packages/twig.yaml b/config/packages/twig.yaml
+index f9f4cc5..3f795d9 100644
+--- a/config/packages/twig.yaml
++++ b/config/packages/twig.yaml
+@@ -1,5 +1,5 @@
+ twig:
+-    default_path: '%kernel.project_dir%/templates'
++    file_name_pattern: '*.twig'
+ 
+ when@test:
+     twig:
