@@ -11,9 +11,9 @@ return static function (RoutingConfigurator $routingConfigurator): void {
         'template' => 'default/homepage.html.twig',
         '_locale' => '%locale%',
     ])
-        ->requirements([
+/*         ->requirements([
         '_locale' => '%app_locales%',
-    ]);
+    ]) */;
 
     $routingConfigurator->import([
         'path' => '../src/Controller/',
@@ -23,7 +23,7 @@ return static function (RoutingConfigurator $routingConfigurator): void {
         ->defaults([
         '_locale' => '%locale%',
     ])
-        ->requirements([
+/*         ->requirements([
         '_locale' => '%app_locales%',
-    ]);
+    ]) */;
 };

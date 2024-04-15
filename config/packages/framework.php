@@ -11,6 +11,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'annotations' => false,
         'http_method_override' => false,
         // 'handle_all_throwables' => true,
+        'enabled_locales' => ['ar', 'bg', 'bn', 'bs', 'ca', 'cs', 'de', 'en', 'es', 'eu', 'fr', 'hr', 'id', 'it', 'ja', 'lt', 'ne', 'nl', 'pl', 'pt_BR', 'ro', 'ru', 'sl', 'sq', 'sr_Cyrl', 'sr_Latn', 'tr', 'uk', 'vi', 'zh_CN'],
         // 'session' => [
         //     'handler_id' => null,
         //     'cookie_secure' => 'auto',

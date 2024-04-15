@@ -46,7 +46,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ],
         'access_control' => [
             [
-                'path' => '^/(%app_locales%)/admin',
+                'path' => '^/{_locales}/admin',
                 'roles' => 'ROLE_ADMIN',
             ],
         ],

@@ -30,34 +30,28 @@ use function Symfony\Component\String\u;
  */
 final class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
 {
-    /** @var string[] */
-    private array $locales;
-
-    private readonly string $defaultLocale;
-
     public function __construct(
         private readonly UrlGeneratorInterface $urlGenerator,
-        string $locales,
-        ?string $defaultLocale = null
+        /** @var string[] */
+        private array $enabledLocales,
+        private ?string $defaultLocale = null
     ) {
-        $this->locales = explode('|', trim($locales));
-
-        if ([] === $this->locales) {
+        if ([] === $this->enabledLocales) {
             throw new \UnexpectedValueException('The list of supported locales must not be empty.');
         }
 
         // Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.
-        $this->defaultLocale = $defaultLocale ?: $this->locales[0]; // $this->defaultLocale = $defaultLocale ?: $this->locales[0];
+        $this->defaultLocale = $defaultLocale ?: $this->enabledLocales[0]; // $this->defaultLocale = $defaultLocale ?: $this->locales[0];
         // Only booleans are allowed in a ternary operator condition, string|null given.
-        if (!\in_array($this->defaultLocale, $this->locales, true)) {
-            throw new \UnexpectedValueException(sprintf('The default locale ("%s") must be one of "%s".', $this->defaultLocale, $locales));
+        if (!\in_array($this->defaultLocale, $this->enabledLocales, true)) {
+            throw new \UnexpectedValueException(sprintf('The default locale ("%s") must be one of "%s".', $this->defaultLocale, implode(', ', $this->enabledLocales)));
         }
 
         // Add the default locale at the first position of the array,
         // because Symfony\HttpFoundation\Request::getPreferredLanguage
         // returns the first element when no an appropriate language is found
-        array_unshift($this->locales, $this->defaultLocale);
-        $this->locales = array_unique($this->locales);
+        array_unshift($this->enabledLocales, $this->defaultLocale);
+        $this->enabledLocales = array_unique($this->enabledLocales);
     }
 
     #[\Override]
@@ -85,7 +79,7 @@ final class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterf
             return;
         }
 
-        $preferredLanguage = $request->getPreferredLanguage($this->locales);
+        $preferredLanguage = $request->getPreferredLanguage($this->enabledLocales);
 
         if ($preferredLanguage !== $this->defaultLocale) {
             $response = new RedirectResponse($this->urlGenerator->generate('homepage', ['_locale' => $preferredLanguage]));
