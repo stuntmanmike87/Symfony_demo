@@ -34,7 +34,7 @@ use function Symfony\Component\String\u;
  */
 final class SourceCodeExtension extends AbstractExtension
 {
-    private readonly string $projectDir;
+    // private readonly string $projectDir;
 
     /**
      * @var callable|null
@@ -44,7 +44,7 @@ final class SourceCodeExtension extends AbstractExtension
     public function __construct(
         private readonly FileLinkFormatter $fileLinkFormat,
         #[Autowire('%kernel.project_dir%')]
-        string $projectDir,
+        private string $projectDir,
     ) {
         $this->projectDir = str_replace('\\', '/', $projectDir).'/';
     }
