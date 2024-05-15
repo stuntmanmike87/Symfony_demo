@@ -35,9 +35,9 @@ final class BlogControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler = $client->request('GET', '/en/blog/');
 
-        $this->assertResponseIsSuccessful();
+        /* $this-> */self::assertResponseIsSuccessful();
 
-        $this->assertCount(
+        /* $this-> */self::assertCount(
             Paginator::PAGE_SIZE,
             $crawler->filter('article.post'),
             'The homepage displays the right number of posts.'
@@ -49,9 +49,9 @@ final class BlogControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler = $client->request('GET', '/en/blog/rss.xml');
 
-        $this->assertResponseHeaderSame('Content-Type', 'text/xml; charset=UTF-8');
+        /* $this-> */self::assertResponseHeaderSame('Content-Type', 'text/xml; charset=UTF-8');
 
-        $this->assertCount(
+        /* $this-> */self::assertCount(
             Paginator::PAGE_SIZE,
             $crawler->filter('item'),
             'The xml file displays the right number of posts.'
@@ -89,7 +89,7 @@ final class BlogControllerTest extends WebTestCase
 
         $newComment = $crawler->filter('.post-comment')->first()->filter('div > p')->text();
 
-        $this->assertSame('Hi, Symfony!', $newComment);
+        /* $this-> */self::assertSame('Hi, Symfony!', $newComment);
     }
 
     public function testAjaxSearch(): void
@@ -97,8 +97,8 @@ final class BlogControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler = $client->request('GET', '/en/blog/search', ['q' => 'lorem']);
 
-        $this->assertResponseIsSuccessful();
-        $this->assertCount(1, $crawler->filter('article.post'));
-        $this->assertSame('Lorem ipsum dolor sit amet consectetur adipiscing elit', $crawler->filter('article.post')->first()->filter('h2 > a')->text());
+        /* $this-> */self::assertResponseIsSuccessful();
+        /* $this-> */self::assertCount(1, $crawler->filter('article.post'));
+        /* $this-> */self::assertSame('Lorem ipsum dolor sit amet consectetur adipiscing elit', $crawler->filter('article.post')->first()->filter('h2 > a')->text());
     }
 }

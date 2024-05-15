@@ -20,9 +20,11 @@ use App\Command\ListUsersCommand;
 
 final class ListUsersCommandTest extends AbstractCommandTest
 {
-    #[DataProvider('maxResultsProvider
-
-This test verifies the amount of data is right according to the given parameter max results.')]
+    /**
+     * @dataProvider maxResultsProvider
+     *
+     * This test verifies the amount of data is right according to the given parameter max results.
+     */
     public function testListUsers(int $maxResults): void
     {
         $tester = $this->executeCommand(
@@ -30,7 +32,7 @@ This test verifies the amount of data is right according to the given parameter 
         );
 
         $emptyDisplayLines = 5;
-        $this->assertSame($emptyDisplayLines + $maxResults, mb_substr_count($tester->getDisplay(), "\n"));
+        /* $this-> */self::assertSame($emptyDisplayLines + $maxResults, mb_substr_count($tester->getDisplay(), "\n"));
     }
 
     public function maxResultsProvider(): Generator
@@ -43,14 +45,14 @@ This test verifies the amount of data is right according to the given parameter 
     {
         $this->executeCommand([]);
 
-        $this->assertEmailCount(0);
+        /* $this-> */self::assertEmailCount(0);
     }
 
     public function testItSendsAnEmailIfOptionProvided(): void
     {
         $this->executeCommand(['--send-to' => 'john.doe@symfony.com']);
 
-        $this->assertEmailCount(1);
+        /* $this-> */self::assertEmailCount(1);
     }
 
     #[Override]

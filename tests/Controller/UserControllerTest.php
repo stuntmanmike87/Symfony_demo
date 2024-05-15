@@ -37,13 +37,15 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class UserControllerTest extends WebTestCase
 {
-    #[DataProvider('getUrlsForAnonymousUsers')]
+    /**
+     * @dataProvider getUrlsForAnonymousUsers
+     */
     public function testAccessDeniedForAnonymousUsers(string $httpMethod, string $url): void
     {
         $client = static::createClient();
         $client->request($httpMethod, $url);
 
-        $this->assertResponseRedirects(
+        /* $this-> */self::assertResponseRedirects(
             'http://localhost/en/login',
             Response::HTTP_FOUND,
             sprintf('The %s secure URL redirects to the login form.', $url)
@@ -75,13 +77,13 @@ final class UserControllerTest extends WebTestCase
             'user[email]' => $newUserEmail,
         ]);
 
-        $this->assertResponseRedirects('/en/profile/edit', Response::HTTP_SEE_OTHER);
+        /* $this-> */self::assertResponseRedirects('/en/profile/edit', Response::HTTP_SEE_OTHER);
 
         /** @var User $user */
         $user = $userRepository->findOneByEmail($newUserEmail);
 
-        $this->assertNotNull($user);
-        $this->assertSame($newUserEmail, $user->getEmail());
+        /* $this-> */self::assertNotNull($user);
+        /* $this-> */self::assertSame($newUserEmail, $user->getEmail());
     }
 
     public function testChangePassword(): void
@@ -104,8 +106,8 @@ final class UserControllerTest extends WebTestCase
             'change_password[newPassword][second]' => $newUserPassword,
         ]);
 
-        $this->assertResponseRedirects();
-        $this->assertResponseRedirects(
+        /* $this-> */self::assertResponseRedirects();
+        /* $this-> */self::assertResponseRedirects(
             '/',
             Response::HTTP_FOUND,
             'Changing password logout the user.'

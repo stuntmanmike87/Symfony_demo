@@ -31,7 +31,7 @@ final class ValidatorTest extends TestCase
     {
         $test = 'username';
 
-        $this->assertSame($test, $this->validator->validateUsername($test));
+        /* $this-> */self::assertSame($test, $this->validator->validateUsername($test));
     }
 
     public function testValidateUsernameEmpty(): void
@@ -52,7 +52,7 @@ final class ValidatorTest extends TestCase
     {
         $test = 'password';
 
-        $this->assertSame($test, $this->validator->validatePassword($test));
+        /* $this-> */self::assertSame($test, $this->validator->validatePassword($test));
     }
 
     public function testValidatePasswordEmpty(): void
@@ -73,7 +73,7 @@ final class ValidatorTest extends TestCase
     {
         $test = '@';
 
-        $this->assertSame($test, $this->validator->validateEmail($test));
+        /* $this-> */self::assertSame($test, $this->validator->validateEmail($test));
     }
 
     public function testValidateEmailEmpty(): void
@@ -94,7 +94,7 @@ final class ValidatorTest extends TestCase
     {
         $test = 'Full Name';
 
-        $this->assertSame($test, $this->validator->validateFullName($test));
+        /* $this-> */self::assertSame($test, $this->validator->validateFullName($test));
     }
 
     public function testValidateFullNameEmpty(): void

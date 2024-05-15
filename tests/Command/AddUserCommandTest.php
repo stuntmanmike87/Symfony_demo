@@ -36,14 +36,16 @@ final class AddUserCommandTest extends AbstractCommandTest
     protected function setUp(): void
     {
         if ('Windows' === \PHP_OS_FAMILY) {
-            $this->markTestSkipped('`stty` is required to test this command.');
+            /* $this-> */self::markTestSkipped('`stty` is required to test this command.');
         }
     }
 
-    #[DataProvider('isAdminDataProvider
-
-This test provides all the arguments required by the command, so the
-command runs non-interactively and it won\'t ask for any argument.')]
+    /**
+     * @dataProvider isAdminDataProvider
+     *
+     * This test provides all the arguments required by the command, so the
+     * command runs non-interactively and it won't ask for any argument.
+     */
     public function testCreateUserNonInteractive(bool $isAdmin): void
     {
         $input = $this->userData;
@@ -56,12 +58,14 @@ command runs non-interactively and it won\'t ask for any argument.')]
         $this->assertUserCreated($isAdmin); 
     }
 
-    #[DataProvider('isAdminDataProvider
-
-This test doesn\'t provide all the arguments required by the command, so
-the command runs interactively and it will ask for the value of the missing
-arguments.
-See https://symfony.com/doc/current/components/console/helpers/questionhelper.html#testing-a-command-that-expects-input')]
+    /**
+     * @dataProvider isAdminDataProvider
+     *
+     * This test doesn't provide all the arguments required by the command, so
+     * the command runs interactively and it will ask for the value of the missing
+     * arguments.
+     * See https://symfony.com/doc/current/components/console/helpers/questionhelper.html#testing-a-command-that-expects-input
+     */
     public function testCreateUserInteractive(bool $isAdmin): void
     {
         $this->executeCommand(
@@ -92,18 +96,18 @@ See https://symfony.com/doc/current/components/console/helpers/questionhelper.ht
     private function assertUserCreated(bool $isAdmin): void
     {
         /** @var UserRepository $repository */
-        $repository = $this->getContainer()->get(UserRepository::class);
+        $repository = /* $this-> */self::getContainer()->get(UserRepository::class);
 
         /** @var UserPasswordHasherInterface $passwordHasher */
-        $passwordHasher = $this->getContainer()->get(UserPasswordHasherInterface::class);
+        $passwordHasher = /* $this-> */self::getContainer()->get(UserPasswordHasherInterface::class);
 
         $user = $repository->findOneByEmail($this->userData['email']);
 
-        $this->assertNotNull($user);
-        $this->assertSame($this->userData['full-name'], $user->getFullName());
-        $this->assertSame($this->userData['username'], $user->getUsername());
-        $this->assertTrue($passwordHasher->isPasswordValid($user, $this->userData['password']));
-        $this->assertSame($isAdmin ? ['ROLE_ADMIN'] : ['ROLE_USER'], $user->getRoles());
+        /* $this-> */self::assertNotNull($user);
+        /* $this-> */self::assertSame($this->userData['full-name'], $user->getFullName());
+        /* $this-> */self::assertSame($this->userData['username'], $user->getUsername());
+        /* $this-> */self::assertTrue($passwordHasher->isPasswordValid($user, $this->userData['password']));
+        /* $this-> */self::assertSame($isAdmin ? ['ROLE_ADMIN'] : ['ROLE_USER'], $user->getRoles());
     }
 
     #[Override]

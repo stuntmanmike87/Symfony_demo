@@ -55,7 +55,9 @@ class BlogControllerTest extends WebTestCase
         $this->client->loginUser($user);
     }
 
-    #[DataProvider('getUrlsForRegularUsers')]
+    /**
+     * @dataProvider getUrlsForRegularUsers
+     */
     public function testAccessDeniedForRegularUsers(string $httpMethod, string $url): void
     {
         $this->client->getCookieJar()->clear();
@@ -68,7 +70,7 @@ class BlogControllerTest extends WebTestCase
 
         $this->client->request($httpMethod, $url);
 
-        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+        /* $this-> */self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public static function getUrlsForRegularUsers(): Generator
@@ -83,8 +85,8 @@ class BlogControllerTest extends WebTestCase
     {
         $this->client->request('GET', '/en/admin/post/');
 
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorExists(
+        /* $this-> */self::assertResponseIsSuccessful();
+        /* $this-> */self::assertSelectorExists(
             'body#admin_post_index #main tbody tr',
             'The backend homepage displays all the available posts.'
         );
@@ -109,7 +111,7 @@ class BlogControllerTest extends WebTestCase
             'post[content]' => $postContent,
         ]);
 
-        $this->assertResponseRedirects('/en/admin/post/', Response::HTTP_SEE_OTHER);
+        /* $this-> */self::assertResponseRedirects('/en/admin/post/', Response::HTTP_SEE_OTHER);
 
         /** @var PostRepository $postRepository */
         $postRepository = static::getContainer()->get(PostRepository::class);
@@ -117,9 +119,9 @@ class BlogControllerTest extends WebTestCase
         /** @var Post $post */
         $post = $postRepository->findOneByTitle($postTitle);
 
-        $this->assertNotNull($post);
-        $this->assertSame($postSummary, $post->getSummary());
-        $this->assertSame($postContent, $post->getContent());
+        /* $this-> */self::assertNotNull($post);
+        /* $this-> */self::assertSame($postSummary, $post->getSummary());
+        /* $this-> */self::assertSame($postContent, $post->getContent());
     }
 
     public function testAdminNewDuplicatedPost(): void
@@ -139,15 +141,15 @@ class BlogControllerTest extends WebTestCase
         // post titles must be unique, so trying to create the same post twice should result in an error
         $this->client->submit($form);
 
-        $this->assertSelectorTextContains('form .invalid-feedback .form-error-message', 'This title was already used in another blog post, but they must be unique.');
-        $this->assertSelectorExists('form #post_title.is-invalid');
+        /* $this-> */self::assertSelectorTextContains('form .invalid-feedback .form-error-message', 'This title was already used in another blog post, but they must be unique.');
+        /* $this-> */self::assertSelectorExists('form #post_title.is-invalid');
     }
 
     public function testAdminShowPost(): void
     {
         $this->client->request('GET', '/en/admin/post/1');
 
-        $this->assertResponseIsSuccessful();
+        /* $this-> */self::assertResponseIsSuccessful();
     }
 
     /**
@@ -165,7 +167,7 @@ class BlogControllerTest extends WebTestCase
             'post[title]' => $newBlogPostTitle,
         ]);
 
-        $this->assertResponseRedirects('/en/admin/post/1/edit', Response::HTTP_SEE_OTHER);
+        /* $this-> */self::assertResponseRedirects('/en/admin/post/1/edit', Response::HTTP_SEE_OTHER);
 
         /** @var PostRepository $postRepository */
         $postRepository = static::getContainer()->get(PostRepository::class);
@@ -173,7 +175,7 @@ class BlogControllerTest extends WebTestCase
         /** @var Post $post */
         $post = $postRepository->find(1);
 
-        $this->assertSame($newBlogPostTitle, $post->getTitle());
+        /* $this-> */self::assertSame($newBlogPostTitle, $post->getTitle());
     }
 
     /**
@@ -187,12 +189,12 @@ class BlogControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', '/en/admin/post/1');
         $this->client->submit($crawler->filter('#delete-form')->form());
 
-        $this->assertResponseRedirects('/en/admin/post/', Response::HTTP_SEE_OTHER);
+        /* $this-> */self::assertResponseRedirects('/en/admin/post/', Response::HTTP_SEE_OTHER);
 
         /** @var PostRepository $postRepository */
         $postRepository = static::getContainer()->get(PostRepository::class);
 
-        $this->assertNull($postRepository->find(1));
+        /* $this-> */self::assertNull($postRepository->find(1));
     }
 
     private function generateRandomString(int $length): string

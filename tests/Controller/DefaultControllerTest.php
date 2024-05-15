@@ -36,14 +36,15 @@ final class DefaultControllerTest extends WebTestCase
      * PHPUnit's data providers allow to execute the same tests repeated times
      * using a different set of data each time.
      * See https://symfony.com/doc/current/testing.html#testing-against-different-sets-of-data.
+     *
+     * @dataProvider getPublicUrls
      */
-    #[DataProvider('getPublicUrls')]
     public function testPublicUrls(string $url): void
     {
         $client = static::createClient();
         $client->request('GET', $url);
 
-        $this->assertResponseIsSuccessful(sprintf('The %s public URL loads correctly.', $url));
+        /* $this-> */self::assertResponseIsSuccessful(sprintf('The %s public URL loads correctly.', $url));
     }
 
     /**
@@ -65,21 +66,22 @@ final class DefaultControllerTest extends WebTestCase
         $blogPost = $registry->getRepository(Post::class)->find(1);
 
         $client->request('GET', sprintf('/en/blog/posts/%s', $blogPost->getSlug()));
-        $this->assertResponseIsSuccessful();
+        /* $this-> */self::assertResponseIsSuccessful();
     }
 
     /**
      * The application contains a lot of secure URLs which shouldn't be
      * publicly accessible. This tests ensures that whenever a user tries to
      * access one of those pages, a redirection to the login form is performed.
+     *
+     * @dataProvider getSecureUrls
      */
-    #[DataProvider('getSecureUrls')]
     public function testSecureUrls(string $url): void
     {
         $client = static::createClient();
         $client->request('GET', $url);
 
-        $this->assertResponseRedirects(
+        /* $this-> */self::assertResponseRedirects(
             'http://localhost/en/login',
             Response::HTTP_FOUND,
             sprintf('The %s secure URL redirects to the login form.', $url)
