@@ -1,6 +1,6 @@
 {
     "dama/doctrine-test-bundle": {
-        "version": "8.0",
+        "version": "8.1",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "main",
@@ -177,7 +177,7 @@
         "version": "v6.0.0"
     },
     "symfony/asset-mapper": {
-        "version": "7.0",
+        "version": "7.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -204,7 +204,7 @@
         "version": "v6.0.0"
     },
     "symfony/console": {
-        "version": "7.0",
+        "version": "7.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -316,7 +316,7 @@
         "version": "v6.0.0"
     },
     "symfony/mailer": {
-        "version": "7.0",
+        "version": "7.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -403,7 +403,7 @@
         "version": "v6.0.0"
     },
     "symfony/routing": {
-        "version": "7.0",
+        "version": "7.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -444,7 +444,7 @@
         "version": "v3.0.0"
     },
     "symfony/stimulus-bundle": {
-        "version": "2.13",
+        "version": "2.17",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -464,7 +464,7 @@
         "version": "v6.0.0"
     },
     "symfony/translation": {
-        "version": "7.0",
+        "version": "7.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -483,7 +483,7 @@
         "version": "v6.0.0"
     },
     "symfony/twig-bundle": {
-        "version": "7.0",
+        "version": "7.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -511,7 +511,7 @@
         "version": "v2.6.1"
     },
     "symfony/validator": {
-        "version": "7.0",
+        "version": "7.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",

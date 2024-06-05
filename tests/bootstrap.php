@@ -11,15 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use Reflection;
+// use Reflection;
 use Symfony\Component\Dotenv\Dotenv;
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
-if (file_exists(dirname(__DIR__).'/config/bootstrap.php')) {
-    require dirname(__DIR__).'/config/bootstrap.php';
-//} elseif (....) {
-} elseif (method_exists(Dotenv::class, 'bootEnv')) {
+if (method_exists(Dotenv::class, 'bootEnv')) {
     //Function "method_exists()" cannot be used/left in the code: use ReflectionProvider->has*() instead
     (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
 }

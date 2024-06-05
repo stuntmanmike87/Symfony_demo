@@ -109,7 +109,16 @@ final class AddUserCommand extends Command
     #[\Override]
     protected function interact(InputInterface $input, OutputInterface $output): void
     {// Cognitive complexity for "App\Command\AddUserCommand::interact()" is 12, keep it under 8
-        if (null !== $input->getArgument('username') && null !== $input->getArgument('password') && null !== $input->getArgument('email') && null !== $input->getArgument('full-name')) {
+        /** @var string|null $username */
+        $username = $input->getArgument('username');
+        /** @var string|null $password */
+        $password = $input->getArgument('password');
+        /** @var string|null $email */
+        $email = $input->getArgument('email');
+        /** @var string|null $fullName */
+        $fullName = $input->getArgument('full-name');
+
+        if (null !== $username && null !== $password && null !== $email && null !== $fullName) {
             return;
         }
 
@@ -124,7 +133,6 @@ final class AddUserCommand extends Command
         ]);
 
         // Ask for the username if it's not defined
-        $username = $input->getArgument('username');
         if (null !== $username) {
             $this->io->text(' > <info>Username</info>: '.$username);
         } else {
@@ -133,9 +141,6 @@ final class AddUserCommand extends Command
         }
 
         // Ask for the password if it's not defined
-        /** @var string|null $password */
-        $password = $input->getArgument('password');
-
         if (null !== $password) {
             $this->io->text(' > <info>Password</info>: '.u('*')->repeat(u($password)->length()));
         } else {
@@ -144,8 +149,6 @@ final class AddUserCommand extends Command
         }
 
         // Ask for the email if it's not defined
-        $email = $input->getArgument('email');
-
         if (null !== $email) {
             $this->io->text(' > <info>Email</info>: '.$email);
         } else {
@@ -154,8 +157,6 @@ final class AddUserCommand extends Command
         }
 
         // Ask for the full name if it's not defined
-        $fullName = $input->getArgument('full-name');
-
         if (null !== $fullName) {
             $this->io->text(' > <info>Full Name</info>: '.$fullName);
         } else {
