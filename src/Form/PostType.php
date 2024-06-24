@@ -13,7 +13,8 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\Post;
+// use App\Entity\Post;
+use App\Form\Model\PostDto;
 use App\Form\Type\DateTimePickerType;
 use App\Form\Type\TagsInputType;
 use Symfony\Component\Form\AbstractType;
@@ -55,12 +56,14 @@ final class PostType extends AbstractType
             ->add('title', null, [
                 'attr' => ['autofocus' => true],
                 'label' => 'label.title',
+                'empty_data' => '',
             ])
             ->add('summary', TextareaType::class, [
                 'help' => 'help.post_summary',
                 'label' => 'label.summary',
             ])
-            ->add('content', null, [
+            // ->add('content', null, [
+            ->add('content', TextareaType::class, [
                 'attr' => ['rows' => 20],
                 'help' => 'help.post_content',
                 'label' => 'label.content',
@@ -77,10 +80,14 @@ final class PostType extends AbstractType
             // of the form handling process.
             // See https://symfony.com/doc/current/form/events.html
             ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-                /** @var Post */
+                // ** @var Post */
+                /** @var PostDto $post */
                 $post = $event->getData();
-                if (null === $post->getSlug() && null !== $post->getTitle()) {
-                    $post->setSlug((string) $this->slugger->slug($post->getTitle())->lower());
+
+                /* if (null === $post->getSlug() && null !== $post->getTitle()) {
+                    $post->setSlug((string) $this->slugger->slug($post->getTitle())->lower()); */
+                if ('' === $post->slug && '' !== $post->title) {
+                    $post->slug = (string) $this->slugger->slug($post->title)->lower();
                 }
             })
         ;
@@ -90,7 +97,8 @@ final class PostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Post::class,
+            // 'data_class' => Post::class,
+            'data_class' => PostDto::class,
         ]);
     }
 }

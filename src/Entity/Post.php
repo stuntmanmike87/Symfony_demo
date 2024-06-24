@@ -16,11 +16,8 @@ namespace App\Entity;
 use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-// use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Defines the properties of the Post entity to represent the blog posts.
@@ -38,7 +35,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ORM\Table(name: 'symfony_demo_post')]
-#[UniqueEntity(fields: ['slug'], errorPath: 'title', message: 'post.slug_unique')]
 class Post
 {
     #[ORM\Id]
@@ -47,46 +43,36 @@ class Post
     private ?int $id = null;
 
     #[ORM\Column(type: Types::STRING)]
-    #[Assert\NotBlank]
-    private ?string $title = null;
+    private string $title;
 
     #[ORM\Column(type: Types::STRING)]
-    private ?string $slug = null;
+    private string $slug;
 
     #[ORM\Column(type: Types::STRING)]
-    #[Assert\NotBlank(message: 'post.blank_summary')]
-    #[Assert\Length(max: 255)]
-    private ?string $summary = null;
+    private string $summary;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank(message: 'post.blank_content')]
-    #[Assert\Length(min: 10, minMessage: 'post.too_short_content')]
-    private ?string $content = null;
+    private string $content;
 
     #[ORM\Column]
     private \DateTimeImmutable $publishedAt;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $author = null;
-
     /** @var Collection<int, Comment> */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', orphanRemoval: true, cascade: ['persist'])]
-    #[ORM\OrderBy(['publishedAt' => 'DESC'])] // Order::Descending
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OrderBy(['publishedAt' => 'DESC'])]
     private Collection $comments;
 
-    /**
-     * @var Collection<int, Tag>
-     */
+    /** @var Collection<int, Tag> */
     #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
     #[ORM\JoinTable(name: 'symfony_demo_post_tag')]
-    #[ORM\OrderBy(['name' => 'ASC'])] // Order::Ascending
-    #[Assert\Count(max: 4, maxMessage: 'post.too_many_tags')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     private Collection $tags;
 
-    public function __construct()
-    {
-        $this->publishedAt = new \DateTimeImmutable();
+    public function __construct(
+        #[ORM\ManyToOne]
+        #[ORM\JoinColumn(nullable: false)]
+        private User $author
+    ) {
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
@@ -96,17 +82,17 @@ class Post
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setTitle(?string $title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    public function getSlug(): ?string
+    public function getSlug(): string
     {
         return $this->slug;
     }
@@ -116,12 +102,12 @@ class Post
         $this->slug = $slug;
     }
 
-    public function getContent(): ?string
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    public function setContent(?string $content): void
+    public function setContent(string $content): void
     {
         $this->content = $content;
     }
@@ -136,7 +122,7 @@ class Post
         $this->publishedAt = $publishedAt;
     }
 
-    public function getAuthor(): ?User
+    public function getAuthor(): User
     {
         return $this->author;
     }
@@ -146,9 +132,7 @@ class Post
         $this->author = $author;
     }
 
-    /**
-     * @return Collection<int, Comment>
-     */
+    /** @return Collection<int, Comment> */
     public function getComments(): Collection
     {
         return $this->comments;
@@ -168,7 +152,7 @@ class Post
         $this->comments->removeElement($comment);
     }
 
-    public function getSummary(): ?string
+    public function getSummary(): string
     {
         return $this->summary;
     }
@@ -181,7 +165,8 @@ class Post
     /** @param array<string> $tags */
     public function addTag(array $tags = []): void
     {
-        /** @var string[] $tags */ /** @var Tag $tag */
+        /** @var string[] $tags */
+        /** @var Tag $tag */
         foreach ($tags as $tag) {
             if (!$this->tags->contains($tag)) {
                 $this->tags->add($tag);
@@ -194,9 +179,13 @@ class Post
         $this->tags->removeElement($tag);
     }
 
-    /**
-     * @return Collection<int, Tag>
-     */
+    /** @param Collection<int, Tag> $tags */
+    public function setTags(Collection $tags): void
+    {
+        $this->tags = $tags;
+    }
+
+    /** @return Collection<int, Tag> */
     public function getTags(): Collection
     {
         return $this->tags;
