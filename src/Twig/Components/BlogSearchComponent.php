@@ -48,9 +48,7 @@ final class BlogSearchComponent
     ) {
     }
 
-    /**
-     * @return array<Post>
-     */
+    /**@return array<Post> */
     public function getPosts(): array
     {
         return $this->postRepository->findBySearchQuery($this->query);

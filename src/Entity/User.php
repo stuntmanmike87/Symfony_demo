@@ -64,9 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::STRING)]
     private ?string $password = null; // private string $password;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
 
@@ -122,9 +120,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->password = $password;
     }
 
-    /**
-     * Returns the roles or permissions granted to the user for security.
-     */
+    /** Returns the roles or permissions granted to the user for security. */
     #[\Override]
     public function getRoles(): array
     {
@@ -138,9 +134,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    /**
-     * @param string[] $roles
-     */
+    /** @param string[] $roles */
     public function setRoles(array $roles): void
     {
         $this->roles = $roles;
@@ -158,17 +152,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return array{int|null, string|null, string|null}
-     */
+    /** @return array{int|null, string|null, string|null} */
     public function __serialize(): array
     {
         return [$this->id, $this->username, $this->password];
     }
 
-    /**
-     * @param array{int|null, string, string} $data
-     */
+    /** @param array{int|null, string, string} $data */
     public function __unserialize(array $data): void
     {
         [$this->id, $this->username, $this->password] = $data;

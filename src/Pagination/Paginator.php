@@ -34,9 +34,7 @@ final class Paginator
 
     private int $numResults;
 
-    /**
-     * @var \Traversable<array-key, object>
-     */
+    /** @var \Traversable<array-key, object> */
     private \Traversable $results;
 
     public function __construct(
@@ -50,10 +48,7 @@ final class Paginator
         $this->currentPage = max(1, $page);
         $firstResult = ($this->currentPage - 1) * $this->pageSize;
 
-        $query = $this->queryBuilder
-            ->setFirstResult($firstResult)
-            ->setMaxResults($this->pageSize)
-            ->getQuery();
+        $query = $this->queryBuilder->setFirstResult($firstResult)->setMaxResults($this->pageSize)->getQuery();
 
         /** @var array<string, mixed> $joinDqlParts */
         $joinDqlParts = $this->queryBuilder->getDQLPart('join');
@@ -123,9 +118,7 @@ final class Paginator
         return $this->numResults;
     }
 
-    /**
-     * @return \Traversable<int, object>
-     */
+    /** @return \Traversable<int, object> */
     public function getResults(): \Traversable
     {
         return $this->results;

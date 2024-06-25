@@ -61,9 +61,7 @@ class PostRepository extends ServiceEntityRepository
         return (new Paginator($qb))->paginate($page);
     }
 
-    /**
-     * @return Post[]
-     */
+    /** @return Post[] */
     public function findBySearchQuery(string $query, int $limit = Paginator::PAGE_SIZE): array
     {
         $searchTerms = $this->extractSearchTerms($query);

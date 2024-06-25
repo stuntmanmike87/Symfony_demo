@@ -20,7 +20,13 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[UniqueEntity(fields: ['slug'], message: 'post.slug_unique', entityClass: Post::class, errorPath: 'title', identifierFieldNames: ['id'])]
+#[UniqueEntity(
+    fields: ['slug'],
+    message: 'post.slug_unique',
+    entityClass: Post::class,
+    errorPath: 'title',
+    identifierFieldNames: ['id']
+)]
 final class PostDto
 {
     public ?int $id = null;

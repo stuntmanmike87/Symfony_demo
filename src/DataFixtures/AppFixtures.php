@@ -116,9 +116,7 @@ final class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    /**
-     * @return array<mixed>
-     */
+    /** @return array<mixed> */
     private function getUserData(): array
     {
         return [
@@ -129,9 +127,7 @@ final class AppFixtures extends Fixture
         ];
     }
 
-    /**
-     * @return string[]
-     */
+    /** @return string[] */
     private function getTagData(): array
     {
         return [
@@ -177,9 +173,7 @@ final class AppFixtures extends Fixture
         return $posts;
     }
 
-    /**
-     * @return string[]
-     */
+    /** @return string[] */
     private function getPhrases(): array
     {
         return [

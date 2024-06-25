@@ -26,9 +26,7 @@ use Twig\TwigFunction;
  */
 final class AppExtension extends AbstractExtension
 {
-    /**
-     * @var list<array{code: string, name: string}>|null
-     */
+    /** @var list<array{code: string, name: string}>|null */
     private ?array $locales = null;
 
     // The $locales argument is injected thanks to the service container.
