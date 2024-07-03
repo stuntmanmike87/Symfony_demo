@@ -36,9 +36,7 @@ final class SourceCodeExtension extends AbstractExtension
 {
     // private readonly string $projectDir;
 
-    /**
-     * @var callable|null
-     */
+    /** @var callable|null */
     private $controller;
 
     public function __construct(
@@ -54,7 +52,7 @@ final class SourceCodeExtension extends AbstractExtension
         $this->controller = $controller;
     }
 
-    #[\Override]
+    // #[\Override]
     public function getFunctions(): array
     {
         return [
@@ -63,9 +61,7 @@ final class SourceCodeExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * Render a link to a source file.
-     */
+    /** Render a link to a source file. */
     public function linkSourceFile(Environment $twig, string $file, int $line): string
     {
         $text = str_replace('\\', '/', $file);
@@ -85,9 +81,7 @@ final class SourceCodeExtension extends AbstractExtension
         );
     }
 
-    /**
-     * @param string|TemplateWrapper $template
-     */
+    /** @param string|TemplateWrapper $template */
     public function showSourceCode(Environment $twig, $template): string
     {
         return $twig->render('debug/source_code.html.twig', [
@@ -96,9 +90,7 @@ final class SourceCodeExtension extends AbstractExtension
         ]);
     }
 
-    /**
-     * @return array{file_path: string, starting_line: int|false, source_code: string}|null
-     */
+    /** @return array{file_path: string, starting_line: int|false, source_code: string}|null */
     private function getController(): ?array
     {
         // this happens for example for exceptions (404 errors, etc.)
@@ -158,9 +150,7 @@ final class SourceCodeExtension extends AbstractExtension
         return new \ReflectionFunction($callable);
     }
 
-    /**
-     * @return array{file_path: string|false, starting_line: int, source_code: string}
-     */
+    /** @return array{file_path: string|false, starting_line: int, source_code: string} */
     private function getTemplateSource(TemplateWrapper $template): array
     {
         $templateSource = $template->getSourceContext();
