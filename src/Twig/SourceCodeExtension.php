@@ -13,10 +13,8 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
-// use Closure; // use PhpParser\Node\Expr\Closure;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\ErrorHandler\ErrorRenderer\FileLinkFormatter;
-// use Symfony\Component\String\UnicodeString;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TemplateWrapper;
@@ -175,14 +173,12 @@ final class SourceCodeExtension extends AbstractExtension
         /** @var string[] $codeLines */
         $codeLines = u($code)->split("\n");
 
-        // ** @param UnicodeString $lineOfCode */
         /** @param string|null $lineOfCode */
         $indentedOrBlankLines = array_filter($codeLines, static fn ($lineOfCode) => u($lineOfCode)->isEmpty() || u($lineOfCode)->startsWith('    '));
         // Call to function is_countable() with array will always evaluate to true.
         $codeIsIndented = \count((array) $indentedOrBlankLines) === (is_countable($codeLines) ? \count($codeLines) : 0);
 
         if ($codeIsIndented) {
-            // ** @param UnicodeString $lineOfCode */
             /** @param string|null $lineOfCode */
             $unindentedLines = array_map(static fn ($lineOfCode) => u($lineOfCode)->after('    '), $codeLines);
 
