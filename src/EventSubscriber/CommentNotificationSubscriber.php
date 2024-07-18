@@ -61,7 +61,7 @@ final readonly class CommentNotificationSubscriber implements EventSubscriberInt
 
         $linkToPost = $this->urlGenerator->generate(
             'blog_post',
-            ['slug' => $post->getSlug(), '_fragment' => 'comment_'.$comment->getId(),],
+            ['slug' => $post->getSlug(), '_fragment' => 'comment_'.$comment->getId()],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
 
@@ -69,7 +69,7 @@ final readonly class CommentNotificationSubscriber implements EventSubscriberInt
 
         $body = $this->translator->trans(
             'notification.comment_created.description',
-            ['title' => $post->getTitle(), 'link' => $linkToPost,]
+            ['title' => $post->getTitle(), 'link' => $linkToPost]
         );
 
         // See https://symfony.com/doc/current/mailer.html
