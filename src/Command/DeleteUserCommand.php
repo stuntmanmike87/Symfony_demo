@@ -106,7 +106,11 @@ final class DeleteUserCommand extends Command
             '',
         ]);
 
-        $username = $this->io->ask('Username', null, fn (?string $username): string => $this->validator->validateUsername($username));
+        $username = $this->io->ask(
+            'Username',
+            null,
+            fn (?string $username): string => $this->validator->validateUsername($username)
+        );
         $input->setArgument('username', $username);
     }
 
@@ -121,7 +125,7 @@ final class DeleteUserCommand extends Command
         $user = $this->users->findOneByUsername($username);
 
         if (!$user instanceof User) {
-            throw new RuntimeException(sprintf('User with username "%s" not found.', $username));
+            throw new RuntimeException(\sprintf('User with username "%s" not found.', $username));
         }
 
         // After an entity has been removed, its in-memory state is the same
@@ -135,11 +139,23 @@ final class DeleteUserCommand extends Command
         $userUsername = $user->getUsername();
         $userEmail = $user->getEmail();
 
-        $this->io->success(sprintf('User "%s" (ID: %d, email: %s) was successfully deleted.', $userUsername, $userId, $userEmail));
+        $this->io->success(\sprintf(
+            'User "%s" (ID: %d, email: %s) was successfully deleted.',
+            $userUsername,
+            $userId,
+            $userEmail)
+        );
 
         // Logging is helpful and important to keep a trace of what happened in the software runtime flow.
         // See https://symfony.com/doc/current/logging.html
-        $this->logger->info('User "{username}" (ID: {id}, email: {email}) was successfully deleted.', ['username' => $userUsername, 'id' => $userId, 'email' => $userEmail]);
+        $this->logger->info(
+            'User "{username}" (ID: {id}, email: {email}) was successfully deleted.',
+            [
+                'username' => $userUsername,
+                'id' => $userId,
+                'email' => $userEmail
+            ]
+        );
 
         return Command::SUCCESS;
     }
