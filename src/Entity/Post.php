@@ -71,7 +71,7 @@ class Post
     public function __construct(
         #[ORM\ManyToOne]
         #[ORM\JoinColumn(nullable: false)]
-        private User $author
+        private User $author,
     ) {
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();

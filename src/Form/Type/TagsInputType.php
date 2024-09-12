@@ -33,7 +33,7 @@ use Symfony\Component\Form\FormView;
 final class TagsInputType extends AbstractType
 {
     public function __construct(
-        private readonly TagRepository $tags
+        private readonly TagRepository $tags,
     ) {
     }
 

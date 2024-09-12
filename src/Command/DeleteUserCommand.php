@@ -53,7 +53,7 @@ final class DeleteUserCommand extends Command
         private readonly EntityManagerInterface $entityManager,
         private readonly Validator $validator,
         private readonly UserRepository $users,
-        private readonly LoggerInterface $logger
+        private readonly LoggerInterface $logger,
     ) {
         parent::__construct();
     }
@@ -153,7 +153,7 @@ final class DeleteUserCommand extends Command
             [
                 'username' => $userUsername,
                 'id' => $userId,
-                'email' => $userEmail
+                'email' => $userEmail,
             ]
         );
 

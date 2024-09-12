@@ -52,7 +52,7 @@ final class ListUsersCommand extends Command
     public function __construct(
         private readonly MailerInterface $mailer,
         private readonly string $emailSender,
-        private readonly UserRepository $users
+        private readonly UserRepository $users,
     ) {
         parent::__construct();
     }

@@ -34,7 +34,7 @@ final class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterf
         private readonly UrlGeneratorInterface $urlGenerator,
         /** @var string[] */
         private array $enabledLocales,
-        private ?string $defaultLocale = null
+        private ?string $defaultLocale = null,
     ) {
         if ([] === $this->enabledLocales) {
             throw new \UnexpectedValueException('The list of supported locales must not be empty.');

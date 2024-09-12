@@ -29,7 +29,7 @@ final class AppFixtures extends Fixture
 {
     public function __construct(
         private readonly UserPasswordHasherInterface $passwordHasher,
-        private readonly SluggerInterface $slugger
+        private readonly SluggerInterface $slugger,
     ) {
     }
 
