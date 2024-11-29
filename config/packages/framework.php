@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('framework', [
         'secret' => '%env(APP_SECRET)%',
-        'csrf_protection' => true,
+        // 'csrf_protection' => true,
         'annotations' => false,
         'http_method_override' => false,
         // 'handle_all_throwables' => true,
