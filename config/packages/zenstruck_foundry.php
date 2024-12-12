@@ -7,12 +7,12 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     if ($containerConfigurator->env() === 'dev') {
         $containerConfigurator->extension('zenstruck_foundry', [
-            'auto_refresh_proxies' => true,
+            // 'auto_refresh_proxies' => true,
         ]);
     }
     if ($containerConfigurator->env() === 'test') {
-        $containerConfigurator->extension('zenstruck_foundry', [
+        /* $containerConfigurator->extension('zenstruck_foundry', [
             'auto_refresh_proxies' => true,
-        ]);
+        ]); */
     }
 };
