@@ -6,11 +6,11 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('framework', [
-        'default_locale' => '%locale%',
+        'default_locale' => '%app.locale%',
         'translator' => [
             'default_path' => '%kernel.project_dir%/translations',
             'fallbacks' => [
-                '%locale%',
+                '%app.locale%',
             ],
             'providers' => [
                 'crowdin' => [

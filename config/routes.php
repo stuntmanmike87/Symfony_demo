@@ -9,7 +9,7 @@ return static function (RoutingConfigurator $routingConfigurator): void {
         ->controller('Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction')
         ->defaults([
         'template' => 'default/homepage.html.twig',
-        '_locale' => '%locale%',
+        '_locale' => '%app.locale%',
     ])
 /*         ->requirements([
         '_locale' => '%app_locales%',
