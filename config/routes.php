@@ -21,7 +21,7 @@ return static function (RoutingConfigurator $routingConfigurator): void {
     ], 'attribute')
         ->prefix('/{_locale}')
         ->defaults([
-        '_locale' => '%locale%',
+        '_locale' => '%app.locale%',
     ])
 /*         ->requirements([
         '_locale' => '%app_locales%',
