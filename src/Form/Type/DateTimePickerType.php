@@ -26,6 +26,10 @@ use function Symfony\Component\String\u;
  *
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
+/**
+ * @template DateTimePicker
+ * @extends AbstractType<DateTimePicker>
+ */
 final class DateTimePickerType extends AbstractType
 {
     #[\Override]
@@ -54,7 +58,7 @@ final class DateTimePickerType extends AbstractType
     }
 
     #[\Override]
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return DateTimeType::class;
     }

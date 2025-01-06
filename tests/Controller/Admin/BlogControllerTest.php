@@ -116,7 +116,6 @@ class BlogControllerTest extends WebTestCase
         /** @var PostRepository $postRepository */
         $postRepository = static::getContainer()->get(PostRepository::class);
 
-        /** @var Post $post */
         $post = $postRepository->findOneByTitle($postTitle);
 
         /* $this-> */self::assertNotNull($post);

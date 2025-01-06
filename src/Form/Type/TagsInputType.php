@@ -30,6 +30,10 @@ use Symfony\Component\Form\FormView;
  *
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
+/**
+ * @template TagsInput
+ * @extends AbstractType<TagsInput>
+ */
 final class TagsInputType extends AbstractType
 {
     public function __construct(
@@ -57,7 +61,7 @@ final class TagsInputType extends AbstractType
     }
 
     #[\Override]
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return TextType::class;
     }
