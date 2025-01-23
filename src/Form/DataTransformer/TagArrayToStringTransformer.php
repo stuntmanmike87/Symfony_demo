@@ -48,22 +48,16 @@ final readonly class TagArrayToStringTransformer implements DataTransformerInter
         return implode(',', $tags);
     }
 
-    // /**
-    //  * @phpstan-param string|null $string
-    //  *
-    //  * @phpstan-return array<int, Tag>
-    //  */
-    #[\Override]
-    public function reverseTransform($string): mixed// array
+    /** @return array<Tag> */
+    public function reverseTransform($string): array
     {
         if (null === $string || u($string)->isEmpty()) {
             return [];
         }
 
-        /** @var string|null $string */
-        $ustring = u($string);
+        $ustring = u((string) $string);
         $strings = $ustring->split(',');
-        /** @var string[] $strings */
+        $strings = explode(' ', implode('', $strings));
         $names = array_filter(array_unique($this->trim($strings)));
         // $names = array_filter(array_unique($this->trim(u($string)->split(','))));
 

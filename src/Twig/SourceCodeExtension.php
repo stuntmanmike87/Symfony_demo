@@ -134,7 +134,6 @@ final class SourceCodeExtension extends AbstractExtension
      */
     private function getCallableReflector(callable $callable): \ReflectionFunctionAbstract
     {
-        /** @var \Closure|string $callable */
         if (\is_array($callable)) {
             return new \ReflectionMethod($callable[0], $callable[1]);
         }
@@ -170,12 +169,11 @@ final class SourceCodeExtension extends AbstractExtension
      */
     private function unindentCode(string $code): string
     {
-        /** @var string[] $codeLines */
         $codeLines = u($code)->split("\n");
+        $codeLines = explode(' ', implode('', $codeLines));
 
         /** @param string|null $lineOfCode */
         $indentedOrBlankLines = array_filter($codeLines, static fn ($lineOfCode) => u($lineOfCode)->isEmpty() || u($lineOfCode)->startsWith('    '));
-        // Call to function is_countable() with array will always evaluate to true.
         $codeIsIndented = \count((array) $indentedOrBlankLines) === (is_countable($codeLines) ? \count($codeLines) : 0);
 
         if ($codeIsIndented) {

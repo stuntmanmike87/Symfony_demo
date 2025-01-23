@@ -162,10 +162,10 @@ class Post
         $this->summary = $summary;
     }
 
-    /** @param array<string> $tags */
+    /** @param array<Tag|string> $tags */
     public function addTag(array $tags = []): void
     {
-        /** @var string[] $tags */
+        /** @var Tag[] $tags */
         /** @var Tag $tag */
         foreach ($tags as $tag) {
             if (!$this->tags->contains($tag)) {

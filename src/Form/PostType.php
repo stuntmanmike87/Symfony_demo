@@ -31,6 +31,11 @@ use Symfony\Component\String\Slugger\SluggerInterface;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
+/**
+ * @template Post
+ *
+ * @extends AbstractType<Post>
+ */
 final class PostType extends AbstractType
 {
     // Form types are services, so you can inject other services in them if needed

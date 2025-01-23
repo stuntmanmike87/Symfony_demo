@@ -25,6 +25,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Romain Monteil <monteil.romain@gmail.com>
  */
+/**
+ * @ template User
+ *
+ * @extends AbstractType<User>
+ */
 final class UserType extends AbstractType
 {
     #[\Override]

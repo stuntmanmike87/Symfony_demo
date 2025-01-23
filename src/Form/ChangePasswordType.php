@@ -28,6 +28,11 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  *
  * @author Romain Monteil <monteil.romain@gmail.com>
  */
+/**
+ * @template ChangePasswordForm
+ *
+ * @extends AbstractType<ChangePasswordForm>
+ */
 final class ChangePasswordType extends AbstractType
 {
     #[\Override]

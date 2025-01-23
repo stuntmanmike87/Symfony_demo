@@ -39,11 +39,36 @@ parameters:
         #     path: tests/bootstrap.php
         # -
         #     identifier: missingType.generics
-# 		-
-			message: '#^Call to function method_exists\(\) with ''Symfony\\\\Component\\\\Dotenv\\\\Dotenv'' and ''bootEnv'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
+
+        -
+            message: '#^Call to function method_exists\(\) with ''Symfony\\\\Component\\\\Dotenv\\\\Dotenv'' and ''bootEnv'' will always evaluate to true\.$#'
+            identifier: function.alreadyNarrowedType
+            count: 1
             path: tests/bootstrap.php
+
+        -
+            message: '#Parameter \#1 \$objectOrMethod of class ReflectionMethod constructor expects object\|string, mixed given.#'
+            path: src/Twig/SourceCodeExtension.php
+
+        -
+            message: '#Parameter \#2 \$method of class ReflectionMethod constructor expects string, mixed given.#'
+            path: src/Twig/SourceCodeExtension.php
+
+        -
+            message: '#Parameter \#1 \$function of class ReflectionFunction constructor expects Closure\|string, callable\(\): mixed given.#'
+            path: src/Twig/SourceCodeExtension.php
+
+        -
+            message: '#Call to function is_countable\(\) with list<string> will always evaluate to true.#'
+            path: src/Twig/SourceCodeExtension.php
+
+        -
+            message: '#Call to function array_filter\(\) requires parameter \#2 to be passed to avoid loose comparison semantics.#'
+            path: src/Form/DataTransformer/TagArrayToStringTransformer.php
+
+        -
+            message: '#Method App\\Entity\\User::getUserIdentifier\(\) should return non-empty-string but returns string.#'
+            path: src/Entity/User.php
 
     doctrine:
         # ormRepositoryClass: MyApp\Doctrine\BetterDocumentRepository

@@ -28,6 +28,7 @@ use function Symfony\Component\String\u;
  */
 /**
  * @template DateTimePicker
+ *
  * @extends AbstractType<DateTimePicker>
  */
 final class DateTimePickerType extends AbstractType

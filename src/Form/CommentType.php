@@ -29,6 +29,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
+/**
+ * @ template Comment
+ *
+ * @extends AbstractType<Comment>
+ */
 final class CommentType extends AbstractType
 {
     #[\Override]

@@ -32,6 +32,7 @@ use Symfony\Component\Form\FormView;
  */
 /**
  * @template TagsInput
+ *
  * @extends AbstractType<TagsInput>
  */
 final class TagsInputType extends AbstractType
