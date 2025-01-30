@@ -135,7 +135,12 @@ final class SourceCodeExtension extends AbstractExtension
     private function getCallableReflector(callable $callable): \ReflectionFunctionAbstract
     {
         if (\is_array($callable)) {
-            return new \ReflectionMethod($callable[0], $callable[1]);
+            /** @var string $callable_0 */
+            $callable_0 = $callable[0];
+            /** @var string $callable_1 */
+            $callable_1 = $callable[1];
+            return new \ReflectionMethod($callable_0, $callable_1);
+            // return new \ReflectionMethod($callable[0], $callable[1]);
         }
 
         if (\is_object($callable) && !$callable instanceof \Closure) {

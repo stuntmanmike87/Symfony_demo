@@ -47,14 +47,6 @@ parameters:
             path: tests/bootstrap.php
 
         -
-            message: '#Parameter \#1 \$objectOrMethod of class ReflectionMethod constructor expects object\|string, mixed given.#'
-            path: src/Twig/SourceCodeExtension.php
-
-        -
-            message: '#Parameter \#2 \$method of class ReflectionMethod constructor expects string, mixed given.#'
-            path: src/Twig/SourceCodeExtension.php
-
-        -
             message: '#Parameter \#1 \$function of class ReflectionFunction constructor expects Closure\|string, callable\(\): mixed given.#'
             path: src/Twig/SourceCodeExtension.php
 
