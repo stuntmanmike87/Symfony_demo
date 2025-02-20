@@ -139,6 +139,7 @@ final class SourceCodeExtension extends AbstractExtension
             $callable_0 = $callable[0];
             /** @var string $callable_1 */
             $callable_1 = $callable[1];
+
             return new \ReflectionMethod($callable_0, $callable_1);
             // return new \ReflectionMethod($callable[0], $callable[1]);
         }
@@ -149,7 +150,9 @@ final class SourceCodeExtension extends AbstractExtension
             return $r->getMethod('__invoke');
         }
 
-        return new \ReflectionFunction($callable);
+        // Parameter #1 $function of class ReflectionFunction constructor
+        // expects Closure|string, callable(): mixed given.
+        return new \ReflectionFunction(\Closure::fromCallable($callable));
     }
 
     /** @return array{file_path: string|false, starting_line: int, source_code: string} */
@@ -179,7 +182,10 @@ final class SourceCodeExtension extends AbstractExtension
 
         /** @param string|null $lineOfCode */
         $indentedOrBlankLines = array_filter($codeLines, static fn ($lineOfCode) => u($lineOfCode)->isEmpty() || u($lineOfCode)->startsWith('    '));
-        $codeIsIndented = \count((array) $indentedOrBlankLines) === (is_countable($codeLines) ? \count($codeLines) : 0);
+        // $codeIsIndented = \count((array) $indentedOrBlankLines) === (is_countable($codeLines) ? \count($codeLines) : 0);
+        // $codeIsIndented = \count((array) $indentedOrBlankLines) === (is_countable($codeLines) ? \count($codeLines) : 0);
+        // Call to function is_countable() with list<string> will always evaluate to true.
+        $codeIsIndented = \count((array) $indentedOrBlankLines) === \count($codeLines);
 
         if ($codeIsIndented) {
             /** @param string|null $lineOfCode */
