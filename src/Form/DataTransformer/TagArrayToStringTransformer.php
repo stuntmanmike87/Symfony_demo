@@ -58,7 +58,8 @@ final readonly class TagArrayToStringTransformer implements DataTransformerInter
         $ustring = u((string) $string);
         $strings = $ustring->split(',');
         $strings = explode(' ', implode('', $strings));
-        $names = array_filter(array_unique($this->trim($strings)));
+
+        $names = array_filter(array_unique($this->trim($strings)), fn ($string) => '' !== $string);
         // $names = array_filter(array_unique($this->trim(u($string)->split(','))));
 
         // Get the current tags and find the new ones that should be created.
