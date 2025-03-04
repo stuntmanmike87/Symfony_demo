@@ -40,7 +40,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  *
  * @see \App\Tests\Controller\BlogControllerTest
  */
-#[Route('/blog')]
 final class BlogController extends AbstractController
 {
     /**
@@ -49,9 +48,9 @@ final class BlogController extends AbstractController
      *
      * See https://symfony.com/doc/current/routing.html#special-parameters
      */
-    #[Route('/', defaults: ['page' => '1', '_format' => 'html'], methods: ['GET'], name: 'blog_index')]
-    #[Route('/rss.xml', defaults: ['page' => '1', '_format' => 'xml'], methods: ['GET'], name: 'blog_rss')]
-    #[Route('/page/{page}', name: 'blog_index_paginated', defaults: ['_format' => 'html'], requirements: ['page' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[Route('/blog/', defaults: ['page' => '1', '_format' => 'html'], methods: ['GET'], name: 'blog_index')]
+    #[Route('/blog/rss.xml', defaults: ['page' => '1', '_format' => 'xml'], methods: ['GET'], name: 'blog_rss')]
+    #[Route('/blog/page/{page}', name: 'blog_index_paginated', defaults: ['_format' => 'html'], requirements: ['page' => Requirement::POSITIVE_INT], methods: ['GET'])]
     #[Cache(smaxage: 10)]
     public function index(Request $request, int $page, string $_format, PostRepository $posts, TagRepository $tags): Response
     {
@@ -71,7 +70,6 @@ final class BlogController extends AbstractController
             'tagName' => $tag?->getName(),
         ]);
     }
-
     /**
      * NOTE: when the controller argument is a Doctrine entity, Symfony makes an
      * automatic database query to fetch it based on the value of the route parameters.
@@ -81,7 +79,7 @@ final class BlogController extends AbstractController
      * also has multiple arguments.
      * See https://symfony.com/doc/current/doctrine.html#automatically-fetching-objects-entityvalueresolver.
      */
-    #[Route('/posts/{slug:post}', name: 'blog_post', requirements: ['slug' => Requirement::ASCII_SLUG], methods: ['GET'])]
+    #[Route('/blog/posts/{slug:post}', name: 'blog_post', requirements: ['slug' => Requirement::ASCII_SLUG], methods: ['GET'])]
     public function postShow(Post $post): Response
     {
         // Symfony's 'dump()' function is an improved version of PHP's 'var_dump()' but
@@ -100,14 +98,13 @@ final class BlogController extends AbstractController
 
         return $this->render('blog/post_show.html.twig', ['post' => $post]);
     }
-
     /**
      * NOTE: The ParamConverter mapping is required because the route parameter
      * (postSlug) doesn't match any of the Doctrine entity properties (slug).
      *
      * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html#doctrine-converter
      */
-    #[Route('/comment/{postSlug}/new', name: 'comment_new', requirements: ['postSlug' => Requirement::ASCII_SLUG], methods: ['POST'])]
+    #[Route('/blog/comment/{postSlug}/new', name: 'comment_new', requirements: ['postSlug' => Requirement::ASCII_SLUG], methods: ['POST'])]
     #[IsGranted('IS_AUTHENTICATED')]
     public function commentNew(
         #[CurrentUser] User $user,
@@ -148,7 +145,6 @@ final class BlogController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
     /**
      * This controller is called directly via the render() function in the
      * blog/post_show.html.twig template. That's why it's not needed to define
@@ -163,8 +159,7 @@ final class BlogController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    #[Route('/search', name: 'blog_search', methods: ['GET'])]
+    #[Route('/blog/search', name: 'blog_search', methods: ['GET'])]
     public function search(Request $request): Response
     {
         return $this->render('blog/search.html.twig', ['query' => (string) $request->query->get('q', '')]);

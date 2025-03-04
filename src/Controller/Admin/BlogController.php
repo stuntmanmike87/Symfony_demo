@@ -43,7 +43,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  *
  * @see \App\Tests\Controller\Admin\BlogControllerTest
  */
-#[Route('/admin/post')]
 #[IsGranted('ROLE_ADMIN')] // #[IsGranted(User::class)]//#[IsGranted(User::ROLE_ADMIN)]
 final class BlogController extends AbstractController
 {
@@ -58,8 +57,8 @@ final class BlogController extends AbstractController
      *     could move this annotation to any other controller while maintaining
      *     the route name and therefore, without breaking any existing link.
      */
-    #[Route('/', name: 'admin_index', methods: ['GET'])]
-    #[Route('/', name: 'admin_post_index', methods: ['GET'])]
+    #[Route('/admin/post/', name: 'admin_index', methods: ['GET'])]
+    #[Route('/admin/post/', name: 'admin_post_index', methods: ['GET'])]
     public function index(
         #[CurrentUser] User $user,
         PostRepository $posts,
@@ -76,7 +75,7 @@ final class BlogController extends AbstractController
      * to constraint the HTTP methods each controller responds to (by default
      * it responds to all methods).
      */
-    #[Route('/new', name: 'admin_post_new', methods: ['GET', 'POST'])]
+    #[Route('/admin/post/new', name: 'admin_post_new', methods: ['GET', 'POST'])]
     public function new(
         #[CurrentUser] User $user,
         Request $request,
@@ -126,7 +125,7 @@ final class BlogController extends AbstractController
     /**
      * Finds and displays a Post entity.
      */
-    #[Route('/{id:post}', name: 'admin_post_show', requirements: ['id' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[Route('/admin/post/{id:post}', name: 'admin_post_show', requirements: ['id' => Requirement::POSITIVE_INT], methods: ['GET'])]
     public function show(Post $post): Response
     {
         // This security check can also be performed
@@ -141,7 +140,7 @@ final class BlogController extends AbstractController
     /**
      * Displays a form to edit an existing Post entity.
      */
-    #[Route('/{id:post}/edit', name: 'admin_post_edit', requirements: ['id' => Requirement::POSITIVE_INT], methods: ['GET', 'POST'])]
+    #[Route('/admin/post/{id:post}/edit', name: 'admin_post_edit', requirements: ['id' => Requirement::POSITIVE_INT], methods: ['GET', 'POST'])]
     #[IsGranted('edit', subject: 'post', message: 'Posts can only be edited by their authors.')]
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
@@ -167,7 +166,7 @@ final class BlogController extends AbstractController
     /**
      * Deletes a Post entity.
      */
-    #[Route('/{id:post}/delete', name: 'admin_post_delete', requirements: ['id' => Requirement::POSITIVE_INT], methods: ['POST'])]
+    #[Route('/admin/post/{id:post}/delete', name: 'admin_post_delete', requirements: ['id' => Requirement::POSITIVE_INT], methods: ['POST'])]
     #[IsGranted('delete', subject: 'post')]
     public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {

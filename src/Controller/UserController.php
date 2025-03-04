@@ -35,10 +35,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  *
  * @see \App\Tests\Controller\UserControllerTest
  */
-#[Route('/profile'), IsGranted('ROLE_USER')] // #[Route('/profile'), IsGranted(User::ROLE_USER)]
 final class UserController extends AbstractController
 {
-    #[Route('/edit', methods: ['GET', 'POST'], name: 'user_edit')]
+    #[Route('/profile/edit', methods: ['GET', 'POST'], name: 'user_edit')]
     public function edit(
         #[CurrentUser] User $user,
         Request $request,
@@ -60,8 +59,7 @@ final class UserController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    #[Route('/change-password', name: 'user_change_password', methods: ['GET', 'POST'])]
+    #[Route('/profile/change-password', name: 'user_change_password', methods: ['GET', 'POST'])]
     public function changePassword(
         #[CurrentUser] User $user,
         Request $request,
