@@ -3824,16 +3824,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v2.4.7",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "92f4fba342161ff36072bd3b8e0b3c6c23160402"
+                "reference": "8ce1acd9842abe0e9b4c4a0bd3f259859516c018"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/92f4fba342161ff36072bd3b8e0b3c6c23160402",
-                "reference": "92f4fba342161ff36072bd3b8e0b3c6c23160402",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/8ce1acd9842abe0e9b4c4a0bd3f259859516c018",
+                "reference": "8ce1acd9842abe0e9b4c4a0bd3f259859516c018",
                 "shasum": ""
             },
             "require": {
@@ -3872,7 +3872,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v2.4.7"
+                "source": "https://github.com/symfony/flex/tree/v2.5.0"
             },
             "funding": [
                 {
@@ -3888,7 +3888,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-07T08:51:54+00:00"
+            "time": "2025-03-03T07:50:46+00:00"
         },
         {
             "name": "symfony/form",
@@ -8388,34 +8388,36 @@
         },
         {
             "name": "dama/doctrine-test-bundle",
-            "version": "v8.2.2",
+            "version": "v8.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmaicher/doctrine-test-bundle.git",
-                "reference": "eefe54fdf00d910f808efea9cfce9cc261064a0a"
+                "reference": "11846789ca2a86f6277316b42448f7fccb3965ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/eefe54fdf00d910f808efea9cfce9cc261064a0a",
-                "reference": "eefe54fdf00d910f808efea9cfce9cc261064a0a",
+                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/11846789ca2a86f6277316b42448f7fccb3965ff",
+                "reference": "11846789ca2a86f6277316b42448f7fccb3965ff",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "^3.3 || ^4.0",
                 "doctrine/doctrine-bundle": "^2.11.0",
-                "php": "^7.4 || ^8.0",
-                "psr/cache": "^1.0 || ^2.0 || ^3.0",
-                "symfony/cache": "^5.4 || ^6.3 || ^7.0",
-                "symfony/framework-bundle": "^5.4 || ^6.3 || ^7.0"
+                "php": ">= 8.1",
+                "psr/cache": "^2.0 || ^3.0",
+                "symfony/cache": "^6.4 || ^7.2",
+                "symfony/framework-bundle": "^6.4 || ^7.2"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<10.0"
             },
             "require-dev": {
                 "behat/behat": "^3.0",
                 "friendsofphp/php-cs-fixer": "^3.27",
                 "phpstan/phpstan": "^2.0",
-                "phpunit/phpunit": "^8.0 || ^9.0 || ^10.0 || ^11.0",
-                "symfony/phpunit-bridge": "^7.2",
-                "symfony/process": "^5.4 || ^6.3 || ^7.0",
-                "symfony/yaml": "^5.4 || ^6.3 || ^7.0"
+                "phpunit/phpunit": "^10.0 || ^11.0 || ^12.0",
+                "symfony/process": "^6.4 || ^7.2",
+                "symfony/yaml": "^6.4 || ^7.2"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -8449,9 +8451,9 @@
             ],
             "support": {
                 "issues": "https://github.com/dmaicher/doctrine-test-bundle/issues",
-                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v8.2.2"
+                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v8.3.0"
             },
-            "time": "2025-02-04T14:37:36+00:00"
+            "time": "2025-03-04T10:07:03+00:00"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -8795,16 +8797,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.70.0",
+            "version": "v3.70.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "2ecd5aae0edc937f0d5aa4a22d1d705c6b2e084e"
+                "reference": "1ca468270efbb75ce0c7566a79cca8ea2888584d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/2ecd5aae0edc937f0d5aa4a22d1d705c6b2e084e",
-                "reference": "2ecd5aae0edc937f0d5aa4a22d1d705c6b2e084e",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/1ca468270efbb75ce0c7566a79cca8ea2888584d",
+                "reference": "1ca468270efbb75ce0c7566a79cca8ea2888584d",
                 "shasum": ""
             },
             "require": {
@@ -8886,7 +8888,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.70.0"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.70.2"
             },
             "funding": [
                 {
@@ -8894,7 +8896,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-22T23:30:51+00:00"
+            "time": "2025-03-03T21:07:23+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -9062,16 +9064,16 @@
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "bdb6a835c5aa9725979694ae9b70591e180f4853"
+                "reference": "a61a04a361b60014ec04881ccb87252d3bf02e94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/bdb6a835c5aa9725979694ae9b70591e180f4853",
-                "reference": "bdb6a835c5aa9725979694ae9b70591e180f4853",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/a61a04a361b60014ec04881ccb87252d3bf02e94",
+                "reference": "a61a04a361b60014ec04881ccb87252d3bf02e94",
                 "shasum": ""
             },
             "require": {
@@ -9127,9 +9129,9 @@
             "description": "Doctrine extensions for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
-                "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.0.1"
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.0.2"
             },
-            "time": "2024-12-02T16:48:00+00:00"
+            "time": "2025-03-03T09:29:16+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
@@ -9778,21 +9780,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.0.9",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "4393230e478c0006795770fe74c223b5c64ed68c"
+                "reference": "5844a718acb40f40afcd110394270afa55509fd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/4393230e478c0006795770fe74c223b5c64ed68c",
-                "reference": "4393230e478c0006795770fe74c223b5c64ed68c",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/5844a718acb40f40afcd110394270afa55509fd0",
+                "reference": "5844a718acb40f40afcd110394270afa55509fd0",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4|^8.0",
-                "phpstan/phpstan": "^2.1.3"
+                "phpstan/phpstan": "^2.1.6"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -9825,7 +9827,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.0.9"
+                "source": "https://github.com/rectorphp/rector/tree/2.0.10"
             },
             "funding": [
                 {
@@ -9833,7 +9835,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-10T08:14:01+00:00"
+            "time": "2025-03-03T17:35:18+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -10542,16 +10544,16 @@
         },
         {
             "name": "symplify/phpstan-rules",
-            "version": "14.3.4",
+            "version": "14.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/phpstan-rules.git",
-                "reference": "42ce11920b7aeed41cc6e1f9d9622f7e6654fd81"
+                "reference": "b7568de69b4376264e6a02e657f0a235999f154c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/phpstan-rules/zipball/42ce11920b7aeed41cc6e1f9d9622f7e6654fd81",
-                "reference": "42ce11920b7aeed41cc6e1f9d9622f7e6654fd81",
+                "url": "https://api.github.com/repos/symplify/phpstan-rules/zipball/b7568de69b4376264e6a02e657f0a235999f154c",
+                "reference": "b7568de69b4376264e6a02e657f0a235999f154c",
                 "shasum": ""
             },
             "require": {
@@ -10583,7 +10585,7 @@
             "description": "Set of Symplify rules for PHPStan",
             "support": {
                 "issues": "https://github.com/symplify/phpstan-rules/issues",
-                "source": "https://github.com/symplify/phpstan-rules/tree/14.3.4"
+                "source": "https://github.com/symplify/phpstan-rules/tree/14.3.5"
             },
             "funding": [
                 {
@@ -10595,7 +10597,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-25T10:07:14+00:00"
+            "time": "2025-03-03T08:32:42+00:00"
         },
         {
             "name": "tomasvotruba/cognitive-complexity",
