@@ -70,6 +70,7 @@ final class BlogController extends AbstractController
             'tagName' => $tag?->getName(),
         ]);
     }
+
     /**
      * NOTE: when the controller argument is a Doctrine entity, Symfony makes an
      * automatic database query to fetch it based on the value of the route parameters.
@@ -98,6 +99,7 @@ final class BlogController extends AbstractController
 
         return $this->render('blog/post_show.html.twig', ['post' => $post]);
     }
+
     /**
      * NOTE: The ParamConverter mapping is required because the route parameter
      * (postSlug) doesn't match any of the Doctrine entity properties (slug).
@@ -145,6 +147,7 @@ final class BlogController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
     /**
      * This controller is called directly via the render() function in the
      * blog/post_show.html.twig template. That's why it's not needed to define
@@ -159,6 +162,7 @@ final class BlogController extends AbstractController
             'form' => $form,
         ]);
     }
+
     #[Route('/blog/search', name: 'blog_search', methods: ['GET'])]
     public function search(Request $request): Response
     {

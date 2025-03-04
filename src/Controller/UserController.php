@@ -23,7 +23,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Controller used to manage current user. The #[CurrentUser] attribute
@@ -59,6 +58,7 @@ final class UserController extends AbstractController
             'form' => $form,
         ]);
     }
+
     #[Route('/profile/change-password', name: 'user_change_password', methods: ['GET', 'POST'])]
     public function changePassword(
         #[CurrentUser] User $user,
