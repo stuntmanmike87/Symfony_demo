@@ -346,7 +346,7 @@
         ]
     },
     "symfonycasts/sass-bundle": {
-        "version": "v0.7.0"
+        "version": "v0.8.2"
     },
     "twig/extra-bundle": {
         "version": "v3.20.0"
