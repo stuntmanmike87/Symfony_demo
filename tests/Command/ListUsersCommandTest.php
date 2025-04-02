@@ -29,7 +29,11 @@ final class ListUsersCommandTest extends AbstractCommandTestCase
         );
 
         $emptyDisplayLines = 5;
-        /* $this-> */self::assertSame($emptyDisplayLines + $maxResults, mb_substr_count($tester->getDisplay(), "\n"));
+        $this->assertSame(
+            $emptyDisplayLines + $maxResults,
+            mb_substr_count($tester->getDisplay(),
+            "\n")
+        );
     }
 
     public static function maxResultsProvider(): \Generator
@@ -42,14 +46,14 @@ final class ListUsersCommandTest extends AbstractCommandTestCase
     {
         $this->executeCommand([]);
 
-        /* $this-> */self::assertEmailCount(0);
+        $this->assertEmailCount(0);
     }
 
     public function testItSendsAnEmailIfOptionProvided(): void
     {
         $this->executeCommand(['--send-to' => 'john.doe@symfony.com']);
 
-        /* $this-> */self::assertEmailCount(1);
+        $this->assertEmailCount(1);
     }
 
     protected function getCommandFqcn(): string

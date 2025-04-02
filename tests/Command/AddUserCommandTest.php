@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Command;
 
+use App\Entity\User;
 use App\Command\AddUserCommand;
 use App\Repository\UserRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -92,18 +93,18 @@ final class AddUserCommandTest extends AbstractCommandTestCase
     private function assertUserCreated(bool $isAdmin): void
     {
         /** @var UserRepository $repository */
-        $repository = /* $this-> */self::getContainer()->get(UserRepository::class);
+        $repository = self::getContainer()->get(UserRepository::class);
 
         /** @var UserPasswordHasherInterface $passwordHasher */
         $passwordHasher = /* $this-> */self::getContainer()->get(UserPasswordHasherInterface::class);
 
         $user = $repository->findOneByEmail($this->userData['email']);
 
-        /* $this-> */self::assertNotNull($user);
-        /* $this-> */self::assertSame($this->userData['full-name'], $user->getFullName());
-        /* $this-> */self::assertSame($this->userData['username'], $user->getUsername());
-        /* $this-> */self::assertTrue($passwordHasher->isPasswordValid($user, $this->userData['password']));
-        /* $this-> */self::assertSame($isAdmin ? ['ROLE_ADMIN'] : ['ROLE_USER'], $user->getRoles());
+        $this->assertInstanceOf(User::class, $user);
+        $this->assertSame($this->userData['full-name'], $user->getFullName());
+        $this->assertSame($this->userData['username'], $user->getUsername());
+        $this->assertTrue($passwordHasher->isPasswordValid($user, $this->userData['password']));
+        $this->assertSame($isAdmin ? ['ROLE_ADMIN'] : ['ROLE_USER'], $user->getRoles());
     }
 
     protected function getCommandFqcn(): string

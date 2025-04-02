@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Pagination\Paginator;
 use App\Repository\UserRepository;
@@ -33,11 +34,11 @@ final class BlogControllerTest extends WebTestCase
     public function testIndex(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/en/blog/');
+        $crawler = $client->request(Request::METHOD_GET, '/en/blog/');
 
-        /* $this-> */self::assertResponseIsSuccessful();
+        $this->assertResponseIsSuccessful();
 
-        /* $this-> */self::assertCount(
+        $this->assertCount(
             Paginator::PAGE_SIZE,
             $crawler->filter('article.post'),
             'The homepage displays the right number of posts.'
@@ -47,11 +48,11 @@ final class BlogControllerTest extends WebTestCase
     public function testRss(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/en/blog/rss.xml');
+        $crawler = $client->request(Request::METHOD_GET, '/en/blog/rss.xml');
 
-        /* $this-> */self::assertResponseHeaderSame('Content-Type', 'text/xml; charset=UTF-8');
+        $this->assertResponseHeaderSame('Content-Type', 'text/xml; charset=UTF-8');
 
-        /* $this-> */self::assertCount(
+        $this->assertCount(
             Paginator::PAGE_SIZE,
             $crawler->filter('item'),
             'The xml file displays the right number of posts.'
@@ -79,7 +80,7 @@ final class BlogControllerTest extends WebTestCase
         $client->followRedirects();
 
         // Find first blog post
-        $crawler = $client->request('GET', '/en/blog/');
+        $crawler = $client->request(Request::METHOD_GET, '/en/blog/');
         $postLink = $crawler->filter('article.post > h2 a')->link();
 
         $client->click($postLink);
@@ -89,16 +90,19 @@ final class BlogControllerTest extends WebTestCase
 
         $newComment = $crawler->filter('.post-comment')->first()->filter('div > p')->text();
 
-        /* $this-> */self::assertSame('Hi, Symfony!', $newComment);
+        /* $this-> */$this->assertSame('Hi, Symfony!', $newComment);
     }
 
     public function testAjaxSearch(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/en/blog/search', ['q' => 'lorem']);
+        $crawler = $client->request(Request::METHOD_GET, '/en/blog/search', ['q' => 'lorem']);
 
-        /* $this-> */self::assertResponseIsSuccessful();
-        /* $this-> */self::assertCount(1, $crawler->filter('article.post'));
-        /* $this-> */self::assertSame('Lorem ipsum dolor sit amet consectetur adipiscing elit', $crawler->filter('article.post')->first()->filter('h2 > a')->text());
+        $this->assertResponseIsSuccessful();
+        $this->assertCount(1, $crawler->filter('article.post'));
+        $this->assertSame(
+            'Lorem ipsum dolor sit amet consectetur adipiscing elit',
+            $crawler->filter('article.post')->first()->filter('h2 > a')->text()
+        );
     }
 }

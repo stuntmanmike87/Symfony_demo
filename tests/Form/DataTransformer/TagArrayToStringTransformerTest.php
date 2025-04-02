@@ -35,8 +35,8 @@ final class TagArrayToStringTransformerTest extends TestCase
         $tags = $this->getMockedTransformer()->reverseTransform('Hello, Demo, How');
 
     /** @var Tag[] $tags */
-    /* $this-> */self::assertCount(3, $tags);
-        /* $this-> */self::assertSame('Hello', $tags[0]->getName());
+    $this->assertCount(3, $tags);
+        $this->assertSame('Hello', $tags[0]->getName());
     }
 
     /**
@@ -45,11 +45,11 @@ final class TagArrayToStringTransformerTest extends TestCase
      */
     public function testCreateTheRightAmountOfTagsWithTooManyCommas(): void
     {
-        ///** @var \Collection<int, Tag> $transformer */
+        // ** @var \Collection<int, Tag> $transformer */
         $transformer = $this->getMockedTransformer();
 
-        /* $this-> */self::assertCount(3, (array) $transformer->reverseTransform('Hello, Demo,, How'));
-        /* $this-> */self::assertCount(3, (array) $transformer->reverseTransform('Hello, Demo, How,'));
+        $this->assertCount(3, (array) $transformer->reverseTransform('Hello, Demo,, How'));
+        $this->assertCount(3, (array) $transformer->reverseTransform('Hello, Demo, How,'));
     }
 
     /**
@@ -60,7 +60,7 @@ final class TagArrayToStringTransformerTest extends TestCase
         /** @var Tag[] $tags */
         $tags = $this->getMockedTransformer()->reverseTransform('   Hello   ');
 
-        /* $this-> */self::assertSame('Hello', $tags[0]->getName());
+        $this->assertSame('Hello', $tags[0]->getName());
     }
 
     /**
@@ -71,7 +71,7 @@ final class TagArrayToStringTransformerTest extends TestCase
         /** @var Tag[] $tags */
         $tags = $this->getMockedTransformer()->reverseTransform('Hello, Hello, Hello');
 
-        /* $this-> */self::assertCount(1, $tags);
+        $this->assertCount(1, $tags);
     }
 
     /**
@@ -87,9 +87,9 @@ final class TagArrayToStringTransformerTest extends TestCase
         /** @var Tag[] $tags */
         $tags = $this->getMockedTransformer($persistedTags)->reverseTransform('Hello, World, How, Are, You');
 
-        /* $this-> */self::assertCount(5, $tags);
-        /* $this-> */self::assertSame($persistedTags[0], $tags[0]);
-        /* $this-> */self::assertSame($persistedTags[1], $tags[1]);
+        $this->assertCount(5, $tags);
+        $this->assertSame($persistedTags[0], $tags[0]);
+        $this->assertSame($persistedTags[1], $tags[1]);
     }
 
     /**
@@ -105,7 +105,7 @@ final class TagArrayToStringTransformerTest extends TestCase
 
         $transformed = $this->getMockedTransformer()->transform($persistedTags);
 
-        /* $this-> */self::assertSame('Hello,World', $transformed);
+        $this->assertSame('Hello,World', $transformed);
     }
 
     /**

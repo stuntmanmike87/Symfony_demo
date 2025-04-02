@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -42,10 +43,11 @@ final class UserControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request($httpMethod, $url);
 
-        /* $this-> */self::assertResponseRedirects(
+        $this->assertResponseRedirects(
             'http://localhost/en/login',
             Response::HTTP_FOUND,
-            sprintf('The %s secure URL redirects to the login form.', $url)
+            sprintf('The %s secure URL redirects to the login form.',
+            $url)
         );
     }
 
@@ -69,17 +71,17 @@ final class UserControllerTest extends WebTestCase
 
         $client->loginUser($user);
 
-        $client->request('GET', '/en/profile/edit');
+        $client->request(Request::METHOD_GET, '/en/profile/edit');
         $client->submitForm('Save changes', [
             'user[email]' => $newUserEmail,
         ]);
 
-        /* $this-> */self::assertResponseRedirects('/en/profile/edit', Response::HTTP_SEE_OTHER);
+        $this->assertResponseRedirects('/en/profile/edit', Response::HTTP_SEE_OTHER);
 
         $user = $userRepository->findOneByEmail($newUserEmail);
 
-        /* $this-> */self::assertNotNull($user);
-        /* $this-> */self::assertSame($newUserEmail, $user->getEmail());
+        $this->assertInstanceOf(User::class, $user);
+        $this->assertSame($newUserEmail, $user->getEmail());
     }
 
     public function testChangePassword(): void
@@ -95,18 +97,14 @@ final class UserControllerTest extends WebTestCase
         $newUserPassword = 'new-password';
 
         $client->loginUser($user);
-        $client->request('GET', '/en/profile/change-password');
+        $client->request(Request::METHOD_GET, '/en/profile/change-password');
         $client->submitForm('Save changes', [
             'change_password[currentPassword]' => 'kitten',
             'change_password[newPassword][first]' => $newUserPassword,
             'change_password[newPassword][second]' => $newUserPassword,
         ]);
 
-        /* $this-> */self::assertResponseRedirects();
-        /* $this-> */self::assertResponseRedirects(
-            '/',
-            Response::HTTP_FOUND,
-            'Changing password logout the user.'
-        );
+        $this->assertResponseRedirects();
+        $this->assertResponseRedirects('/', Response::HTTP_FOUND, 'Changing password logout the user.');
     }
 }

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -40,9 +41,9 @@ final class DefaultControllerTest extends WebTestCase
     public function testPublicUrls(string $url): void
     {
         $client = static::createClient();
-        $client->request('GET', $url);
+        $client->request(Request::METHOD_GET, $url);
 
-        /* $this-> */self::assertResponseIsSuccessful(sprintf('The %s public URL loads correctly.', $url));
+        $this->assertResponseIsSuccessful(sprintf('The %s public URL loads correctly.', $url));
     }
 
     /**
@@ -63,8 +64,8 @@ final class DefaultControllerTest extends WebTestCase
         /** @var Post $blogPost */
         $blogPost = $registry->getRepository(Post::class)->find(1);
 
-        $client->request('GET', sprintf('/en/blog/posts/%s', $blogPost->getSlug()));
-        /* $this-> */self::assertResponseIsSuccessful();
+        $client->request(Request::METHOD_GET, sprintf('/en/blog/posts/%s', $blogPost->getSlug()));
+        $this->assertResponseIsSuccessful();
     }
 
     /**
@@ -77,12 +78,13 @@ final class DefaultControllerTest extends WebTestCase
     public function testSecureUrls(string $url): void
     {
         $client = static::createClient();
-        $client->request('GET', $url);
+        $client->request(Request::METHOD_GET, $url);
 
-        /* $this-> */self::assertResponseRedirects(
+        $this->assertResponseRedirects(
             'http://localhost/en/login',
             Response::HTTP_FOUND,
-            sprintf('The %s secure URL redirects to the login form.', $url)
+            sprintf('The %s secure URL redirects to the login form.',
+            $url)
         );
     }
 
