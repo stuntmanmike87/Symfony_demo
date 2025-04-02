@@ -13,13 +13,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\Admin;
 
-use PHPUnit\Framework\Attributes\DataProvider;
-use Override;
-use Generator;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,7 +41,6 @@ class BlogControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
 
-    #[Override]
     protected function setUp(): void
     {
         $this->client = static::createClient();
@@ -55,9 +52,7 @@ class BlogControllerTest extends WebTestCase
         $this->client->loginUser($user);
     }
 
-    /**
-     * @dataProvider getUrlsForRegularUsers
-     */
+    #[DataProvider('getUrlsForRegularUsers')]
     public function testAccessDeniedForRegularUsers(string $httpMethod, string $url): void
     {
         $this->client->getCookieJar()->clear();
@@ -73,7 +68,7 @@ class BlogControllerTest extends WebTestCase
         /* $this-> */self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
-    public static function getUrlsForRegularUsers(): Generator
+    public static function getUrlsForRegularUsers(): \Generator
     {
         yield ['GET', '/en/admin/post/'];
         yield ['GET', '/en/admin/post/1'];

@@ -13,10 +13,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use PHPUnit\Framework\Attributes\DataProvider;
-use Generator;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -30,14 +29,13 @@ use Symfony\Component\HttpFoundation\Response;
  *     $ cd your-symfony-project/
  *     $ ./vendor/bin/phpunit
  */
+#[DataProvider('getPublicUrls')]
 final class DefaultControllerTest extends WebTestCase
 {
     /**
      * PHPUnit's data providers allow to execute the same tests repeated times
      * using a different set of data each time.
      * See https://symfony.com/doc/current/testing.html#testing-against-different-sets-of-data.
-     *
-     * @dataProvider getPublicUrls
      */
     public function testPublicUrls(string $url): void
     {
@@ -88,14 +86,14 @@ final class DefaultControllerTest extends WebTestCase
         );
     }
 
-    public static function getPublicUrls(): Generator
+    public static function getPublicUrls(): \Generator
     {
         yield ['/'];
         yield ['/en/blog/'];
         yield ['/en/login'];
     }
 
-    public static function getSecureUrls(): Generator
+    public static function getSecureUrls(): \Generator
     {
         yield ['/en/admin/post/'];
         yield ['/en/admin/post/new'];

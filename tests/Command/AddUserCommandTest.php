@@ -13,14 +13,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Command;
 
-use PHPUnit\Framework\Attributes\DataProvider;
-use Override;
-use Generator;
 use App\Command\AddUserCommand;
 use App\Repository\UserRepository;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class AddUserCommandTest extends AbstractCommandTest
+final class AddUserCommandTest extends AbstractCommandTestCase
 {
     /**
      * @var string[]
@@ -32,7 +30,6 @@ final class AddUserCommandTest extends AbstractCommandTest
         'full-name' => 'Chuck Norris',
     ];
 
-    #[Override]
     protected function setUp(): void
     {
         if ('Windows' === \PHP_OS_FAMILY) {
@@ -41,11 +38,10 @@ final class AddUserCommandTest extends AbstractCommandTest
     }
 
     /**
-     * @dataProvider isAdminDataProvider
-     *
      * This test provides all the arguments required by the command, so the
      * command runs non-interactively and it won't ask for any argument.
      */
+    #[DataProvider('isAdminDataProvider')]
     public function testCreateUserNonInteractive(bool $isAdmin): void
     {
         $input = $this->userData;
@@ -59,13 +55,13 @@ final class AddUserCommandTest extends AbstractCommandTest
     }
 
     /**
-     * @dataProvider isAdminDataProvider
-     *
      * This test doesn't provide all the arguments required by the command, so
      * the command runs interactively and it will ask for the value of the missing
      * arguments.
-     * See https://symfony.com/doc/current/components/console/helpers/questionhelper.html#testing-a-command-that-expects-input
+     *
+     * @see https://symfony.com/doc/current/components/console/helpers/questionhelper.html#testing-a-command-that-expects-input
      */
+    #[DataProvider('isAdminDataProvider')]
     public function testCreateUserInteractive(bool $isAdmin): void
     {
         $this->executeCommand(
@@ -83,7 +79,7 @@ final class AddUserCommandTest extends AbstractCommandTest
      * This is used to execute the same test twice: first for normal users
      * (isAdmin = false) and then for admin users (isAdmin = true).
      */
-    public function isAdminDataProvider(): Generator
+    public static function isAdminDataProvider(): \Generator
     {
         yield [false];
         yield [true];
@@ -110,7 +106,6 @@ final class AddUserCommandTest extends AbstractCommandTest
         /* $this-> */self::assertSame($isAdmin ? ['ROLE_ADMIN'] : ['ROLE_USER'], $user->getRoles());
     }
 
-    #[Override]
     protected function getCommandFqcn(): string
     {
         return AddUserCommand::class;
