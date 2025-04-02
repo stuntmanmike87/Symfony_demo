@@ -17,7 +17,7 @@ use Symfony\Component\Dotenv\Dotenv;
 require dirname(__DIR__).'/vendor/autoload.php';
 
 if (method_exists(Dotenv::class, 'bootEnv')) {
-    //Function "method_exists()" cannot be used/left in the code: use ReflectionProvider->has*() instead
+    // Function "method_exists()" cannot be used/left in the code: use ReflectionProvider->has*() instead
     (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
 }
 

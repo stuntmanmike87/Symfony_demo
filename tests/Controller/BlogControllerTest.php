@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Pagination\Paginator;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Functional test for the controllers defined inside BlogController.
@@ -38,11 +38,7 @@ final class BlogControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
 
-        $this->assertCount(
-            Paginator::PAGE_SIZE,
-            $crawler->filter('article.post'),
-            'The homepage displays the right number of posts.'
-        );
+        $this->assertCount(Paginator::PAGE_SIZE, $crawler->filter('article.post'), 'The homepage displays the right number of posts.');
     }
 
     public function testRss(): void
@@ -52,11 +48,7 @@ final class BlogControllerTest extends WebTestCase
 
         $this->assertResponseHeaderSame('Content-Type', 'text/xml; charset=UTF-8');
 
-        $this->assertCount(
-            Paginator::PAGE_SIZE,
-            $crawler->filter('item'),
-            'The xml file displays the right number of posts.'
-        );
+        $this->assertCount(Paginator::PAGE_SIZE, $crawler->filter('item'), 'The xml file displays the right number of posts.');
     }
 
     /**
@@ -90,7 +82,7 @@ final class BlogControllerTest extends WebTestCase
 
         $newComment = $crawler->filter('.post-comment')->first()->filter('div > p')->text();
 
-        /* $this-> */$this->assertSame('Hi, Symfony!', $newComment);
+        $this->assertSame('Hi, Symfony!', $newComment);
     }
 
     public function testAjaxSearch(): void
@@ -100,9 +92,6 @@ final class BlogControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertCount(1, $crawler->filter('article.post'));
-        $this->assertSame(
-            'Lorem ipsum dolor sit amet consectetur adipiscing elit',
-            $crawler->filter('article.post')->first()->filter('h2 > a')->text()
-        );
+        $this->assertSame('Lorem ipsum dolor sit amet consectetur adipiscing elit', $crawler->filter('article.post')->first()->filter('h2 > a')->text());
     }
 }

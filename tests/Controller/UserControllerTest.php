@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -43,12 +43,7 @@ final class UserControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request($httpMethod, $url);
 
-        $this->assertResponseRedirects(
-            'http://localhost/en/login',
-            Response::HTTP_FOUND,
-            sprintf('The %s secure URL redirects to the login form.',
-            $url)
-        );
+        $this->assertResponseRedirects('http://localhost/en/login', Response::HTTP_FOUND, \sprintf('The %s secure URL redirects to the login form.', $url));
     }
 
     public static function getUrlsForAnonymousUsers(): \Generator

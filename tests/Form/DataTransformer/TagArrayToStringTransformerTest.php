@@ -34,8 +34,7 @@ final class TagArrayToStringTransformerTest extends TestCase
         /** @var Tag[] $tags */
         $tags = $this->getMockedTransformer()->reverseTransform('Hello, Demo, How');
 
-    /** @var Tag[] $tags */
-    $this->assertCount(3, $tags);
+        $this->assertCount(3, $tags);
         $this->assertSame('Hello', $tags[0]->getName());
     }
 
@@ -45,7 +44,6 @@ final class TagArrayToStringTransformerTest extends TestCase
      */
     public function testCreateTheRightAmountOfTagsWithTooManyCommas(): void
     {
-        // ** @var \Collection<int, Tag> $transformer */
         $transformer = $this->getMockedTransformer();
 
         $this->assertCount(3, (array) $transformer->reverseTransform('Hello, Demo,, How'));
@@ -83,7 +81,7 @@ final class TagArrayToStringTransformerTest extends TestCase
             new Tag('Hello'),
             new Tag('World'),
         ];
-        
+
         /** @var Tag[] $tags */
         $tags = $this->getMockedTransformer($persistedTags)->reverseTransform('Hello, World, How, Are, You');
 
@@ -117,23 +115,22 @@ final class TagArrayToStringTransformerTest extends TestCase
     private function getMockedTransformer(array $findByReturnValues = []): TagArrayToStringTransformer
     {
         /* $tag = new Tag('name');
-        
+
         $tagRepository = $this->createMock(ObjectRepository::class);
         $tagRepository->expects($this->any())->method('find')->willReturn($tag);
 
         $objectManager = $this->createMock(ObjectManager::class);
         $objectManager->expects($this->any())->method('getRepository')->willReturn($tagRepository); */
-        
-        
+
         /* $tagRepository = $this->getMockBuilder(TagRepository::class)->disableOriginalConstructor()->getMock();
         $tagRepository->expects($this->any())->method('findBy')->willReturn($findByReturnValues);
         //Call to an undefined method App\Repository\TagRepository::expects(). */
-        
-        /** @var MockObject $tagRepository */
+
+        // ** @var MockObject $tagRepository */
         $tagRepository = $this->createMock(TagRepository::class);
+        /* @var TagRepository $tagRepository */
         $tagRepository->method('findBy')->willReturn($findByReturnValues);
 
-        /** @var TagRepository $tagRepository */
         return new TagArrayToStringTransformer($tagRepository);
     }
 }

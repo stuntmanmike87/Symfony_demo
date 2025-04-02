@@ -50,6 +50,9 @@ parameters:
             message: '#Method App\\Entity\\User::getUserIdentifier\(\) should return non-empty-string but returns string.#'
             path: src/Entity/User.php
 
+        -
+            identifier: staticMethod.dynamicCall
+
     doctrine:
         # ormRepositoryClass: MyApp\Doctrine\BetterDocumentRepository
         # odmRepositoryClass: MyApp\Doctrine\BetterDocumentRepository

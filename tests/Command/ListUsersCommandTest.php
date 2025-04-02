@@ -29,11 +29,7 @@ final class ListUsersCommandTest extends AbstractCommandTestCase
         );
 
         $emptyDisplayLines = 5;
-        $this->assertSame(
-            $emptyDisplayLines + $maxResults,
-            mb_substr_count($tester->getDisplay(),
-            "\n")
-        );
+        $this->assertSame($emptyDisplayLines + $maxResults, mb_substr_count($tester->getDisplay(), "\n"));
     }
 
     public static function maxResultsProvider(): \Generator

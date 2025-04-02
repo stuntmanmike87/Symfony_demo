@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\Admin;
 
-use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Repository\PostRepository;
@@ -21,6 +20,7 @@ use App\Repository\UserRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -82,10 +82,7 @@ class BlogControllerTest extends WebTestCase
         $this->client->request(Request::METHOD_GET, '/en/admin/post/');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorExists(
-            'body#admin_post_index #main tbody tr',
-            'The backend homepage displays all the available posts.'
-        );
+        $this->assertSelectorExists('body#admin_post_index #main tbody tr', 'The backend homepage displays all the available posts.');
     }
 
     /**
@@ -136,10 +133,7 @@ class BlogControllerTest extends WebTestCase
         // post titles must be unique, so trying to create the same post twice should result in an error
         $this->client->submit($form);
 
-        $this->assertSelectorTextContains(
-            'form .invalid-feedback .form-error-message',
-            'This title was already used in another blog post, but they must be unique.'
-        );
+        $this->assertSelectorTextContains('form .invalid-feedback .form-error-message', 'This title was already used in another blog post, but they must be unique.');
         $this->assertSelectorExists('form #post_title.is-invalid');
     }
 

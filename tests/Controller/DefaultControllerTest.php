@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -30,7 +30,6 @@ use Symfony\Component\HttpFoundation\Response;
  *     $ cd your-symfony-project/
  *     $ ./vendor/bin/phpunit
  */
-#[DataProvider('getPublicUrls')]
 final class DefaultControllerTest extends WebTestCase
 {
     /**
@@ -38,12 +37,13 @@ final class DefaultControllerTest extends WebTestCase
      * using a different set of data each time.
      * See https://symfony.com/doc/current/testing.html#testing-against-different-sets-of-data.
      */
+    #[DataProvider('getPublicUrls')]
     public function testPublicUrls(string $url): void
     {
         $client = static::createClient();
         $client->request(Request::METHOD_GET, $url);
 
-        $this->assertResponseIsSuccessful(sprintf('The %s public URL loads correctly.', $url));
+        $this->assertResponseIsSuccessful(\sprintf('The %s public URL loads correctly.', $url));
     }
 
     /**
@@ -64,7 +64,7 @@ final class DefaultControllerTest extends WebTestCase
         /** @var Post $blogPost */
         $blogPost = $registry->getRepository(Post::class)->find(1);
 
-        $client->request(Request::METHOD_GET, sprintf('/en/blog/posts/%s', $blogPost->getSlug()));
+        $client->request(Request::METHOD_GET, \sprintf('/en/blog/posts/%s', $blogPost->getSlug()));
         $this->assertResponseIsSuccessful();
     }
 
@@ -80,12 +80,7 @@ final class DefaultControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request(Request::METHOD_GET, $url);
 
-        $this->assertResponseRedirects(
-            'http://localhost/en/login',
-            Response::HTTP_FOUND,
-            sprintf('The %s secure URL redirects to the login form.',
-            $url)
-        );
+        $this->assertResponseRedirects('http://localhost/en/login', Response::HTTP_FOUND, \sprintf('The %s secure URL redirects to the login form.', $url));
     }
 
     public static function getPublicUrls(): \Generator

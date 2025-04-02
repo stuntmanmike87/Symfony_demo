@@ -13,10 +13,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Command;
 
-use App\Entity\User;
 use App\Command\AddUserCommand;
+use App\Entity\User;
 use App\Repository\UserRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class AddUserCommandTest extends AbstractCommandTestCase
@@ -34,7 +35,7 @@ final class AddUserCommandTest extends AbstractCommandTestCase
     protected function setUp(): void
     {
         if ('Windows' === \PHP_OS_FAMILY) {
-            /* $this-> */self::markTestSkipped('`stty` is required to test this command.');
+            self::markTestSkipped('`stty` is required to test this command.');
         }
     }
 
@@ -45,6 +46,7 @@ final class AddUserCommandTest extends AbstractCommandTestCase
     #[DataProvider('isAdminDataProvider')]
     public function testCreateUserNonInteractive(bool $isAdmin): void
     {
+        /** @var array<string, string> $input */
         $input = $this->userData;
         if ($isAdmin) {
             $input['--admin'] = 1;
@@ -52,7 +54,7 @@ final class AddUserCommandTest extends AbstractCommandTestCase
 
         $this->executeCommand($input);
 
-        $this->assertUserCreated($isAdmin); 
+        $this->assertUserCreated($isAdmin);
     }
 
     /**
@@ -95,8 +97,8 @@ final class AddUserCommandTest extends AbstractCommandTestCase
         /** @var UserRepository $repository */
         $repository = self::getContainer()->get(UserRepository::class);
 
-        /** @var UserPasswordHasherInterface $passwordHasher */
-        $passwordHasher = /* $this-> */self::getContainer()->get(UserPasswordHasherInterface::class);
+        /** @var UserPasswordHasher $passwordHasher */
+        $passwordHasher = self::getContainer()->get(UserPasswordHasherInterface::class);
 
         $user = $repository->findOneByEmail($this->userData['email']);
 
