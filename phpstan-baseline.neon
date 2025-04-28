@@ -67,6 +67,8 @@ parameters:
 
     # checkGenericClassInNonGenericObjectType: false
 
+    reportUnmatchedIgnoredErrors: false
+
     strictRules:
         booleansInConditions: false
 
