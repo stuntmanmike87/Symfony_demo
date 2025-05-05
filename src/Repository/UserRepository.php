@@ -31,7 +31,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method User|null findOneByEmail(string $email)
  *
  * @template-extends ServiceEntityRepository<User>
- * @extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository<\App\Entity\User>
+ * @extends ServiceEntityRepository<User>
  */
 class UserRepository extends ServiceEntityRepository
 {

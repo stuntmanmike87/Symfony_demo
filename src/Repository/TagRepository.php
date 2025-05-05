@@ -27,7 +27,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  *
  * @template-extends ServiceEntityRepository<Tag>
- * @extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository<\App\Entity\Tag>
+ * @extends ServiceEntityRepository<Tag>
  */
 class TagRepository extends ServiceEntityRepository
 {
