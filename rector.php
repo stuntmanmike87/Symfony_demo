@@ -7,7 +7,6 @@ use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
-use Rector\Symfony\Set\SymfonySetList;
 
 /**
  * @see \Rector\Config\RectorConfig::symfonyContainerXml()
@@ -30,32 +29,25 @@ return static function (RectorConfig $rectorConfig): void {
         // SetList::EARLY_RETURN,
         // SetList::INSTANCEOF,
         // SetList::NAMING,
-        SetList::PHP_83,
+        SetList::PHP_84,
         // SetList::PRIVATIZATION,
         // SetList::STRICT_BOOLEANS,
         // SetList::TYPE_DECLARATION,
-        LevelSetList::UP_TO_PHP_83,
+        LevelSetList::UP_TO_PHP_84,
     ]);
 
+    // doctrine rules
     $rectorConfig->sets([
-        //SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
-        SymfonySetList::SYMFONY_71,
-        SymfonySetList::SYMFONY_CODE_QUALITY,
-        SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
+        DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
+        DoctrineSetList::DOCTRINE_CODE_QUALITY,
     ]);
 
-        // doctrine rules
-        $rectorConfig->sets([
-            DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
-            DoctrineSetList::DOCTRINE_CODE_QUALITY,
-        ]);
-    
-        // phpunit rules
-        $rectorConfig->sets([
-            //PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
-            PHPUnitSetList::PHPUNIT_100,
-            PHPUnitSetList::PHPUNIT_CODE_QUALITY,
-        ]);
+    // phpunit rules
+    $rectorConfig->sets([
+        //PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
+        PHPUnitSetList::PHPUNIT_100,
+        PHPUnitSetList::PHPUNIT_CODE_QUALITY,
+    ]);
 
     $rectorConfig->importShortClasses(false);
 };
