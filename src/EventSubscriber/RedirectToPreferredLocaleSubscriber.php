@@ -40,11 +40,15 @@ final class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterf
             throw new \UnexpectedValueException('The list of supported locales must not be empty.');
         }
 
-        // Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.
-        $this->defaultLocale = $defaultLocale ?: $this->enabledLocales[0]; // $this->defaultLocale = $defaultLocale ?: $this->locales[0];
         // Only booleans are allowed in a ternary operator condition, string|null given.
+        // $this->defaultLocale = $defaultLocale ?: $this->locales[0];
+        // Short ternary operator is not allowed.
+        // Use null coalesce operator if applicable or consider using long ternary.
+        $this->defaultLocale = $defaultLocale ?? $this->enabledLocales[0];
+        $m = 'The default locale ("%s") must be one of "%s".';
+        $e = \sprintf($m, $this->defaultLocale, implode(', ', $this->enabledLocales));
         if (!\in_array($this->defaultLocale, $this->enabledLocales, true)) {
-            throw new \UnexpectedValueException(\sprintf('The default locale ("%s") must be one of "%s".', $this->defaultLocale, implode(', ', $this->enabledLocales)));
+            throw new \UnexpectedValueException($e);
         }
 
         // Add the default locale at the first position of the array,

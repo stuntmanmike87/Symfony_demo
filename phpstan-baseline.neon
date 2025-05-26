@@ -3,40 +3,19 @@ parameters:
         -
             message: '#Cognitive complexity for "App\\Command\\AddUserCommand::interact\(\)" is 12, keep it under 8#'
             path: src/Command/AddUserCommand.php
-        -
-            message: '#Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.#'
-            path: src/EventSubscriber/RedirectToPreferredLocaleSubscriber.php
+
         # -
-        #     message: '#^Dynamic call to static method PHPUnit\\Framework\\\S+\(\)\.$#'
-        #     # count: 35
-        #     # path: tests
-        #     paths:
-        #         - tests/Command/AddUserCommandTest.php
-        #         - tests/Command/ListUsersCommandTest.php
-        #         - tests/Controller/Admin/BlogControllerTest.php
-        #         - tests/Controller/BlogControllerTest.php
-        #         - tests/Controller/UserControllerTest.php
-        #         - tests/Form/DataTransformer/TagArrayToStringTransformerTest.php
-        #         - tests/Utils/ValidatorTest.php
-        # -
-        #     message: '#^Dynamic call to static method Symfony\\Bundle\\FrameworkBundle\\Test\\\S+\(\)\.$#'
-        #     # count: 22
-        #     # path: tests
-        #     paths:
-        #         # - tests/Command/*
-        #         # - tests/Controller/*
-        #         - tests/Command/AddUserCommandTest.php
-        #         - tests/Command/ListUsersCommandTest.php
-        #         - tests/Controller/Admin/BlogControllerTest.php
-        #         - tests/Controller/BlogControllerTest.php
-        #         - tests/Controller/DefaultControllerTest.php
-        #         - tests/Controller/UserControllerTest.php
+        #     message: '#Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.#'
+        #     path: src/EventSubscriber/RedirectToPreferredLocaleSubscriber.php
+
         # -
         #     message: '#Instead of "Closure" class\/interface use "PhpParser\\Node\\Expr\\Closure"#'
         #     path: src/Twig/SourceCodeExtension.php
+
         # -
         #     message: '#Function "method_exists\(\)" cannot be used\/left in the code\: use ReflectionProvider->has\*\(\) instead#'
         #     path: tests/bootstrap.php
+
         # -
         #     identifier: missingType.generics
 
