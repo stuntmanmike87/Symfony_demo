@@ -11,13 +11,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-// use Reflection;
 use Symfony\Component\Dotenv\Dotenv;
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
 if (method_exists(Dotenv::class, 'bootEnv')) {
-    // Function "method_exists()" cannot be used/left in the code: use ReflectionProvider->has*() instead
+    // Call to function method_exists() with 'Symfony\\Component\\Dotenv\\Dotenv'
+    // and 'bootEnv' will always evaluate to true.
+    // function.alreadyNarrowedType
     (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
 }
 
