@@ -25,9 +25,9 @@ parameters:
             count: 1
             path: tests/bootstrap.php
 
-        -
-            message: '#Method App\\Entity\\User::getUserIdentifier\(\) should return non-empty-string but returns string.#'
-            path: src/Entity/User.php
+        # -
+        #     message: '#Method App\\Entity\\User::getUserIdentifier\(\) should return non-empty-string but returns string.#'
+        #     path: src/Entity/User.php
 
         -
             identifier: staticMethod.dynamicCall

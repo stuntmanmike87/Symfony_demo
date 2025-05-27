@@ -83,10 +83,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->fullName;
     }
 
-    #[\Override]
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        /** @var non-empty-string $userId */
+        $userId = (string) $this->username;
+
+        return $userId;
     }
 
     public function getUsername(): string
