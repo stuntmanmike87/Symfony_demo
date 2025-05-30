@@ -36,7 +36,7 @@ return static function (RectorConfig $rectorConfig): void {
         LevelSetList::UP_TO_PHP_84,
     ]);
 
-    $rectorConfig->configure()->withComposerBased(twig: true);;
+    $rectorConfig->configure()->withComposerBased(symfony: true);
 
     // doctrine rules
     $rectorConfig->sets([
