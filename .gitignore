@@ -1,6 +1,3 @@
-/public/build/fonts/glyphicons-*
-/public/build/images/glyphicons-*
-
 .php-version
 
 ###> symfony/framework-bundle ###
@@ -12,13 +9,15 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
 ###> symfony/asset-mapper ###
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
-###> PHPMetrics HTML report ###
-/myreport/
-###< PHPMetrics HTML report ###
+
+###> phpstan/phpstan ###More actions
+phpstan.neon
+###< phpstan/phpstan ###
 
 ###> friendsofphp/php-cs-fixer ###
 /.php-cs-fixer.php
@@ -28,8 +27,8 @@
 node_modules
 
 ###> phpunit/phpunit ###
-/phpunit.xml
 /.phpunit.cache/
+/phpunit.xml
 ###< phpunit/phpunit ###
 
 ###> squizlabs/php_codesniffer ###
