@@ -72,15 +72,15 @@
         ]
     },
     "jawira/doctrine-diagram-bundle": {
-        "version": "dev-main",
+        "version": "9999999.9999999",
         "recipe": {
-            "repo": "https://github.com/symfony/recipes-contrib",
+            "repo": "github.com/symfony/recipes-contrib",
             "branch": "main",
             "version": "1.0",
-            "ref": ""
+            "ref": "85fa28662e332ab5da7a48802517e8313500add5"
         },
         "files": [
-            "config/packages/doctrine_diagram.yaml"
+            "./config/packages/doctrine_diagram.yaml"
         ]
     },
     "phpstan/phpstan": {
