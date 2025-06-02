@@ -6,6 +6,11 @@ to develop applications following the [Symfony Best Practices][1].
 
 You can also learn about these practices in [the official Symfony Book][5].
 
+Entities
+--------
+
+![Entity Diagram](assets/docs/database.svg)
+
 Requirements
 ------------
 
