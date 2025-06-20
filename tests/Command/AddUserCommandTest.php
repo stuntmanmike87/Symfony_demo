@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Command;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -47,6 +48,7 @@ final class AddUserCommandTest extends AbstractCommandTestCase
         if ($isAdmin) {
             $input['--admin'] = 1;
         }
+
         $this->executeCommand($input);
 
         $this->assertUserCreated($isAdmin);
@@ -97,7 +99,7 @@ final class AddUserCommandTest extends AbstractCommandTestCase
 
         $user = $repository->findOneByEmail($this->userData['email']);
 
-        $this->assertNotNull($user);
+        $this->assertInstanceOf(User::class, $user);
         $this->assertSame($this->userData['full-name'], $user->getFullName());
         $this->assertSame($this->userData['username'], $user->getUsername());
         $this->assertTrue($passwordHasher->isPasswordValid($user, $this->userData['password']));
