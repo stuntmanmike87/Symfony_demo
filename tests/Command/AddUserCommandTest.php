@@ -16,6 +16,7 @@ namespace App\Tests\Command;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class AddUserCommandTest extends AbstractCommandTestCase
@@ -44,6 +45,7 @@ final class AddUserCommandTest extends AbstractCommandTestCase
     #[DataProvider('isAdminDataProvider')]
     public function testCreateUserNonInteractive(bool $isAdmin): void
     {
+        /** @var array<string, string> $input */
         $input = $this->userData;
         if ($isAdmin) {
             $input['--admin'] = 1;
@@ -94,7 +96,7 @@ final class AddUserCommandTest extends AbstractCommandTestCase
         /** @var UserRepository $repository */
         $repository = $this->getContainer()->get(UserRepository::class);
 
-        /** @var UserPasswordHasherInterface $passwordHasher */
+        /** @var UserPasswordHasher $passwordHasher */
         $passwordHasher = $this->getContainer()->get(UserPasswordHasherInterface::class);
 
         $user = $repository->findOneByEmail($this->userData['email']);
