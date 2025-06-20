@@ -92,7 +92,7 @@ final class DeleteUserCommand extends Command
             '',
             ' $ php bin/console app:delete-user username',
             '',
-            'Now we\'ll ask you for the value of all the missing command arguments.',
+            "Now we'll ask you for the value of all the missing command arguments.",
             '',
         ]);
 

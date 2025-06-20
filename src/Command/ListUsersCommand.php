@@ -61,13 +61,13 @@ use Symfony\Component\Mime\Email;
           <info>php %command.full_name%</info> <comment>--send-to=fabien@symfony.com</comment>
         HELP,
 )]
-final class ListUsersCommand
+final readonly class ListUsersCommand
 {
     public function __construct(
-        private readonly MailerInterface $mailer,
+        private MailerInterface $mailer,
         #[Autowire('%app.notifications.email_sender%')]
-        private readonly string $emailSender,
-        private readonly UserRepository $users,
+        private string $emailSender,
+        private UserRepository $users,
     ) {
     }
 
@@ -88,15 +88,13 @@ final class ListUsersCommand
         // Use ->findBy() instead of ->findAll() to allow result sorting and limiting
         $allUsers = $this->users->findBy([], ['id' => 'DESC'], $maxResults);
 
-        $createUserArray = static function (User $user): array {
-            return [
-                $user->getId(),
-                $user->getFullName(),
-                $user->getUsername(),
-                $user->getEmail(),
-                implode(', ', $user->getRoles()),
-            ];
-        };
+        $createUserArray = (static fn(User $user): array => [
+            $user->getId(),
+            $user->getFullName(),
+            $user->getUsername(),
+            $user->getEmail(),
+            implode(', ', $user->getRoles()),
+        ]);
 
         // Doctrine query returns an array of objects, and we need an array of plain arrays
         $usersAsPlainArrays = array_map($createUserArray, $allUsers);
