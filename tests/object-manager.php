@@ -26,7 +26,8 @@ $kernel = new Kernel($environment, (bool) $_SERVER['APP_DEBUG']);
 // consider not relying on global scope
 $kernel->boot();
 
-// ** @var Registry $doctrine */
 $doctrine = $kernel->getContainer()->get('doctrine');
-/** @var Registry $doctrine */
-return $doctrine->getManager();
+/** @var Registry $doctrine_registry */
+$doctrine_registry = $doctrine;
+
+return $doctrine_registry->getManager();
