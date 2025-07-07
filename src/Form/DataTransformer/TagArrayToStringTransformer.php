@@ -92,7 +92,7 @@ final readonly class TagArrayToStringTransformer implements DataTransformerInter
         $result = [];
 
         foreach ($strings as $string) {
-            $result[] = trim($string);
+            $result[] = mb_trim($string);
         }
 
         return $result;

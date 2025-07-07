@@ -34,6 +34,7 @@ use function Symfony\Component\String\u;
  * @method Post|null findOneByTitle(string $postTitle)
  *
  * @template-extends ServiceEntityRepository<Post>
+ *
  * @extends ServiceEntityRepository<Post>
  */
 class PostRepository extends ServiceEntityRepository

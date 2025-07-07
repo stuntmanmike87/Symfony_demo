@@ -109,7 +109,7 @@ final class SourceCodeExtension extends AbstractExtension
         $endLine = $method->getEndLine();
 
         while ($startLine > 0) {
-            $line = trim($classCode[$startLine - 1]);
+            $line = mb_trim($classCode[$startLine - 1]);
 
             if (\in_array($line, ['{', '}', ''], true)) {
                 break;
