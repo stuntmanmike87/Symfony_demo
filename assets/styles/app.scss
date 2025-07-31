@@ -2,6 +2,7 @@
 
 @import "../../vendor/twbs/bootstrap/scss/bootstrap.scss";
 @import "./bootswatch/bootswatch";
+@import "./rtl";
 
 :root {
   --font-heading: 2.5rem;
@@ -414,6 +415,7 @@ body#homepage .page-header a.language-selector-dropdown-button .current-language
   margin-inline: 5px 10px;
 }
 body#homepage .jumbotron {
+  background: var(--secondary-color);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -607,3 +609,4 @@ body#blog_search .post-metadata {
   padding-bottom: 0;
   padding-top: 0;
 }
+
