@@ -43,8 +43,8 @@ final class AppExtension extends AbstractExtension
     {
         return [
             // new TwigFunction('locales', $this->getLocales(...)),
-            new TwigFunction('locales', [$this, 'getLocales']),
-            new TwigFunction('is_rtl', [$this, 'isRtl']),
+            new TwigFunction('locales', $this->getLocales(...)),
+            new TwigFunction('is_rtl', $this->isRtl(...)),
         ];
     }
 
@@ -76,7 +76,7 @@ final class AppExtension extends AbstractExtension
     public function isRtl(?string $locale = null): bool
 
     {
-        $locale = $locale ?? $this->defaultLocale;
+        $locale ??= $this->defaultLocale;
 
         return \in_array($locale, ['ar', 'fa', 'he', 'ur', 'ps', 'sd'], true);
     }
