@@ -74,7 +74,6 @@ final class AppExtension extends AbstractExtension
      * Check if the given locale is RTL.
      */
     public function isRtl(?string $locale = null): bool
-
     {
         $locale ??= $this->defaultLocale;
 
