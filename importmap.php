@@ -23,12 +23,11 @@ return [
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
-    'bootstrap/js/dist/alert' => [
-        'version' => '4.6.2',
+    '@popperjs/core' => [
+        'version' => '2.11.8',
     ],
-    'bootstrap/dist/css/bootstrap.min.css' => [
-        'version' => '4.6.2',
-        'type' => 'css',
+    'bootstrap' => [
+        'version' => '5.3.7',
     ],
     'jquery' => [
         'version' => '3.7.1',
@@ -55,18 +54,6 @@ return [
         'version' => '4.6.13',
         'type' => 'css',
     ],
-    'bootstrap/js/dist/collapse' => [
-        'version' => '4.6.2',
-    ],
-    'bootstrap/js/dist/dropdown' => [
-        'version' => '4.6.2',
-    ],
-    'bootstrap/js/dist/tab' => [
-        'version' => '4.6.2',
-    ],
-    'bootstrap/js/dist/modal' => [
-        'version' => '4.6.2',
-    ],
     'highlight.js/styles/github-dark-dimmed.css' => [
         'version' => '11.9.0',
         'type' => 'css',
@@ -82,9 +69,6 @@ return [
     '@fortawesome/fontawesome-free/css/v4-shims.css' => [
         'version' => '6.5.1',
         'type' => 'css',
-    ],
-    'popper.js' => [
-        'version' => '1.16.1',
     ],
     'typeahead.js' => [
         'version' => '0.11.1',
