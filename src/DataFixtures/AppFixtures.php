@@ -23,6 +23,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 // use Symfony\Component\String\AbstractUnicodeString;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\String\UnicodeString;
+
 use function Symfony\Component\String\u;
 
 final class AppFixtures extends Fixture
@@ -142,9 +143,9 @@ final class AppFixtures extends Fixture
     }
 
     /**
-     * @throws \Exception
-     *
      * @return array<mixed>
+     *
+     * @throws \Exception
      */
     private function getPostData(): array
     {
@@ -258,9 +259,9 @@ final class AppFixtures extends Fixture
     }
 
     /**
-     * @throws \Exception
-     *
      * @return array<Tag>
+     *
+     * @throws \Exception
      */
     private function getRandomTags(): array
     {

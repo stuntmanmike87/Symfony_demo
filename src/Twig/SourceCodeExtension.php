@@ -19,6 +19,7 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TemplateWrapper;
 use Twig\TwigFunction;
+
 use function Symfony\Component\String\u;
 
 /**
