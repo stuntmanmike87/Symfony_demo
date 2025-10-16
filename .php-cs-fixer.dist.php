@@ -34,4 +34,4 @@ return (new PhpCsFixer\Config())
         'strict_param' => true,
     ])
     ->setCacheFile(__DIR__.'/var/.php-cs-fixer.cache')
-;
+; 
