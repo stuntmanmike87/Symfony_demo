@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -14,11 +16,11 @@ namespace App\Tests\Doctrine\ORM;
 use Doctrine\ORM\Configuration;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class ConfigurationTest extends KernelTestCase
+final class ConfigurationTest extends KernelTestCase
 {
     private function getConfiguration(): Configuration
     {
-        return static::getContainer()->get('doctrine.orm.default_configuration');
+        return self::getContainer()->get('doctrine.orm.default_configuration');
     }
 
     public function testNativeLazyObjectsSetting(): void

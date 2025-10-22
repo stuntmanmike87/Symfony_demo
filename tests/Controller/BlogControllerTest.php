@@ -33,7 +33,7 @@ final class BlogControllerTest extends WebTestCase
 {
     public function testIndex(): void
     {
-        $client = static::createClient();
+        $client = self::createClient();
         $crawler = $client->request(Request::METHOD_GET, '/en/blog/');
 
         $this->assertResponseIsSuccessful();
@@ -43,7 +43,7 @@ final class BlogControllerTest extends WebTestCase
 
     public function testRss(): void
     {
-        $client = static::createClient();
+        $client = self::createClient();
         $crawler = $client->request(Request::METHOD_GET, '/en/blog/rss.xml');
 
         $this->assertResponseHeaderSame('Content-Type', 'text/xml; charset=UTF-8');
@@ -59,7 +59,7 @@ final class BlogControllerTest extends WebTestCase
      */
     public function testNewComment(): void
     {
-        $client = static::createClient();
+        $client = self::createClient();
 
         /** @var UserRepository $userRepository */
         $userRepository = $client->getContainer()->get(UserRepository::class);
@@ -87,7 +87,7 @@ final class BlogControllerTest extends WebTestCase
 
     public function testAjaxSearch(): void
     {
-        $client = static::createClient();
+        $client = self::createClient();
         $crawler = $client->request(Request::METHOD_GET, '/en/blog/search', ['q' => 'lorem']);
 
         $this->assertResponseIsSuccessful();

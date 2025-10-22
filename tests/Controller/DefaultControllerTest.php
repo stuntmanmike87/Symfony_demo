@@ -40,7 +40,7 @@ final class DefaultControllerTest extends WebTestCase
     #[DataProvider('getPublicUrls')]
     public function testPublicUrls(string $url): void
     {
-        $client = static::createClient();
+        $client = self::createClient();
         $client->request(Request::METHOD_GET, $url);
 
         $this->assertResponseIsSuccessful(\sprintf('The %s public URL loads correctly.', $url));
@@ -58,7 +58,7 @@ final class DefaultControllerTest extends WebTestCase
      */
     public function testPublicBlogPost(): void
     {
-        $client = static::createClient();
+        $client = self::createClient();
 
         // the service container is always available via the test client
         /** @var Registry $registry */
@@ -75,12 +75,11 @@ final class DefaultControllerTest extends WebTestCase
      * The application contains a lot of secure URLs which shouldn't be
      * publicly accessible. This tests ensures that whenever a user tries to
      * access one of those pages, a redirection to the login form is performed.
-     *
-     * @dataProvider getSecureUrls
      */
+    #[DataProvider('getSecureUrls')]
     public function testSecureUrls(string $url): void
     {
-        $client = static::createClient();
+        $client = self::createClient();
         $client->request(Request::METHOD_GET, $url);
 
         $this->assertResponseRedirects('http://localhost/en/login', Response::HTTP_FOUND, \sprintf('The %s secure URL redirects to the login form.', $url));

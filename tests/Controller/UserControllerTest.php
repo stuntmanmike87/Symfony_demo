@@ -40,7 +40,7 @@ final class UserControllerTest extends WebTestCase
     #[DataProvider('getUrlsForAnonymousUsers')]
     public function testAccessDeniedForAnonymousUsers(string $httpMethod, string $url): void
     {
-        $client = static::createClient();
+        $client = self::createClient();
         $client->request($httpMethod, $url);
 
         $this->assertResponseRedirects('http://localhost/en/login', Response::HTTP_FOUND, \sprintf('The %s secure URL redirects to the login form.', $url));
@@ -54,7 +54,7 @@ final class UserControllerTest extends WebTestCase
 
     public function testEditUser(): void
     {
-        $client = static::createClient();
+        $client = self::createClient();
 
         /** @var UserRepository $userRepository */
         $userRepository = $client->getContainer()->get(UserRepository::class);
@@ -81,7 +81,7 @@ final class UserControllerTest extends WebTestCase
 
     public function testChangePassword(): void
     {
-        $client = static::createClient();
+        $client = self::createClient();
 
         /** @var UserRepository $userRepository */
         $userRepository = $client->getContainer()->get(UserRepository::class);
