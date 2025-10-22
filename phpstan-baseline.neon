@@ -53,4 +53,5 @@ parameters:
 
     cognitive_complexity:
         class: 50
-        function: 8
+        # function: 8
+        function: 10

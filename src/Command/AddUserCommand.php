@@ -95,7 +95,7 @@ final class AddUserCommand extends Command
      */
     #[\Override]
     protected function interact(InputInterface $input, OutputInterface $output): void
-    {// Cognitive complexity for "App\Command\AddUserCommand::interact()" is 12, keep it under 8
+    {// Cognitive complexity for "App\Command\AddUserCommand::interact()" is 9, keep it under 8
         /** @var string|null $username */
         $username = $input->getArgument('username');
         /** @var string|null $password */
@@ -105,7 +105,7 @@ final class AddUserCommand extends Command
         /** @var string|null $fullName */
         $fullName = $input->getArgument('full-name');
 
-        if (!in_array(null, [$username, $password, $email, $fullName], true)) {
+        if (!\in_array(null, [$username, $password, $email, $fullName], true)) {
             return;
         }
 
