@@ -105,7 +105,7 @@ final class AddUserCommand extends Command
         /** @var string|null $fullName */
         $fullName = $input->getArgument('full-name');
 
-        if (null !== $username && null !== $password && null !== $email && null !== $fullName) {
+        if (!in_array(null, [$username, $password, $email, $fullName], true)) {
             return;
         }
 
@@ -123,7 +123,7 @@ final class AddUserCommand extends Command
         if (null !== $username) {
             $this->io->text(' > <info>Username</info>: '.$username);
         } else {
-            $username = $this->io->ask('Username', null, fn (?string $username): string => $this->validator->validateUsername($username));
+            $username = $this->io->ask('Username', null, $this->validator->validateUsername(...));
             $input->setArgument('username', $username);
         }
 
@@ -131,7 +131,7 @@ final class AddUserCommand extends Command
         if (null !== $password) {
             $this->io->text(' > <info>Password</info>: '.u('*')->repeat(u($password)->length()));
         } else {
-            $password = $this->io->askHidden('Password (your type will be hidden)', fn (?string $plainPassword): string => $this->validator->validatePassword($plainPassword));
+            $password = $this->io->askHidden('Password (your type will be hidden)', $this->validator->validatePassword(...));
             $input->setArgument('password', $password);
         }
 
@@ -139,7 +139,7 @@ final class AddUserCommand extends Command
         if (null !== $email) {
             $this->io->text(' > <info>Email</info>: '.$email);
         } else {
-            $email = $this->io->ask('Email', null, fn (?string $email): string => $this->validator->validateEmail($email));
+            $email = $this->io->ask('Email', null, $this->validator->validateEmail(...));
             $input->setArgument('email', $email);
         }
 
@@ -147,7 +147,7 @@ final class AddUserCommand extends Command
         if (null !== $fullName) {
             $this->io->text(' > <info>Full Name</info>: '.$fullName);
         } else {
-            $fullName = $this->io->ask('Full Name', null, fn (?string $fullName): string => $this->validator->validateFullName($fullName));
+            $fullName = $this->io->ask('Full Name', null, $this->validator->validateFullName(...));
             $input->setArgument('full-name', $fullName);
         }
     }
