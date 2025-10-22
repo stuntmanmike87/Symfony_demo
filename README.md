@@ -6,11 +6,6 @@ to develop applications following the [Symfony Best Practices][1].
 
 You can also learn about these practices in [the official Symfony Book][5].
 
-Entities
---------
-
-![Entity Diagram](assets/docs/database.svg)
-
 Requirements
 ------------
 
@@ -42,13 +37,6 @@ git clone https://github.com/symfony/demo.git my_project
 cd my_project/
 composer install
 ```
-
-**Option 3.** Click the following button to deploy this project on Platform.sh,
-the official Symfony PaaS, so you can try it without installing anything locally:
-
-<p align="center">
-<a href="https://console.platform.sh/projects/create-project?template=https://raw.githubusercontent.com/symfonycorp/platformsh-symfony-template-metadata/main/symfony-demo.template.yaml&utm_content=symfonycorp&utm_source=github&utm_medium=button&utm_campaign=deploy_on_platform"><img src="https://platform.sh/images/deploy/lg-blue.svg" alt="Deploy on Platform.sh" width="180px" /></a>
-</p>
 
 Usage
 -----
