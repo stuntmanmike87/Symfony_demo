@@ -86,7 +86,7 @@ final class PostType extends AbstractType
                 $post = $event->getData();
 
                 if ('' === $post->slug && '' !== $post->title) {
-                    $post->slug = (string) $this->slugger->slug($post->title)->lower();
+                    $post->slug = (string) $this->slugger->slug((string) $post->title)->lower();
                 }
             })
         ;

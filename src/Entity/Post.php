@@ -18,6 +18,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Defines the properties of the Post entity to represent the blog posts.
@@ -32,6 +34,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ORM\Table(name: 'symfony_demo_post')]
+#[UniqueEntity(fields: ['slug'], errorPath: 'title', message: 'post.slug_unique')]
 class Post
 {
     #[ORM\Id]
@@ -40,22 +43,27 @@ class Post
     private ?int $id = null;
 
     #[ORM\Column(type: Types::STRING)]
-    private string $title;
+    #[Assert\NotBlank]
+    private ?string $title = null;
 
     #[ORM\Column(type: Types::STRING)]
-    private string $slug;
+    private ?string $slug = null;
 
     #[ORM\Column(type: Types::STRING)]
-    private string $summary;
+    #[Assert\NotBlank(message: 'post.blank_summary')]
+    #[Assert\Length(max: 255)]
+    private ?string $summary = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private string $content;
+    #[Assert\NotBlank(message: 'post.blank_content')]
+    #[Assert\Length(min: 10, minMessage: 'post.too_short_content')]
+    private ?string $content = null;
 
     #[ORM\Column]
     private \DateTimeImmutable $publishedAt;
 
     /** @var Collection<int, Comment> */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', orphanRemoval: true, cascade: ['persist'])]
     #[ORM\OrderBy(['publishedAt' => 'DESC'])]
     private Collection $comments;
 
@@ -63,6 +71,7 @@ class Post
     #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
     #[ORM\JoinTable(name: 'symfony_demo_post_tag')]
     #[ORM\OrderBy(['name' => 'ASC'])]
+    #[Assert\Count(max: 4, maxMessage: 'post.too_many_tags')]
     private Collection $tags;
 
     public function __construct(
@@ -79,32 +88,32 @@ class Post
         return $this->id;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
 
-    public function setSlug(string $slug): void
+    public function setSlug(?string $slug): void
     {
         $this->slug = $slug;
     }
 
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
 
-    public function setContent(string $content): void
+    public function setContent(?string $content): void
     {
         $this->content = $content;
     }
@@ -149,12 +158,12 @@ class Post
         $this->comments->removeElement($comment);
     }
 
-    public function getSummary(): string
+    public function getSummary(): ?string
     {
         return $this->summary;
     }
 
-    public function setSummary(string $summary): void
+    public function setSummary(?string $summary): void
     {
         $this->summary = $summary;
     }
