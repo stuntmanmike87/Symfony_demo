@@ -32,17 +32,17 @@ final class PostDto
     public ?int $id = null;
 
     #[Assert\NotBlank]
-    public ?string $title;
+    public ?string $title = null;
 
     public ?string $slug = '';
 
     #[Assert\NotBlank(message: 'post.blank_summary')]
     #[Assert\Length(max: 255)]
-    public ?string $summary;
+    public ?string $summary = null;
 
     #[Assert\NotBlank(message: 'post.blank_content')]
     #[Assert\Length(min: 10, minMessage: 'post.too_short_content')]
-    public ?string $content;
+    public ?string $content = null;
 
     public \DateTimeImmutable $publishedAt;
 

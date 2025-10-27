@@ -38,13 +38,13 @@ use Symfony\Component\HttpFoundation\Response;
  *     $ cd your-symfony-project/
  *     $ ./vendor/bin/phpunit
  */
-class BlogControllerTest extends WebTestCase
+final class BlogControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
 
     protected function setUp(): void
     {
-        $this->client = static::createClient();
+        $this->client = self::createClient();
 
         /** @var UserRepository $userRepository */
         $userRepository = $this->client->getContainer()->get(UserRepository::class);
@@ -107,7 +107,7 @@ class BlogControllerTest extends WebTestCase
         $this->assertResponseRedirects('/en/admin/post/', Response::HTTP_SEE_OTHER);
 
         /** @var PostRepository $postRepository */
-        $postRepository = static::getContainer()->get(PostRepository::class);
+        $postRepository = self::getContainer()->get(PostRepository::class);
 
         $post = $postRepository->findOneByTitle($postTitle);
 
@@ -165,7 +165,7 @@ class BlogControllerTest extends WebTestCase
         $this->assertResponseRedirects('/en/admin/post/1/edit', Response::HTTP_SEE_OTHER);
 
         /** @var PostRepository $postRepository */
-        $postRepository = static::getContainer()->get(PostRepository::class);
+        $postRepository = self::getContainer()->get(PostRepository::class);
 
         /** @var Post $post */
         $post = $postRepository->find(1);
@@ -187,7 +187,7 @@ class BlogControllerTest extends WebTestCase
         $this->assertResponseRedirects('/en/admin/post/', Response::HTTP_SEE_OTHER);
 
         /** @var PostRepository $postRepository */
-        $postRepository = static::getContainer()->get(PostRepository::class);
+        $postRepository = self::getContainer()->get(PostRepository::class);
 
         $this->assertNotInstanceOf(Post::class, $postRepository->find(1));
     }
