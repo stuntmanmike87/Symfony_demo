@@ -8,8 +8,13 @@ ux_icons:
         fill: currentColor
 
         # Default dimensions
-        height: '1em'
-        width: '1em'
+        width: '1.2em'
+        height: '1.2em'
+
+        style: 'position: relative; top: -2px;'
+
+    aliases:
+        'tabler:save-changes': 'tabler:device-floppy'
 
     # Throw an exception if an icon is not
     ignore_not_found: false
