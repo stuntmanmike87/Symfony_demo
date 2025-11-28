@@ -5,18 +5,14 @@ security:
         # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
+    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        # https://symfony.com/doc/current/security/user_provider.html
-        # In this example, users are stored via Doctrine in the database
-        # To see the users at src/App/DataFixtures/ORM/LoadFixtures.php
-        # To load users from somewhere else: https://symfony.com/doc/current/security/user_provider.html#creating-a-custom-user-provider
-        database_users:
-            entity: { class: App\Entity\User, property: username }
+        users_in_memory: { memory: null }
 
-    # https://symfony.com/doc/current/security.html#a-authentication-firewalls
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            # Ensure dev tools and static assets are always allowed
+            pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
 
         main:
@@ -24,20 +20,8 @@ security:
             lazy: true
             provider: database_users
 
-            # This allows the user to login by submitting a username and password
-            # Reference: https://symfony.com/doc/current/security/form_login_setup.html
-            form_login:
-                # The route name that the login form submits to
-                check_path: security_login
-                # The name of the route where the login form lives
-                # When the user tries to access a protected page, they are redirected here
-                login_path: security_login
-                # Secure the login form against CSRF
-                # Reference: https://symfony.com/doc/current/security/csrf.html
-                enable_csrf: true
-                # The page users are redirect to when there is no previous page stored in the
-                # session (for example when the users access directly to the login page).
-                default_target_path: blog_index
+            # Activate different ways to authenticate:
+            # https://symfony.com/doc/current/security.html#the-firewall
 
             # This option allows users to choose to stay logged in for longer than
             # the session lasts using a cookie. Reference: https://symfony.com/doc/current/security/remember_me.html
@@ -48,31 +32,18 @@ security:
                 # login form , uncomment the following line to always enable it.
                 #always_remember_me: true
 
-            logout:
-                # The name of the route to redirect to after logging out
-                target: homepage
-                # Secure the logout against CSRF
-                enable_csrf: true
-
-            # needed because in tests we redefine the 'main' firewall to use
-            # HTTP Basic instead of the login form, so this firewall has
-            # multiple authenticators
-            # See https://symfony.com/doc/current/security/experimental_authenticators.html#configuring-the-authentication-entry-point
-            entry_point: 'form_login'
-
-    # The ROLE_ADMIN role inherits from the ROLE_USER role
-    role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
+    # Note: Only the *first* matching rule is applied
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
     # this configuration simplifies testing URLs protected by the security mechanism
     # See https://symfony.com/doc/current/testing/http_authentication.html
     security:
         password_hashers:
-            # By default, password hashers are resource intensive and take time. This is
-            # important to generate secure password hashes. In tests however, secure hashes
-            # are not important, waste resources and increase test times. The following
-            # reduces the work factor to the lowest possible values.
+            # Password hashers are resource-intensive by design to ensure security.
+            # In tests, it's safe to reduce their cost to improve performance.
             Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
                 algorithm: auto
                 cost: 4 # Lowest possible value for bcrypt
