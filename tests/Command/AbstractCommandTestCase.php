@@ -29,6 +29,7 @@ abstract class AbstractCommandTestCase extends KernelTestCase
      */
     protected function executeCommand(array $arguments, array $inputs = []): CommandTester
     {
+        /** @var list<string> $inputs */
         $kernel = self::bootKernel();
         $application = new Application($kernel);
 
