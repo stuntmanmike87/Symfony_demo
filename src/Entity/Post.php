@@ -34,7 +34,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ORM\Table(name: 'symfony_demo_post')]
-#[UniqueEntity(fields: ['slug'], errorPath: 'title', message: 'post.slug_unique')]
+#[UniqueEntity(fields: ['slug'], message: 'post.slug_unique', errorPath: 'title')]
 class Post
 {
     #[ORM\Id]
@@ -63,7 +63,7 @@ class Post
     private \DateTimeImmutable $publishedAt;
 
     /** @var Collection<int, Comment> */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', cascade: ['persist'], orphanRemoval: true)]
     #[ORM\OrderBy(['publishedAt' => 'DESC'])]
     private Collection $comments;
 
