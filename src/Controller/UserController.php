@@ -36,7 +36,7 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
  */
 final class UserController extends AbstractController
 {
-    #[Route('/profile/edit', methods: ['GET', 'POST'], name: 'user_edit')]
+    #[Route('/profile/edit', name: 'user_edit', methods: ['GET', 'POST'])]
     public function edit(
         #[CurrentUser] User $user,
         Request $request,
