@@ -120,9 +120,9 @@ final class AppFixtures extends Fixture
     {
         return [
             // $userData = [$fullname, $username, $password, $email, $roles];
-            ['Jane Doe', 'jane_admin', 'kitten', 'jane_admin@symfony.com', 'ROLE_ADMIN'], // [User::ROLE_ADMIN]
-            ['Tom Doe', 'tom_admin', 'kitten', 'tom_admin@symfony.com', 'ROLE_ADMIN'], // [User::ROLE_ADMIN]
-            ['John Doe', 'john_user', 'kitten', 'john_user@symfony.com', 'ROLE_USER'], // [User::ROLE_USER]
+            ['Jane Doe', 'jane_admin', 'kitten', 'jane_admin@symfony.com', ['ROLE_ADMIN']],
+            ['Tom Doe', 'tom_admin', 'kitten', 'tom_admin@symfony.com', [User::ROLE_ADMIN]],
+            ['John Doe', 'john_user', 'kitten', 'john_user@symfony.com', [User::ROLE_USER]],
         ];
     }
 
@@ -155,8 +155,8 @@ final class AppFixtures extends Fixture
             // $postData = [$title, $slug, $summary, $content, $publishedAt, $author, $tags, $comments];
             $posts[] = [
                 $title,
-                $this->slugger->slug($title)->lower(),
-                $this->getRandomText(),
+                $this->slugger->slug($title)->lower()->toString(),
+                $this->getRandomText()->toString(),
                 $this->getPostContent(),
                 (new \DateTimeImmutable('now - '.$i.'days'))->setTime(random_int(8, 17), random_int(7, 49), random_int(0, 59)),
                 // Ensure that the first post is written by Jane Doe to simplify tests
