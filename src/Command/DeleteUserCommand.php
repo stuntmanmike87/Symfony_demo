@@ -96,7 +96,11 @@ final class DeleteUserCommand extends Command
             '',
         ]);
 
-        $username = $this->io->ask('Username', null, $this->validator->validateUsername(...));
+        $validator = $this->validator;
+        $usernameValidator = $validator->validateUsername(...);
+        /** @var callable|null $usernameValidator */
+        // ** @var (callable(mixed): mixed)|null $usernameValidator */
+        $username = $this->io->ask('Username', null, $usernameValidator);
         $input->setArgument('username', $username);
     }
 

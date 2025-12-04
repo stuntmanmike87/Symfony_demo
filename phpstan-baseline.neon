@@ -4,6 +4,12 @@ parameters:
             message: '#Cognitive complexity for "App\\Command\\AddUserCommand::interact\(\)" is 12, keep it under 8#'
             path: src/Command/AddUserCommand.php
 
+        -
+            message: '#PHPDoc tag @var with type \(callable\(\)\: mixed\)\|null is not subtype of native type Closure\(string\|null\)\: string.#'
+            paths:
+                - src/Command/AddUserCommand.php
+                - src/Command/DeleteUserCommand.php
+
         # -
         #     message: '#Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.#'
         #     path: src/EventSubscriber/RedirectToPreferredLocaleSubscriber.php
