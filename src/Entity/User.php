@@ -145,7 +145,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * {@inheritdoc}
      */
-    #[\Override]
+    // #[\Override]
     public function eraseCredentials(): void
     {
         // if you had a plainPassword property, you'd nullify it here
