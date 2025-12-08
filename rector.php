@@ -29,11 +29,11 @@ return static function (RectorConfig $rectorConfig): void {
         // SetList::EARLY_RETURN,
         // SetList::INSTANCEOF,
         // SetList::NAMING,
-        SetList::PHP_84,
+        SetList::PHP_85,
         // SetList::PRIVATIZATION,
         // SetList::STRICT_BOOLEANS,
         // SetList::TYPE_DECLARATION,
-        LevelSetList::UP_TO_PHP_84,
+        LevelSetList::UP_TO_PHP_85,
     ]);
 
     $rectorConfig->configure()->withComposerBased(symfony: true);
