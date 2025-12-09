@@ -26,12 +26,18 @@ parameters:
         #     identifier: missingType.generics
 
         -
-            message: '#^Call to function method_exists\(\) with ''Symfony\\\\Component\\\\Dotenv\\\\Dotenv'' and ''bootEnv'' will always evaluate to true\.$#'
+            message: '#Call to function method_exists\(\) with ''Symfony\\\\Component\\\\Dotenv\\\\Dotenv'' and ''bootEnv'' will always evaluate to true\.$#'
             identifier: function.alreadyNarrowedType
             count: 1
             path: tests/bootstrap.php
 
-        # -
+        -
+            message: '#Comparison operation "\>=\" between int<80400, 80599> and 80400 is always true.#'
+            identifier: greaterOrEqual.alwaysTrue
+            count: 1
+            path: tests/Doctrine/ORM/ConfigurationTest.php
+
+            # -
         #     message: '#Method App\\Entity\\User::getUserIdentifier\(\) should return non-empty-string but returns string.#'
         #     path: src/Entity/User.php
 
