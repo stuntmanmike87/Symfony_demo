@@ -234,7 +234,7 @@ final class AddUserCommand extends Command
      * it's too long, it's better to define a separate constant to maintain the
      * code readability.
      */
-    public const HELP = <<<'HELP'
+    public const string HELP = <<<'HELP'
         The <info>%command.name%</info> command creates new users and saves them in the database:
 
           <info>php %command.full_name%</info> <comment>username password email</comment>

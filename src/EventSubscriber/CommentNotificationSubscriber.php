@@ -74,7 +74,7 @@ final readonly class CommentNotificationSubscriber implements EventSubscriberInt
         );
 
         // See https://symfony.com/doc/current/mailer.html
-        $email = (new Email())->from($this->sender)->to($emailAddress)->subject($subject)->html($body);
+        $email = new Email()->from($this->sender)->to($emailAddress)->subject($subject)->html($body);
 
         // In config/packages/mailer.yaml the delivery of messages is disabled in the development environment.
         // That's why you won't actually receive any email.

@@ -127,7 +127,7 @@ final readonly class ListUsersCommand
      */
     private function sendReport(string $contents, string $recipient): void
     {
-        $email = (new Email())
+        $email = new Email()
             ->from($this->emailSender)
             ->to($recipient)
             ->subject(\sprintf('app:list-users report (%s)', date('Y-m-d H:i:s')))

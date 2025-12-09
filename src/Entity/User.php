@@ -37,9 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     // We can use constants for roles to find usages all over the application rather
     // than doing a full-text search on the "ROLE_" string.
     // It also prevents from making typo errors.
-    final public const ROLE_USER = 'ROLE_USER';
+    final public const string ROLE_USER = 'ROLE_USER';
 
-    final public const ROLE_ADMIN = 'ROLE_ADMIN';
+    final public const string ROLE_ADMIN = 'ROLE_ADMIN';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

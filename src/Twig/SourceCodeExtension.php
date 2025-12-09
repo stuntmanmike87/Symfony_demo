@@ -52,6 +52,7 @@ final class SourceCodeExtension extends AbstractExtension
     }
 
     // #[\Override]
+    #[\Override]
     public function getFunctions(): array
     {
         return [
