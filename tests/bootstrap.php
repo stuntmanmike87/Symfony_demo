@@ -19,7 +19,7 @@ if (method_exists(Dotenv::class, 'bootEnv')) {
     // Call to function method_exists() with 'Symfony\\Component\\Dotenv\\Dotenv'
     // and 'bootEnv' will always evaluate to true.
     // function.alreadyNarrowedType
-    (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
+    new Dotenv()->bootEnv(dirname(__DIR__).'/.env');
 }
 
 if ($_SERVER['APP_DEBUG']) {
