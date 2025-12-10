@@ -16,7 +16,7 @@ namespace Twig;
 use App\Twig\AppExtension;
 use PHPUnit\Framework\TestCase;
 
-class AppExtensionTest extends TestCase
+final class AppExtensionTest extends TestCase
 {
     public function testGetLocales(): void
     {

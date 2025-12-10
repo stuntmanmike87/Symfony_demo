@@ -57,7 +57,7 @@ final class PostVoter extends Voter
             // votes can include explanations about the decisions. These can be:
             //   * internal: not shown to the end user, but useful for logging or debugging (you can include technical details)
             //   * public: (as in this case) meant to be shown to the end user (make sure to not include sensitive information)
-            $vote?->addReason(\sprintf('There is no user logged in, so it\'s not possible to %s the blog post.', $attribute));
+            $vote?->addReason(\sprintf("There is no user logged in, so it's not possible to %s the blog post.", $attribute));
 
             return false;
         }
@@ -70,7 +70,7 @@ final class PostVoter extends Voter
             return true;
         }
 
-        $vote?->addReason(\sprintf('You can\'t %s this blog post because you are not its author.', $attribute));
+        $vote?->addReason(\sprintf("You can't %s this blog post because you are not its author.", $attribute));
 
         return false;
     }
