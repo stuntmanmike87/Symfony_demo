@@ -22,7 +22,8 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 // use Symfony\Component\String\AbstractUnicodeString;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\String\UnicodeString;
+
+// use Symfony\Component\String\UnicodeString;
 
 use function Symfony\Component\String\u;
 
@@ -103,7 +104,7 @@ final class AppFixtures extends Fixture
             foreach (range(1, 5) as $i) {
                 $comment = new Comment();
                 $comment->setAuthor($this->getReference('john_user', User::class));
-                $comment->setContent((string) $this->getRandomText(random_int(255, 512)));
+                $comment->setContent(/* (string)  */$this->getRandomText(random_int(255, 512)));
                 $comment->setPublishedAt(new \DateTimeImmutable('now + '.$i.'seconds'));
 
                 $post->addComment($comment);
@@ -156,7 +157,7 @@ final class AppFixtures extends Fixture
             $posts[] = [
                 $title,
                 $this->slugger->slug($title)->lower()->toString(),
-                $this->getRandomText()->toString(),
+                $this->getRandomText(), // $this->getRandomText()->toString(),
                 $this->getPostContent(),
                 new \DateTimeImmutable('now - '.$i.'days')->setTime(random_int(8, 17), random_int(7, 49), random_int(0, 59)),
                 // Ensure that the first post is written by Jane Doe to simplify tests
@@ -205,7 +206,7 @@ final class AppFixtures extends Fixture
         ];
     }
 
-    private function getRandomText(int $maxLength = 255): UnicodeString// stribg
+    private function getRandomText(int $maxLength = 255): string // UnicodeString
     {
         $phrases = $this->getPhrases();
         shuffle($phrases);
@@ -215,7 +216,7 @@ final class AppFixtures extends Fixture
             array_pop($phrases);
         } while ($text->length() > $maxLength);
 
-        return $text;
+        return $text->toString();
     }
 
     private function getPostContent(): string

@@ -46,7 +46,7 @@ final class PostDto
 
     public \DateTimeImmutable $publishedAt;
 
-    /** @var Collection<int, Tag> */
+    /** @var Collection<int, Tag> $tags */
     #[Assert\Count(max: 4, maxMessage: 'post.too_many_tags')]
     public Collection $tags;
 
