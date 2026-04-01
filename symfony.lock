@@ -373,7 +373,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "0.5",
-            "ref": "22d0e16a9da4e209f8d643f87a5b5d694cd6462b"
+            "ref": "4812be2fc05dad51e05837779e9175321fb68d9f"
         },
         "files": [
             "assets/styles/app.scss",
