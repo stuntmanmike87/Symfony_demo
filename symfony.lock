@@ -174,12 +174,12 @@
         ]
     },
     "symfony/framework-bundle": {
-        "version": "8.0",
+        "version": "8.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "7.4",
-            "ref": "d5dcd308c8becd725c9d8b91e31aab1ff0bbc30b"
+            "version": "8.1",
+            "ref": "9e77d8de204dbd47f402eee6adb3a46bee5f8510"
         },
         "files": [
             ".editorconfig",
