@@ -3530,16 +3530,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v2.10.0",
+            "version": "v2.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "9cd384775973eabbf6e8b05784dda279fc67c28d"
+                "reference": "4a6d98eea3ebc7f68d82810cb682eedca2649e99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/9cd384775973eabbf6e8b05784dda279fc67c28d",
-                "reference": "9cd384775973eabbf6e8b05784dda279fc67c28d",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/4a6d98eea3ebc7f68d82810cb682eedca2649e99",
+                "reference": "4a6d98eea3ebc7f68d82810cb682eedca2649e99",
                 "shasum": ""
             },
             "require": {
@@ -3552,9 +3552,9 @@
             },
             "require-dev": {
                 "composer/composer": "^2.1",
-                "symfony/dotenv": "^6.4|^7.4|^8.0",
+                "phpunit/phpunit": "^12.4",
+                "symfony/dotenv": "^6.4.41|^7.4.13|^8.0.13",
                 "symfony/filesystem": "^6.4|^7.4|^8.0",
-                "symfony/phpunit-bridge": "^6.4|^7.4|^8.0",
                 "symfony/process": "^6.4|^7.4|^8.0"
             },
             "type": "composer-plugin",
@@ -3579,7 +3579,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v2.10.0"
+                "source": "https://github.com/symfony/flex/tree/v2.11.0"
             },
             "funding": [
                 {
@@ -3599,7 +3599,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-16T09:38:19+00:00"
+            "time": "2026-05-29T17:25:22+00:00"
         },
         {
             "name": "symfony/form",
@@ -8752,23 +8752,23 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.95.2",
+            "version": "v3.95.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "a28d88a5e172b27e78d0816992b15a9df3da20f1"
+                "reference": "3d681493acc0e93283481b1c63c263737df78687"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/a28d88a5e172b27e78d0816992b15a9df3da20f1",
-                "reference": "a28d88a5e172b27e78d0816992b15a9df3da20f1",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/3d681493acc0e93283481b1c63c263737df78687",
+                "reference": "3d681493acc0e93283481b1c63c263737df78687",
                 "shasum": ""
             },
             "require": {
                 "clue/ndjson-react": "^1.3",
                 "composer/semver": "^3.4",
                 "composer/xdebug-handler": "^3.0.5",
-                "ergebnis/agent-detector": "^1.1.1",
+                "ergebnis/agent-detector": "^1.2",
                 "ext-filter": "*",
                 "ext-hash": "*",
                 "ext-json": "*",
@@ -8785,10 +8785,10 @@
                 "symfony/filesystem": "^5.4.45 || ^6.4.24 || ^7.0 || ^8.0",
                 "symfony/finder": "^5.4.45 || ^6.4.24 || ^7.0 || ^8.0",
                 "symfony/options-resolver": "^5.4.45 || ^6.4.24 || ^7.0 || ^8.0",
-                "symfony/polyfill-mbstring": "^1.33",
-                "symfony/polyfill-php80": "^1.33",
-                "symfony/polyfill-php81": "^1.33",
-                "symfony/polyfill-php84": "^1.33",
+                "symfony/polyfill-mbstring": "^1.37",
+                "symfony/polyfill-php80": "^1.37",
+                "symfony/polyfill-php81": "^1.37",
+                "symfony/polyfill-php84": "^1.37",
                 "symfony/process": "^5.4.47 || ^6.4.24 || ^7.2 || ^8.0",
                 "symfony/stopwatch": "^5.4.45 || ^6.4.24 || ^7.0 || ^8.0"
             },
@@ -8802,9 +8802,9 @@
                 "php-cs-fixer/phpunit-constraint-isidenticalstring": "^1.8",
                 "php-cs-fixer/phpunit-constraint-xmlmatchesxsd": "^1.8",
                 "phpunit/phpunit": "^9.6.34 || ^10.5.63 || ^11.5.55",
-                "symfony/polyfill-php85": "^1.33",
+                "symfony/polyfill-php85": "^1.37",
                 "symfony/var-dumper": "^5.4.48 || ^6.4.32 || ^7.4.4 || ^8.0.8",
-                "symfony/yaml": "^5.4.45 || ^6.4.30 || ^7.4.1 || ^8.0.8"
+                "symfony/yaml": "^5.4.45 || ^6.4.30 || ^7.4.1 || ^8.0.11"
             },
             "suggest": {
                 "ext-dom": "For handling output formats in XML",
@@ -8845,7 +8845,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.95.2"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.95.3"
             },
             "funding": [
                 {
@@ -8853,7 +8853,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-05-15T09:20:44+00:00"
+            "time": "2026-05-29T20:35:26+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -9205,16 +9205,16 @@
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "2.0.22",
+            "version": "2.0.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "e87516b034749432d51653c0147e053e476e8c53"
+                "reference": "4821d678585be36f585273de38c06b7e4a98bb91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/e87516b034749432d51653c0147e053e476e8c53",
-                "reference": "e87516b034749432d51653c0147e053e476e8c53",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/4821d678585be36f585273de38c06b7e4a98bb91",
+                "reference": "4821d678585be36f585273de38c06b7e4a98bb91",
                 "shasum": ""
             },
             "require": {
@@ -9276,9 +9276,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
-                "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.0.22"
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.0.23"
             },
-            "time": "2026-05-09T08:10:48+00:00"
+            "time": "2026-05-25T15:58:25+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
@@ -9333,16 +9333,16 @@
         },
         {
             "name": "phpstan/phpstan-symfony",
-            "version": "2.0.18",
+            "version": "2.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-symfony.git",
-                "reference": "a12176b639dec54e8bfd0a5ebf5fc36ffe003b5d"
+                "reference": "546071ed7f80a89ec30909346eb7cc741800740a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/a12176b639dec54e8bfd0a5ebf5fc36ffe003b5d",
-                "reference": "a12176b639dec54e8bfd0a5ebf5fc36ffe003b5d",
+                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/546071ed7f80a89ec30909346eb7cc741800740a",
+                "reference": "546071ed7f80a89ec30909346eb7cc741800740a",
                 "shasum": ""
             },
             "require": {
@@ -9401,9 +9401,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-symfony/issues",
-                "source": "https://github.com/phpstan/phpstan-symfony/tree/2.0.18"
+                "source": "https://github.com/phpstan/phpstan-symfony/tree/2.0.19"
             },
-            "time": "2026-05-18T14:51:49+00:00"
+            "time": "2026-05-29T12:52:44+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -12338,16 +12338,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "13.1.3",
+            "version": "13.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/easy-coding-standard/ecs.git",
-                "reference": "d894d088d7ebb9326f9eed28bf251481c813b89f"
+                "reference": "96294d652c17ccffabb7d36f9d116dd5f0e6b84e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/easy-coding-standard/ecs/zipball/d894d088d7ebb9326f9eed28bf251481c813b89f",
-                "reference": "d894d088d7ebb9326f9eed28bf251481c813b89f",
+                "url": "https://api.github.com/repos/easy-coding-standard/ecs/zipball/96294d652c17ccffabb7d36f9d116dd5f0e6b84e",
+                "reference": "96294d652c17ccffabb7d36f9d116dd5f0e6b84e",
                 "shasum": ""
             },
             "require": {
@@ -12382,9 +12382,9 @@
                 "static analysis"
             ],
             "support": {
-                "source": "https://github.com/easy-coding-standard/ecs/tree/13.1.3"
+                "source": "https://github.com/easy-coding-standard/ecs/tree/13.1.5"
             },
-            "time": "2026-05-04T21:45:57+00:00"
+            "time": "2026-05-30T09:12:26+00:00"
         },
         {
             "name": "symplify/phpstan-rules",
