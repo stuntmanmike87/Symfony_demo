@@ -104,7 +104,7 @@ final class AppFixtures extends Fixture
             foreach (range(1, 5) as $i) {
                 $comment = new Comment();
                 $comment->setAuthor($this->getReference('john_user', User::class));
-                $comment->setContent(/* (string)  */$this->getRandomText(random_int(255, 512)));
+                $comment->setContent(/* (string) */ $this->getRandomText(random_int(255, 512)));
                 $comment->setPublishedAt(new \DateTimeImmutable('now + '.$i.'seconds'));
 
                 $post->addComment($comment);
