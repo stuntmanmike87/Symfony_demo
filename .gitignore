@@ -33,7 +33,7 @@ node_modules
 ###> symfonycasts/sass-bundle ###
 /public/assets/
 ###< symfonycasts/sass-bundle ###
-###> friendsofphp/php-cs-fixer ###
+###> php-cs-fixer/shim ###
 /.php-cs-fixer.php
 /.php-cs-fixer.cache
-###< friendsofphp/php-cs-fixer ###
+###< php-cs-fixer/shim ###
