@@ -12356,16 +12356,16 @@
         },
         {
             "name": "symplify/coding-standard",
-            "version": "13.1.0",
+            "version": "13.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/coding-standard.git",
-                "reference": "61675a1a18a7d0488ae88298c0521254918e2cae"
+                "reference": "c2fdcdf091c7679c05a7bc3497f680a8c04b5494"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/coding-standard/zipball/61675a1a18a7d0488ae88298c0521254918e2cae",
-                "reference": "61675a1a18a7d0488ae88298c0521254918e2cae",
+                "url": "https://api.github.com/repos/symplify/coding-standard/zipball/c2fdcdf091c7679c05a7bc3497f680a8c04b5494",
+                "reference": "c2fdcdf091c7679c05a7bc3497f680a8c04b5494",
                 "shasum": ""
             },
             "require": {
@@ -12397,7 +12397,7 @@
             "description": "Set of Symplify rules for PHP_CodeSniffer and PHP CS Fixer.",
             "support": {
                 "issues": "https://github.com/symplify/coding-standard/issues",
-                "source": "https://github.com/symplify/coding-standard/tree/13.1.0"
+                "source": "https://github.com/symplify/coding-standard/tree/13.1.1"
             },
             "funding": [
                 {
@@ -12409,7 +12409,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-06-09T21:34:02+00:00"
+            "time": "2026-06-09T23:10:13+00:00"
         },
         {
             "name": "symplify/config-transformer",
@@ -12458,12 +12458,12 @@
             "version": "13.1.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/easy-coding-standard/ecs.git",
+                "url": "https://github.com/ecsphp/ecs.git",
                 "reference": "af5d4a2475246f6acdd4d3a1fe2bb2187ec6b8a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/easy-coding-standard/ecs/zipball/af5d4a2475246f6acdd4d3a1fe2bb2187ec6b8a0",
+                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/af5d4a2475246f6acdd4d3a1fe2bb2187ec6b8a0",
                 "reference": "af5d4a2475246f6acdd4d3a1fe2bb2187ec6b8a0",
                 "shasum": ""
             },
