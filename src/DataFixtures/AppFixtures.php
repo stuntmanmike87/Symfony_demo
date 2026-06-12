@@ -45,12 +45,16 @@ final class AppFixtures extends Fixture
 
     private function loadUsers(ObjectManager $manager): void
     {
-        foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles]) {
+        /** @var array<mixed> $array_data */
+        foreach ($this->getUserData() as $array_data) {
             /** @var string $fullname */
             /** @var string $username */
             /** @var string $password */
             /** @var string $email */
             /** @var string[] $roles */
+
+            [$fullname, $username, $password, $email, $roles] = $array_data;
+
             $user = new User();
 
             $user->setFullName($fullname);
@@ -82,7 +86,8 @@ final class AppFixtures extends Fixture
 
     private function loadPosts(ObjectManager $manager): void
     {
-        foreach ($this->getPostData() as [$title, $slug, $summary, $content, $publishedAt, $author, $tags]) {
+        /** @var array<mixed> $array_data */
+        foreach ($this->getPostData() as $array_data) {
             /** @var string $title */
             /** @var string $slug */
             /** @var string $summary */
@@ -90,6 +95,9 @@ final class AppFixtures extends Fixture
             /** @var \DateTimeImmutable $publishedAt */
             /** @var User $author */
             /** @var array<string> $tags */ // ** @var \App\Entity\Tag[] $tags */
+
+            [$title, $slug, $summary, $content, $publishedAt, $author, $tags] = $array_data;
+
             // $post = new Post();
             $post = new Post($author);
 

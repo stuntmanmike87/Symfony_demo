@@ -18,6 +18,24 @@ parameters:
         #     message: '#Instead of "Closure" class\/interface use "PhpParser\\Node\\Expr\\Closure"#'
         #     path: src/Twig/SourceCodeExtension.php
 
+        -
+            message: '#PHPDoc tag @var with type string is not subtype of native type class-string\|object.#'
+            identifier: varTag.nativeType
+            count: 1
+            path: src/Twig/SourceCodeExtension.php
+
+        -
+            message: '#PHPDoc tag @var with type string is not subtype of native type non-falsy-string.#'
+            identifier: varTag.nativeType
+            count: 1
+            path: src/Twig/SourceCodeExtension.php
+
+        # -
+        #     message: '#Cannot use array destructuring on mixed.#'
+        #     identifier: offsetAccess.nonArray
+        #     count: 2
+        #     path: src/DataFixtures/AppFixtures.php
+
         # -
         #     message: '#Function "method_exists\(\)" cannot be used\/left in the code\: use ReflectionProvider->has\*\(\) instead#'
         #     path: tests/bootstrap.php
@@ -43,6 +61,12 @@ parameters:
 
         -
             identifier: staticMethod.dynamicCall
+
+        -
+            message: '#Method App\\Kernel::getAllowedEnvs\(\) is unused.#'
+            identifier: method.unused
+            count: 1
+            path: src/Kernel.php
 
     doctrine:
         # ormRepositoryClass: MyApp\Doctrine\BetterDocumentRepository
