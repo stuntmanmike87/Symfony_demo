@@ -52,7 +52,6 @@ final class AppFixtures extends Fixture
             /** @var string $password */
             /** @var string $email */
             /** @var string[] $roles */
-
             [$fullname, $username, $password, $email, $roles] = $array_data;
 
             $user = new User();
