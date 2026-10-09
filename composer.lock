@@ -8431,16 +8431,16 @@
         },
         {
             "name": "dama/doctrine-test-bundle",
-            "version": "v8.6.0",
+            "version": "v8.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmaicher/doctrine-test-bundle.git",
-                "reference": "f7e3487643e685432f7e27c50cac64e9f8c515a4"
+                "reference": "c5de1ce3f29009312b97d311e569cf87cb3386c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/f7e3487643e685432f7e27c50cac64e9f8c515a4",
-                "reference": "f7e3487643e685432f7e27c50cac64e9f8c515a4",
+                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/c5de1ce3f29009312b97d311e569cf87cb3386c8",
+                "reference": "c5de1ce3f29009312b97d311e569cf87cb3386c8",
                 "shasum": ""
             },
             "require": {
@@ -8455,10 +8455,10 @@
                 "phpunit/phpunit": "<11.0"
             },
             "require-dev": {
-                "behat/behat": "^3.0",
-                "friendsofphp/php-cs-fixer": "^3.27",
+                "behat/behat": "^3.17 || ^4.0",
+                "php-cs-fixer/shim": "^3.95",
                 "phpstan/phpstan": "^2.0",
-                "phpunit/phpunit": "^11.5.41|| ^12.3.14",
+                "phpunit/phpunit": "^11.5.41 || ^12.3.14 || ^13.0",
                 "symfony/dotenv": "^6.4 || ^7.3 || ^8.0",
                 "symfony/process": "^6.4 || ^7.3 || ^8.0"
             },
@@ -8494,9 +8494,9 @@
             ],
             "support": {
                 "issues": "https://github.com/dmaicher/doctrine-test-bundle/issues",
-                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v8.6.0"
+                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v8.7.0"
             },
-            "time": "2026-01-21T07:39:44+00:00"
+            "time": "2026-10-08T06:56:07+00:00"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -8668,6 +8668,57 @@
                 }
             ],
             "time": "2025-12-03T16:05:42+00:00"
+        },
+        {
+            "name": "entropy/entropy",
+            "version": "0.4.29",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TomasVotruba/entropy.git",
+                "reference": "e2dfbd791ab7acea5aed40deefa00b12ad902ca2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TomasVotruba/entropy/zipball/e2dfbd791ab7acea5aed40deefa00b12ad902ca2",
+                "reference": "e2dfbd791ab7acea5aed40deefa00b12ad902ca2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "php": ">=7.4",
+                "symfony/polyfill-php80": "^1.31"
+            },
+            "require-dev": {
+                "php-parallel-lint/php-parallel-lint": "^1.4",
+                "phpstan/extension-installer": "^1.4",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^9.6",
+                "rector/jack": "^1.0",
+                "rector/rector": "^2.4",
+                "rector/swiss-knife": "^2.4",
+                "shipmonk/composer-dependency-analyser": "^1.8",
+                "shipmonk/dead-code-detector": "^1.4",
+                "symplify/easy-coding-standard": "^13.1",
+                "symplify/phpstan-rules": "^14.10",
+                "tomasvotruba/type-coverage": "^2.2",
+                "tracy/tracy": "^2.12"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Entropy\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "description": "Entropy framework",
+            "support": {
+                "issues": "https://github.com/TomasVotruba/entropy/issues",
+                "source": "https://github.com/TomasVotruba/entropy/tree/0.4.29"
+            },
+            "time": "2026-10-08T07:55:55+00:00"
         },
         {
             "name": "ergebnis/agent-detector",
@@ -9346,11 +9397,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b1f9890d9af53a25c58129e78f0aadd31f90d7f4",
-                "reference": "b1f9890d9af53a25c58129e78f0aadd31f90d7f4",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6155239b488e95d26d1ebd95c6b4bb294d7f09db",
+                "reference": "6155239b488e95d26d1ebd95c6b4bb294d7f09db",
                 "shasum": ""
             },
             "require": {
@@ -9406,7 +9457,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-06T06:15:36+00:00"
+            "time": "2026-10-08T21:09:11+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
@@ -12516,16 +12567,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "13.3.3",
+            "version": "13.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ecsphp/ecs.git",
-                "reference": "ba6667df7d3318294cfd9b2a172b429004d1eacd"
+                "reference": "596a55e076886e5f94346c939ba650b94f3d80a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/ba6667df7d3318294cfd9b2a172b429004d1eacd",
-                "reference": "ba6667df7d3318294cfd9b2a172b429004d1eacd",
+                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/596a55e076886e5f94346c939ba650b94f3d80a7",
+                "reference": "596a55e076886e5f94346c939ba650b94f3d80a7",
                 "shasum": ""
             },
             "require": {
@@ -12558,45 +12609,44 @@
             ],
             "support": {
                 "issues": "https://github.com/ecsphp/ecs/issues",
-                "source": "https://github.com/ecsphp/ecs/tree/13.3.3"
+                "source": "https://github.com/ecsphp/ecs/tree/13.3.4"
             },
-            "time": "2026-10-07T08:45:24+00:00"
+            "time": "2026-10-09T09:07:45+00:00"
         },
         {
             "name": "symplify/phpstan-rules",
-            "version": "14.17.0",
+            "version": "v14.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/phpstan-rules.git",
-                "reference": "c6a60f14fa95d5e615cafd121a8a70f739b6d3e4"
+                "reference": "d337b065c1f99a9be45c3632212b6cf382e22daf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/phpstan-rules/zipball/c6a60f14fa95d5e615cafd121a8a70f739b6d3e4",
-                "reference": "c6a60f14fa95d5e615cafd121a8a70f739b6d3e4",
+                "url": "https://api.github.com/repos/symplify/phpstan-rules/zipball/d337b065c1f99a9be45c3632212b6cf382e22daf",
+                "reference": "d337b065c1f99a9be45c3632212b6cf382e22daf",
                 "shasum": ""
             },
             "require": {
-                "nette/utils": "^4.1",
-                "php": "^8.4",
+                "entropy/entropy": "^0.4.25",
+                "php": ">=7.4",
                 "phpstan/phpdoc-parser": "^2.3.5",
-                "phpstan/phpstan": "^2.2.14",
-                "webmozart/assert": "^2.4"
+                "phpstan/phpstan": "^2.3"
             },
             "require-dev": {
                 "illuminate/container": "^11.51",
                 "nette/neon": "^3.4",
                 "nikic/php-parser": "^5.9",
                 "phpstan/extension-installer": "^1.4",
-                "phpunit/phpunit": "^13.3",
-                "rector/jack": "^1.1",
-                "rector/rector": "^2.6.7",
+                "phpunit/phpunit": "^13.4",
+                "rector/rector": "^2.7",
+                "rector/swiss-knife": "^2.7",
                 "shipmonk/composer-dependency-analyser": "^1.8",
+                "shipmonk/dead-code-detector": "^1.4",
                 "symfony/framework-bundle": "^6.4",
                 "symplify/easy-coding-standard": "^13.3",
-                "tomasvotruba/class-leak": "^2.2",
-                "tomasvotruba/type-coverage": "^2.3",
-                "tomasvotruba/unused-public": "^2.2"
+                "tomasvotruba/class-leak": "^2.3",
+                "tomasvotruba/type-coverage": "^2.5"
             },
             "type": "phpstan-extension",
             "extra": {
@@ -12632,7 +12682,7 @@
             "description": "Set of Symplify rules, type extensions and error formatter for PHPStan",
             "support": {
                 "issues": "https://github.com/symplify/phpstan-rules/issues",
-                "source": "https://github.com/symplify/phpstan-rules/tree/14.17.0"
+                "source": "https://github.com/symplify/phpstan-rules/tree/v14.18.1"
             },
             "funding": [
                 {
@@ -12644,7 +12694,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-24T21:33:45+00:00"
+            "time": "2026-10-09T13:34:13+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -12763,72 +12813,6 @@
             "time": "2026-09-29T20:40:25+00:00"
         },
         {
-            "name": "webmozart/assert",
-            "version": "2.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webmozarts/assert.git",
-                "reference": "8a163706bbcac613733dba03f51e13b5eb1bb819"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/8a163706bbcac613733dba03f51e13b5eb1bb819",
-                "reference": "8a163706bbcac613733dba03f51e13b5eb1bb819",
-                "shasum": ""
-            },
-            "require": {
-                "ext-ctype": "*",
-                "ext-date": "*",
-                "ext-filter": "*",
-                "php": "^8.2"
-            },
-            "suggest": {
-                "ext-intl": "",
-                "ext-simplexml": "",
-                "ext-spl": ""
-            },
-            "type": "library",
-            "extra": {
-                "psalm": {
-                    "pluginClass": "Webmozart\\Assert\\PsalmPlugin"
-                },
-                "branch-alias": {
-                    "dev-master": "2.0-dev",
-                    "dev-feature/2-0": "2.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Webmozart\\Assert\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bernhard Schussek",
-                    "email": "bschussek@gmail.com"
-                },
-                {
-                    "name": "Woody Gilk",
-                    "email": "woody.gilk@gmail.com"
-                }
-            ],
-            "description": "Assertions to validate method input/output with nice error messages.",
-            "keywords": [
-                "assert",
-                "check",
-                "validate"
-            ],
-            "support": {
-                "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/2.5.0"
-            },
-            "time": "2026-10-05T23:14:19+00:00"
-        },
-        {
             "name": "zenstruck/assert",
             "version": "v1.7.0",
             "source": {
@@ -12893,16 +12877,16 @@
         },
         {
             "name": "zenstruck/foundry",
-            "version": "v2.14.0",
+            "version": "v2.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zenstruck/foundry.git",
-                "reference": "6c140f441b7bc3a4bfd7b3b6efdda475493e580d"
+                "reference": "8b6feea05407f2edf4970312119167cfd9828e10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zenstruck/foundry/zipball/6c140f441b7bc3a4bfd7b3b6efdda475493e580d",
-                "reference": "6c140f441b7bc3a4bfd7b3b6efdda475493e580d",
+                "url": "https://api.github.com/repos/zenstruck/foundry/zipball/8b6feea05407f2edf4970312119167cfd9828e10",
+                "reference": "8b6feea05407f2edf4970312119167cfd9828e10",
                 "shasum": ""
             },
             "require": {
@@ -13005,7 +12989,7 @@
             ],
             "support": {
                 "issues": "https://github.com/zenstruck/foundry/issues",
-                "source": "https://github.com/zenstruck/foundry/tree/v2.14.0"
+                "source": "https://github.com/zenstruck/foundry/tree/v2.14.1"
             },
             "funding": [
                 {
@@ -13017,7 +13001,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-07T06:44:29+00:00"
+            "time": "2026-10-08T09:06:47+00:00"
         }
     ],
     "aliases": [],
